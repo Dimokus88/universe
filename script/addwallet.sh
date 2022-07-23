@@ -11,4 +11,4 @@ echo =====Your valoper=====
 echo ======Ваш valoper=====
 echo $valoper
 echo ===========================
-source /etc/environment
+source $HOME/.bash_profile
