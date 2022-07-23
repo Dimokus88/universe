@@ -1,3 +1,5 @@
+#!/bin/bash
+# By Dimokus (https://t.me/Dimokus)
 echo 'export my_root_password='${my_root_password}  >> $HOME/.bash_profile
 echo 'export MONIKER='${MONIKER} >> $HOME/.bash_profile
 echo 'export MNEMONIC='${MNEMONIC} >> $HOME/.bash_profile
