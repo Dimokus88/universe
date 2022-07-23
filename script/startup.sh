@@ -11,6 +11,7 @@ then
 	echo ===== Snapshot загружен!Snapshot loaded! ======
 	echo ===============================================
 	cd /
+	source $HOME/.bash_profile
 fi
 #====================================
 
@@ -33,5 +34,6 @@ then
 	s|^(trust_height[[:space:]]+=[[:space:]]+).*$|\1$BLOCK_HEIGHT| ; \
 	s|^(trust_hash[[:space:]]+=[[:space:]]+).*$|\1\"$TRUST_HASH\"|" $HOME/$folder/config/config.toml
 	echo RPC
+	source $HOME/.bash_profile
 fi
 #================================================
