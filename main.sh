@@ -28,7 +28,7 @@ PASSWALLET=q542we221
 WALLET_NAME=My_wallet
 echo ${PASSWALLET}
 echo ${WALLET_NAME}
-source /etc/environment
+source $HOME/.bash_profile
 sleep 2
 
 #=======ИНИЦИАЛИЗАЦИЯ БИНАРНОГО ФАЙЛА================
@@ -71,14 +71,14 @@ curl -s https://raw.githubusercontent.com/Dimokus88/universe/main/script/startup
 #===========ЗАПУСК НОДЫ============
 curl -s https://raw.githubusercontent.com/Dimokus88/universe/main/script/run_at_service.sh | bash
 
-source /etc/environment
+source $HOME/.bash_profile
 sleep 20
 
 synh=`curl -s localhost:26657/status | jq .result.sync_info.catching_up`
 echo $synh
 tail -30 /var/log/$binary/current
 sleep 2
-source /etc/environment
+source $HOME/.bash_profile
 #==================================
 
 #=========Пока нода не синхронизирована - повторять===========
@@ -101,7 +101,7 @@ do
 	curl -s localhost:26657/status
 	synh=`curl -s localhost:26657/status | jq .result.sync_info.catching_up`
 	echo $synh
-	source /etc/environment
+	source $HOME/.bash_profile
 done
 
 #=======Если нода синхронизирована - начинаем работу ==========
@@ -115,7 +115,7 @@ do
 	val=`$binary query staking validator $valoper -o json | jq -r .description.moniker`
 	echo $val
 	echo $synh
-	source /etc/environment
+	source $HOME/.bash_profile
 	if [[ -z "$val" ]]
 	then
 		echo =Создание валидатора... Creating a validator...=
@@ -123,12 +123,12 @@ do
 		sleep 20
 		val=`$binary query staking validator $valoper -o json | jq -r .description.moniker`
 		echo $val
-		source /etc/environment
+		source $HOME/.bash_profile
 	else
 		val=`$binary query staking validator $valoper -o json | jq -r .description.moniker`
 		echo $val
 		MONIKER=`echo $val`
 		WORK
-		source /etc/environment
+		source $HOME/.bash_profile
 	fi
 done
