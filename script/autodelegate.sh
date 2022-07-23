@@ -1,5 +1,3 @@
-#!/bin/bash
-# By Dimokus (https://t.me/Dimokus)
 if [[ $autodelegate == yes ]]
 	then
 		balance=`$binary q bank balances $address -o json | jq -r .balances[].amount `
