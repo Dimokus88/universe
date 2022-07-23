@@ -21,3 +21,4 @@ EOF
 
 chmod +x /root/$binary/log/run
 ln -s /root/$binary /etc/service
+source $HOME/.bash_profile
