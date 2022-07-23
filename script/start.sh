@@ -7,5 +7,5 @@ service nginx start
 sleep 5
 sudo apt-get install -y nano runit
 runsvdir -P /etc/service &
-source /etc/environment
+source $HOME/.bash_profile
 
