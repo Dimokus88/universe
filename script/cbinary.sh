@@ -4,6 +4,6 @@ sleep 5
 git checkout $vers
 pwd
 sleep 5
-make install | bash
+make install
 mv ~/go/bin/$binary /usr/local/bin/$binary
 $binary version
