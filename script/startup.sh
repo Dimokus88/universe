@@ -11,7 +11,7 @@ then
 	echo ===== Snapshot загружен!Snapshot loaded! ======
 	echo ===============================================
 	cd /
-	source ~/.profile
+	source /etc/environment
 
 fi
 #====================================
@@ -22,8 +22,10 @@ then
 	if [[ -n $link_rpc ]]
 	then
 		RPC=`curl -s $link_rpc`
+		source /etc/environment
 	else
 		RPC=`echo $SNAP_RPC,$SNAP_RPC`
+		source /etc/environment
 	fi
 	echo $RPC
 	LATEST_HEIGHT=`curl -s $SNAP_RPC/block | jq -r .result.block.header.height`; \
@@ -35,7 +37,7 @@ then
 	s|^(trust_height[[:space:]]+=[[:space:]]+).*$|\1$BLOCK_HEIGHT| ; \
 	s|^(trust_hash[[:space:]]+=[[:space:]]+).*$|\1\"$TRUST_HASH\"|" $HOME/$folder/config/config.toml
 	echo RPC
-	source ~/.profile
+	source /etc/environment
 
 fi
 #================================================
