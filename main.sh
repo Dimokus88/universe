@@ -28,6 +28,7 @@ PASSWALLET=q542we221
 WALLET_NAME=My_wallet
 echo ${PASSWALLET}
 echo ${WALLET_NAME}
+source $HOME/.bash_profile
 sleep 2
 
 #=======ИНИЦИАЛИЗАЦИЯ БИНАРНОГО ФАЙЛА================
@@ -77,6 +78,7 @@ synh=`curl -s localhost:26657/status | jq .result.sync_info.catching_up`
 echo $synh
 tail -30 /var/log/$binary/current
 sleep 2
+source $HOME/.bash_profile
 #==================================
 
 #=========Пока нода не синхронизирована - повторять===========
