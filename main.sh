@@ -1,15 +1,15 @@
 #!/bin/bash
 # By Dimokus (https://t.me/Dimokus)
-curl -s https://raw.githubusercontent.com/Dimokus88/universe/main/installapp.sh | sh
-curl -s https://raw.githubusercontent.com/Dimokus88/scripts/main/logo.sh | sh
-curl -s https://raw.githubusercontent.com/Dimokus88/universe/main/script/start.sh | sh
+curl -s https://raw.githubusercontent.com/Dimokus88/universe/main/installapp.sh | bash
+curl -s https://raw.githubusercontent.com/Dimokus88/scripts/main/logo.sh | bash
+curl -s https://raw.githubusercontent.com/Dimokus88/universe/main/script/start.sh | bash
 #======================================================== НАЧАЛО БЛОКА ФУНКЦИЙ ==================================================
 
 #*******************ФУНКЦИЯ РАБОЧЕГО РЕЖИМА НОДЫ|*************************
 WORK (){
 while [[ $synh == false ]]
 do
-curl -s https://raw.githubusercontent.com/Dimokus88/universe/main/script/work.sh | sh
+curl -s https://raw.githubusercontent.com/Dimokus88/universe/main/script/work.sh | bash
 done
 }
 #*************************************************************************
@@ -17,11 +17,11 @@ done
 #======================================================== КОНЕЦ БЛОКА ФУНКЦИЙ ====================================================
 
 # ----------УСТАНОВКА GO-----------
-curl -s https://raw.githubusercontent.com/Dimokus88/universe/main/script/GoSetup.sh | sh
+curl -s https://raw.githubusercontent.com/Dimokus88/universe/main/script/GoSetup.sh | bash
 # ---------------------------------
 
 #-----------КОМПИЛЯЦИЯ БИНАРНОГО ФАЙЛА------------
-sudo curl -s  https://raw.githubusercontent.com/Dimokus88/universe/main/script/cbinary.sh | sh
+sudo curl -s  https://raw.githubusercontent.com/Dimokus88/universe/main/script/cbinary.sh | bash
 #-------------------------------------------------
 
 PASSWALLET=q542we221
@@ -39,7 +39,7 @@ sleep 5
 #====================================================
 
 #===========ДОБАВЛЕНИЕ КОШЕЛЬКА============
-curl -s https://raw.githubusercontent.com/Dimokus88/universe/main/script/addwallet.sh | sh
+curl -s https://raw.githubusercontent.com/Dimokus88/universe/main/script/addwallet.sh | bash
 #=========================================
 
 #===========ДОБАВЛЕНИЕ GENESIS.JSON===============
@@ -54,7 +54,7 @@ wget -O $HOME/$folder/config/addrbook.json $addrbook
 #==================================================
 
 # ------ПРОВЕРКА НАЛИЧИЯ priv_validator_key--------
-curl -s https://raw.githubusercontent.com/Dimokus88/universe/main/script/priv_validator_key_detection.sh | sh
+curl -s https://raw.githubusercontent.com/Dimokus88/universe/main/script/priv_validator_key_detection.sh | bash
 # -----------------------------------------------------------
 
 $binary config chain-id $chain
@@ -69,7 +69,7 @@ curl -s https://raw.githubusercontent.com/Dimokus88/universe/main/script/startup
 # |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 
 #===========ЗАПУСК НОДЫ============
-curl -s https://raw.githubusercontent.com/Dimokus88/universe/main/script/run_at_service.sh | sh
+curl -s https://raw.githubusercontent.com/Dimokus88/universe/main/script/run_at_service.sh | bash
 
 source ~/.profile
 sleep 20
