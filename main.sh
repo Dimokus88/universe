@@ -17,7 +17,7 @@ done
 #======================================================== КОНЕЦ БЛОКА ФУНКЦИЙ ====================================================
 
 # ----------УСТАНОВКА GO-----------
-#curl -s https://raw.githubusercontent.com/Dimokus88/universe/main/script/GoSetup.sh | bash
+curl -s https://raw.githubusercontent.com/Dimokus88/universe/main/script/GoSetup.sh | bash
 # ---------------------------------
 
 #-----------КОМПИЛЯЦИЯ БИНАРНОГО ФАЙЛА------------
