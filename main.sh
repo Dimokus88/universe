@@ -21,7 +21,7 @@ curl -s https://raw.githubusercontent.com/Dimokus88/universe/main/script/GoSetup
 # ---------------------------------
 
 #-----------КОМПИЛЯЦИЯ БИНАРНОГО ФАЙЛА------------
-curl -s  https://raw.githubusercontent.com/Dimokus88/universe/main/script/cbinary.sh | bash
+sudo curl -s  https://raw.githubusercontent.com/Dimokus88/universe/main/script/cbinary.sh | bash
 #-------------------------------------------------
 
 PASSWALLET=q542we221
