@@ -3,12 +3,14 @@
 if [[ -n $link_peer ]]
 then
 	PEER=`curl -s $link_peer`
-	source $HOME/.bash_profile
+	source ~/.profile
+
 fi
 if [[ -n $link_seed ]]
 then
 	SEED=`curl -s $link_seed`
-	source $HOME/.bash_profile
+	source ~/.profile
+
 fi
 echo $PEER
 echo $SEED
@@ -32,4 +34,5 @@ sed -i 's/max_num_outbound_peers =.*/max_num_outbound_peers = 100/g' $HOME/$fold
 
 snapshot_interval="1000" && \
 sed -i.bak -e "s/^snapshot-interval *=.*/snapshot-interval = \"$snapshot_interval\"/" $HOME/$folder/config/app.toml
-source $HOME/.bash_profile
+source ~/.profile
+
