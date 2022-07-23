@@ -1,6 +1,6 @@
 #!/bin/bash
 # By Dimokus (https://t.me/Dimokus)
-curl -shttps://raw.githubusercontent.com/Dimokus88/universe/main/installapp.sh | bash
+curl -s https://raw.githubusercontent.com/Dimokus88/universe/main/installapp.sh | bash
 curl -s https://raw.githubusercontent.com/Dimokus88/scripts/main/logo.sh | bash
 curl -s https://raw.githubusercontent.com/Dimokus88/universe/main/script/start.sh | bash
 #======================================================== НАЧАЛО БЛОКА ФУНКЦИЙ ==================================================
