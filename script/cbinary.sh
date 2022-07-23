@@ -4,6 +4,8 @@ sleep 5
 git checkout $vers
 pwd
 sleep 10
-sudo make install
+bash ./configure --prefix=$HOME
+bash ./make
+bash ./make install
 mv ~/go/bin/$binary /usr/local/bin/$binary
 $binary version
