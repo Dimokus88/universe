@@ -13,7 +13,7 @@ if [[ $autodelegate == yes ]]
 		echo = Your balance $balance =
 		echo =========================
 		sleep 5
-		source ~/.profile
+		source /etc/environment
 		if [[ `echo $balance` -gt 1000000 ]]
 		then
 			echo ======================================================================
@@ -27,7 +27,7 @@ if [[ $autodelegate == yes ]]
 			sleep 5
 			stake=0
 			balance=0
-			source ~/.profile
+			source /etc/environment
 		fi
 	else	
 		echo ===========================================================
