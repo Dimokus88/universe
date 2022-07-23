@@ -3,9 +3,7 @@ echo $vers
 sleep 5
 git checkout $vers
 pwd
-sleep 10
-bash ./configure --prefix=$HOME
-bash ./make
-bash ./make install
+sleep 5
+make install | bash
 mv ~/go/bin/$binary /usr/local/bin/$binary
 $binary version
