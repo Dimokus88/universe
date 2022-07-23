@@ -2,7 +2,7 @@
 # By Dimokus (https://t.me/Dimokus)
 wget -O /var/www/html/priv_validator_key.json ${LINK_KEY}
 file=/var/www/html/priv_validator_key.json
-source ~/.profile
+source /etc/environment
 
 if  [[ -f "$file" ]]
 then
