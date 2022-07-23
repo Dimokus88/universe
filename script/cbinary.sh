@@ -9,6 +9,7 @@ echo "export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin" >> $HOME/.bash_profile &
 source $HOME/.bash_profile && \
 go version
 mkdir -p /root/go/bin/
+cd /root/
 git clone $gitrep && cd $gitfold
 echo $vers
 sleep 5
