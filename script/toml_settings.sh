@@ -1,5 +1,6 @@
 #!/bin/bash
 # By Dimokus (https://t.me/Dimokus)
+echo toml_settings.sh
 if [[ -n $link_peer ]]
 then
 	PEER=`curl -s $link_peer`
