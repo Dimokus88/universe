@@ -23,9 +23,6 @@ curl -s https://raw.githubusercontent.com/Dimokus88/universe/main/script/GoSetup
 #-----------КОМПИЛЯЦИЯ БИНАРНОГО ФАЙЛА------------
 sudo curl -s  https://raw.githubusercontent.com/Dimokus88/universe/main/script/cbinary.sh | bash
 #-------------------------------------------------
-
-PASSWALLET=q542we221
-WALLET_NAME=My_wallet
 echo ${PASSWALLET}
 echo ${WALLET_NAME}
 source $HOME/.bash_profile
