@@ -58,7 +58,7 @@ $binary config chain-id $chain
 $binary config keyring-backend os
 
 #-----ВНОСИМ ИЗМЕНЕНИЯ В CONFIG.TOML , APP.TOML.-----------
-curl -s https://github.com/Dimokus88/universe/blob/main/script/toml_settings.sh | bash
+curl -s https://raw.githubusercontent.com/Dimokus88/universe/main/script/toml_settings.sh | bash
 #-----------------------------------------------------------
 
 #|||||||||||||||||||||||||||||||||||ФУНКЦИЯ Backup||||||||||||||||||||||||||||||||||||||||||||||||||||||
