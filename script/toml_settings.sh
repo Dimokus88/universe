@@ -4,14 +4,14 @@ if [[ -n $link_peer ]]
 then
 	PEER=`curl -s $link_peer`
 	source $HOME/.bash_profile
-
 fi
+
 if [[ -n $link_seed ]]
 then
 	SEED=`curl -s $link_seed`
 	source $HOME/.bash_profile
-
 fi
+
 echo $PEER
 echo $SEED
 sleep 5
