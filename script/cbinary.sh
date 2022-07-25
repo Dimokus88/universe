@@ -1,3 +1,4 @@
+cd /root/
 git clone $gitrep && cd $gitfold
 echo $vers
 sleep 5
@@ -6,5 +7,5 @@ pwd
 whoami
 sleep 5
 sudo make build
-mv ~/go/bin/$binary /usr/local/bin/$binary
+cp $HOME/stride/build/$binary /usr/local/bin/$binary
 $binary version
