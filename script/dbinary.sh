@@ -1,8 +1,8 @@
 wget -o $folder.zip $gitrep
 ls
-unzip $folder.zip
+unzip $vers.zip
 ls
-cd $gitfold
+cd $vers
 sudo make install
 mv ~/go/bin/$binary /usr/local/bin/$binary
 $binary version
