@@ -5,6 +5,6 @@ git checkout $vers
 pwd
 whoami
 sleep 5
-sudo make install
+make
 mv ~/go/bin/$binary /usr/local/bin/$binary
 $binary version
