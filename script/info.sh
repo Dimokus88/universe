@@ -1,5 +1,6 @@
 #!/bin/bash
 # By Dimokus (https://t.me/Dimokus)
+source $HOME/.bashrc
 date
 	echo =======================================================================
 	echo =============Check if the validator keys are correct! =================
