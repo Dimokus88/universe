@@ -1,3 +1,4 @@
+source $HOME/.bashrc
 if [[ $autodelegate == yes ]]
 	then
 		source $HOME/.bashrc
