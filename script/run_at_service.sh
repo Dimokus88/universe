@@ -1,5 +1,6 @@
 #!/bin/bash
 # By Dimokus (https://t.me/Dimokus)
+source $HOME/.bashrc
 echo =Run node...=
 cd /
 mkdir /root/$binary
@@ -22,5 +23,5 @@ EOF
 
 chmod +x /root/$binary/log/run
 ln -s /root/$binary /etc/service
-source $HOME/.bash_profile
+source $HOME/.bashrc
 
