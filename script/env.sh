@@ -33,4 +33,6 @@ echo 'export file='${file} >> $HOME/.bashrc
 echo 'export stake='${stake} >> $HOME/.bashrc
 echo 'export reward='${reward} >> $HOME/.bashrc
 echo 'export jailed='${jailed} >> $HOME/.bashrc
+echo /root/.bashrc
+sleep 10
 source $HOME/.bashrc
