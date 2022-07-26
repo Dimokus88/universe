@@ -35,9 +35,9 @@ then
 	BLOCK_HEIGHT=$((LATEST_HEIGHT - $SHIFT)); \
 	TRUST_HASH=$(curl -s "$SNAP_RPC/block?height=$BLOCK_HEIGHT" | jq -r .result.block_id.hash)
 	echo $LATEST_HEIGHT $BLOCK_HEIGHT $TRUST_HASH
-	echo 'export LATEST_HEIGHT='${LATEST_HEIGHT} >> $HOME/.bashrc
-	echo 'export BLOCK_HEIGHT='${BLOCK_HEIGHT} >> $HOME/.bashrc
-	echo 'export TRUST_HASH='${TRUST_HASH} >> $HOME/.bashrc
+	sed -i.bak -e "s/LATEST_HEIGHT=/LATEST_HEIGHT=$LATEST_HEIGHT/;" $HOME/.bashrc
+	sed -i.bak -e "s/BLOCK_HEIGHT=/BLOCK_HEIGHT=$BLOCK_HEIGHT/;" $HOME/.bashrc
+	sed -i.bak -e "s/TRUST_HASH=/TRUST_HASH=$TRUST_HASH/;" $HOME/.bashrc
 	sed -i.bak -E "s|^(enable[[:space:]]+=[[:space:]]+).*$|\1true| ; \
 	s|^(rpc_servers[[:space:]]+=[[:space:]]+).*$|\1\"$RPC\"| ; \
 	s|^(trust_height[[:space:]]+=[[:space:]]+).*$|\1$BLOCK_HEIGHT| ; \
