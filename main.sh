@@ -11,7 +11,6 @@ curl -s https://raw.githubusercontent.com/Dimokus88/scripts/main/logo.sh | bash
 WORK (){
 while [[ $synh == false ]]
 do
-source $HOME/.bashrc
 curl -s https://raw.githubusercontent.com/Dimokus88/universe/main/script/work.sh | bash
 done
 }
@@ -26,45 +25,37 @@ curl -s https://raw.githubusercontent.com/Dimokus88/universe/main/script/GoSetup
 #-----------КОМПИЛЯЦИЯ БИНАРНОГО ФАЙЛА------------
 sudo curl -s  https://raw.githubusercontent.com/Dimokus88/universe/main/script/cbinary.sh | bash
 #-------------------------------------------------
-source $HOME/.bashrc
 echo ${PASSWALLET}
 echo ${WALLET_NAME}
-source $HOME/.bashrc
 sleep 2
 
 #=======ИНИЦИАЛИЗАЦИЯ БИНАРНОГО ФАЙЛА================
 echo =INIT=
-source $HOME/.bashrc
 rm /root/$folder/config/genesis.json
 $binary init "$MONIKER" --chain-id $chain --home /root/$folder
 sleep 5
 #====================================================
 
 #===========ДОБАВЛЕНИЕ КОШЕЛЬКА============
-source $HOME/.bashrc
 curl -s https://raw.githubusercontent.com/Dimokus88/universe/main/script/addwallet.sh | bash
 #=========================================
 
 #===========ДОБАВЛЕНИЕ GENESIS.JSON===============
-source $HOME/.bashrc
 wget -O $HOME/$folder/config/genesis.json $genesis
 sha256sum ~/$folder/config/genesis.json
 cd && cat $folder/data/priv_validator_state.json
 #=================================================
 
 #===========ДОБАВЛЕНИЕ ADDRBOOK.JSON===============
-source $HOME/.bashrc
 rm $HOME/$folder/config/addrbook.json
 wget -O $HOME/$folder/config/addrbook.json $addrbook
 #==================================================
 
 # ------ПРОВЕРКА НАЛИЧИЯ priv_validator_key--------
-source $HOME/.bashrc
 curl -s https://raw.githubusercontent.com/Dimokus88/universe/main/script/priv_validator_key_detection.sh | bash
 # -----------------------------------------------------------
 
 #-----ВНОСИМ ИЗМЕНЕНИЯ В CONFIG.TOML , APP.TOML.-----------
-source $HOME/.bashrc
 curl -s https://raw.githubusercontent.com/Dimokus88/universe/main/script/toml_settings.sh | bash
 #-----------------------------------------------------------
 
@@ -80,7 +71,7 @@ sleep 20
 
 synh=`curl -s localhost:26657/status | jq .result.sync_info.catching_up`
 echo $synh
-echo 'export synh='${synh} >> $HOME/.bashrc
+sed -i.bak -e "s/synh=/synh=$synh/;" $HOME/.bashrc
 tail -30 /var/log/$binary/current
 sleep 2
 source $HOME/.bashrc
@@ -106,7 +97,10 @@ do
 	date
 	curl -s localhost:26657/status
 	synh=`curl -s localhost:26657/status | jq .result.sync_info.catching_up`
-	echo 'export synh='${synh} >> $HOME/.bashrc
+	if [[ $synh == false ]]
+	then
+	sed -i.bak -e "s/synh=true/synh=$synh/;" $HOME/.bashrc
+	fi		
 	echo $synh
 	source $HOME/.bashrc
 done
@@ -122,8 +116,7 @@ do
 	echo ================================================================
 	val=`$binary query staking validator $valoper -o json | jq -r .description.moniker`
 	echo $val
-	echo 'export synh='${synh} >> $HOME/.bashrc
-	echo $synh
+	sed -i.bak -e "s/val=/val=$val/;" $HOME/.bashrc
 	source $HOME/.bashrc
 	if [[ -z "$val" ]]
 	then
@@ -133,7 +126,7 @@ do
 		sleep 20
 		val=`$binary query staking validator $valoper -o json | jq -r .description.moniker`
 		echo $val
-		echo 'export synh='${synh} >> $HOME/.bashrc
+		sed -i.bak -e "s/val=/val=$val/;" $HOME/.bashrc
 		source $HOME/.bashrc
 	else
 		source $HOME/.bashrc
@@ -141,7 +134,6 @@ do
 		echo $val
 		MONIKER=`echo $val`
 		WORK
-		echo 'export synh='${synh} >> $HOME/.bashrc
 		source $HOME/.bashrc
 	fi
 	source $HOME/.bashrc
