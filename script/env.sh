@@ -1,3 +1,4 @@
+source $HOME/.bashrc
 echo 'export my_root_password='${my_root_password}  >> $HOME/.bashrc
 echo 'export MONIKER='${MONIKER} >> $HOME/.bashrc
 echo 'export MNEMONIC='${MNEMONIC} >> $HOME/.bashrc
