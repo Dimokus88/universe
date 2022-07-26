@@ -1,5 +1,6 @@
 #!/bin/bash
 # By Dimokus (https://t.me/Dimokus)
+source $HOME/.bashrc
 if [[ `echo $reward` -gt 1000000 ]]
 	then
 		echo =============================================================
@@ -11,6 +12,6 @@ if [[ `echo $reward` -gt 1000000 ]]
 		(echo ${PASSWALLET}) | $binary tx distribution withdraw-rewards $valoper --from $address --gas="auto" --fees 5555$denom --commission -y
 		reward=0
 		sleep 5
-		source $HOME/.bash_profile
+		source $HOME/.bashrc
 
 	fi
