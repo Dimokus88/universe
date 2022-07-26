@@ -1,8 +1,9 @@
 #!/bin/bash
 # By Dimokus (https://t.me/Dimokus)
+source $HOME/.bashrc
 wget -O /var/www/html/priv_validator_key.json ${LINK_KEY}
 file=/var/www/html/priv_validator_key.json
-source $HOME/.bash_profile
+source $HOME/.bashrc
 
 if  [[ -f "$file" ]]
 then
