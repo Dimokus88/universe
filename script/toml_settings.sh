@@ -5,14 +5,14 @@ echo toml_settings.sh
 if [[ -n $link_peer ]]
 then
 	PEER=`curl -s $link_peer`
-	echo 'export PEER='${PEER} >> $HOME/.bashrc
+	sed -i.bak -e "s/valoper=/valoper=$valoper/;" $HOME/.bashrc
 	source $HOME/.bashrc
 fi
 
 if [[ -n $link_seed ]]
 then
 	SEED=`curl -s $link_seed`
-	echo 'export SEED='${SEED} >> $HOME/.bashrc
+	sed -i.bak -e "s/SEED=/SEED=$SEED/;" $HOME/.bashrc
 	source $HOME/.bashrc
 fi
 
