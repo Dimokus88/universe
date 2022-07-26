@@ -54,9 +54,6 @@ wget -O $HOME/$folder/config/addrbook.json $addrbook
 curl -s https://raw.githubusercontent.com/Dimokus88/universe/main/script/priv_validator_key_detection.sh | bash
 # -----------------------------------------------------------
 
-$binary config chain-id $chain
-$binary config keyring-backend os
-
 #-----ВНОСИМ ИЗМЕНЕНИЯ В CONFIG.TOML , APP.TOML.-----------
 curl -s https://raw.githubusercontent.com/Dimokus88/universe/main/script/toml_settings.sh | bash
 #-----------------------------------------------------------
