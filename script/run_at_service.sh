@@ -1,8 +1,6 @@
 #!/bin/bash
 # By Dimokus (https://t.me/Dimokus)
 echo =Run node...=
-cd /root/$folder/data
-rm -r application.db  blockstore.db  evidence.db snapshots  state.db  tx_index.db
 cd /
 $binary tendermint unsafe-reset-all --home $HOME/$folder
 mkdir /root/$binary
