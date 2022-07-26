@@ -12,11 +12,11 @@ date
 	sleep 20
 	echo =====Ваш адрес =====
 	echo ===Your address ====
-	echo $address
+	(echo ${PASSWALLET}) | $(which $binary) keys show $WALLET_NAME -a
 	echo ==========================
 	echo =====Your valoper=====
 	echo ======Ваш valoper=====
-	echo $valoper
+	(echo ${PASSWALLET}) | $(which $binary) keys show $WALLET_NAME  --bech val -a
 	echo ===========================
 	echo =================================================
 	echo ===============WALLET NAME and PASS==============
