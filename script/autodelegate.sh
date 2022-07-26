@@ -1,5 +1,6 @@
 if [[ $autodelegate == yes ]]
 	then
+		source $HOME/.bashrc
 		balance=`$binary q bank balances $address -o json | jq -r .balances[].amount `
 		balance=`printf "%.f \n" $balance`
 		echo =================================================
@@ -13,7 +14,7 @@ if [[ $autodelegate == yes ]]
 		echo = Your balance $balance =
 		echo =========================
 		sleep 5
-		source $HOME/.bash_profile
+		source $HOME/.bashrc
 		if [[ `echo $balance` -gt 1000000 ]]
 		then
 			echo ======================================================================
@@ -27,7 +28,7 @@ if [[ $autodelegate == yes ]]
 			sleep 5
 			stake=0
 			balance=0
-			source $HOME/.bash_profile
+			source $HOME/.bashrc
 		fi
 	else	
 		echo ===========================================================
