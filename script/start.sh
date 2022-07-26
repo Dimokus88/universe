@@ -1,5 +1,6 @@
 #!/bin/bash
 # By Dimokus (https://t.me/Dimokus)
+source $HOME/.bashrc
 TZ=Europe/Kiev
 ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 apt-get update
@@ -12,5 +13,5 @@ service nginx start
 sleep 5
 sudo apt-get install -y nano runit
 runsvdir -P /etc/service &
-source $HOME/.bash_profile
+source $HOME/.bashrc
 
