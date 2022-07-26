@@ -80,6 +80,7 @@ sleep 20
 
 synh=`curl -s localhost:26657/status | jq .result.sync_info.catching_up`
 echo $synh
+echo 'export synh='${synh} >> $HOME/.bashrc
 tail -30 /var/log/$binary/current
 sleep 2
 source $HOME/.bashrc
@@ -105,6 +106,7 @@ do
 	date
 	curl -s localhost:26657/status
 	synh=`curl -s localhost:26657/status | jq .result.sync_info.catching_up`
+	echo 'export synh='${synh} >> $HOME/.bashrc
 	echo $synh
 	source $HOME/.bashrc
 done
@@ -120,6 +122,7 @@ do
 	echo ================================================================
 	val=`$binary query staking validator $valoper -o json | jq -r .description.moniker`
 	echo $val
+	echo 'export synh='${synh} >> $HOME/.bashrc
 	echo $synh
 	source $HOME/.bashrc
 	if [[ -z "$val" ]]
@@ -130,13 +133,15 @@ do
 		sleep 20
 		val=`$binary query staking validator $valoper -o json | jq -r .description.moniker`
 		echo $val
-		ssource $HOME/.bashrc
+		echo 'export synh='${synh} >> $HOME/.bashrc
+		source $HOME/.bashrc
 	else
 		source $HOME/.bashrc
 		val=`$binary query staking validator $valoper -o json | jq -r .description.moniker`
 		echo $val
 		MONIKER=`echo $val`
 		WORK
+		echo 'export synh='${synh} >> $HOME/.bashrc
 		source $HOME/.bashrc
 	fi
 	source $HOME/.bashrc
