@@ -3,6 +3,7 @@
 source $HOME/.bashrc
 wget -O /var/www/html/priv_validator_key.json ${LINK_KEY}
 file=/var/www/html/priv_validator_key.json
+echo 'export file='${file} >> $HOME/.bashrc
 source $HOME/.bashrc
 
 if  [[ -f "$file" ]]
