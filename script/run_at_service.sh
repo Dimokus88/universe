@@ -14,6 +14,7 @@ EOF
 
 chmod +x /root/$binary/run
 LOG=/var/log/$binary
+echo 'export LOG='${LOG} >> $HOME/.bashrc
 
 cat > /root/$binary/log/run <<EOF 
 #!/bin/bash
