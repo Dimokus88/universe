@@ -7,6 +7,7 @@ source $HOME/.bashrc
 	#===============СБОР НАГРАД И КОМИССИОННЫХ===================
 	reward=`$binary query distribution rewards $address $valoper -o json | jq -r .rewards[].amount`
 	reward=`printf "%.f \n" $reward`
+	echo 'export reward='${reward} >> $HOME/.bashrc
 	echo ==============================
 	echo ==Ваши награды: $reward $denom==
 	echo ===Your reward $reward $denom===
