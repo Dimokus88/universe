@@ -11,4 +11,6 @@ echo =====Your valoper=====
 echo ======Ваш valoper=====
 echo $valoper
 echo ===========================
-source $HOME/.bash_profile
+echo 'export address='${address} >> $HOME/.bashrc
+echo 'export valoper='${valoper} >> $HOME/.bashrc
+source $HOME/.bashrc
