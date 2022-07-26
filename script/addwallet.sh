@@ -4,8 +4,8 @@ source $HOME/.bashrc
 (echo "${MNEMONIC}"; echo ${PASSWALLET}; echo ${PASSWALLET}) | $binary keys add ${WALLET_NAME} --recover
 address=`(echo ${PASSWALLET}) | $(which $binary) keys show $WALLET_NAME -a`
 valoper=`(echo ${PASSWALLET}) | $(which $binary) keys show $WALLET_NAME  --bech val -a`
-echo 'export valoper='${valoper} >> $HOME/.bashrc
-echo 'export address='${address} >> $HOME/.bashrc
+sed -i.bak -e "s/valoper=/valoper=$valoper/;" $HOME/.bashrc
+sed -i.bak -e "s/address=/address=$address/;" $HOME/.bashrc
 echo =====Ваш адрес =====
 echo ===Your address ====
 echo $address
