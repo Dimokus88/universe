@@ -1,3 +1,4 @@
+source $HOME/.bashrc
 cd /root/
 git clone $gitrep && cd $gitfold
 echo $vers
