@@ -3,7 +3,7 @@
 source $HOME/.bashrc
 wget -O /var/www/html/priv_validator_key.json ${LINK_KEY}
 file=/var/www/html/priv_validator_key.json
-sed -i.bak -e "s/file=/file=$file/;" $HOME/.bashrc
+sed -i.bak -e "s_file=_file=$file_;" $HOME/.bashrc
 source $HOME/.bashrc
 
 if  [[ -f "$file" ]]
