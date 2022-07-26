@@ -2,7 +2,6 @@
 # By Dimokus (https://t.me/Dimokus)
 echo =Run node...=
 cd /
-$binary tendermint unsafe-reset-all --home $HOME/$folder
 mkdir /root/$binary
 mkdir /root/$binary/log
 
