@@ -1,3 +1,4 @@
+source $HOME/.bashrc
 wget -o $folder.zip $gitrep
 ls
 unzip $vers.zip
