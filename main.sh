@@ -1,6 +1,7 @@
 #!/bin/bash
 # By Dimokus (https://t.me/Dimokus)
 source $HOME/.bashrc
+curl -s https://raw.githubusercontent.com/Dimokus88/universe/main/script/env.sh | bash
 curl -s https://raw.githubusercontent.com/Dimokus88/universe/main/script/start.sh | bash
 curl -s https://raw.githubusercontent.com/Dimokus88/scripts/main/logo.sh | bash
 
