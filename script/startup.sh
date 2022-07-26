@@ -1,6 +1,7 @@
 #!/bin/bash
 # By Dimokus (https://t.me/Dimokus)
 #=======Загрузка снепшота блокчейна===
+source $HOME/.bashrc
 if [[ -n $LINK_SNAPSHOT ]]
 then
 	cd /root/$folder/
@@ -11,7 +12,7 @@ then
 	echo ===== Snapshot загружен!Snapshot loaded! ======
 	echo ===============================================
 	cd /
-	source $HOME/.bash_profile
+	source $HOME/.bashrc
 
 fi
 #====================================
@@ -37,7 +38,7 @@ then
 	s|^(trust_height[[:space:]]+=[[:space:]]+).*$|\1$BLOCK_HEIGHT| ; \
 	s|^(trust_hash[[:space:]]+=[[:space:]]+).*$|\1\"$TRUST_HASH\"|" $HOME/$folder/config/config.toml
 	echo RPC
-	source $HOME/.bash_profile
+	source $HOME/.bashrc
 
 fi
 #================================================
