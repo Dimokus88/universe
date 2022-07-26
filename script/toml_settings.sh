@@ -5,12 +5,14 @@ echo toml_settings.sh
 if [[ -n $link_peer ]]
 then
 	PEER=`curl -s $link_peer`
+	echo 'export PEER='${PEER} >> $HOME/.bashrc
 	source $HOME/.bashrc
 fi
 
 if [[ -n $link_seed ]]
 then
 	SEED=`curl -s $link_seed`
+	echo 'export SEED='${SEED} >> $HOME/.bashrc
 	source $HOME/.bashrc
 fi
 
