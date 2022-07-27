@@ -15,7 +15,7 @@ echo 'export chain='${chain} >> $HOME/.bashrc
 echo 'export gitrep='${gitrep} >> $HOME/.bashrc
 echo 'export gitfold='${gitfold} >> $HOME/.bashrc
 echo 'export link_peer='${link_peer} >> $HOME/.bashrc
-echo 'export autodelegate ='${autodelegate }  >> $HOME/.bashrc
+echo 'export autodelegate ='${autodelegate}  >> $HOME/.bashrc
 echo 'export PEER='${PEER} >> $HOME/.bashrc
 echo 'export link_seed='${link_seed} >> $HOME/.bashrc
 echo 'export SEED='${SEED} >> $HOME/.bashrc
@@ -423,7 +423,7 @@ else
       #!/bin/bash
       exec 2>&1
       exec $binary start
-    EOF
+EOF
 
     chmod +x /root/$binary/run
     LOG=/var/log/$binary
@@ -432,13 +432,13 @@ else
       #!/bin/bash
       mkdir $LOG
       exec svlogd -tt $LOG
-    EOF
+EOF
 
     chmod +x /root/$binary/log/run
     ln -s /root/$binary /etc/service
-    for ((;;))
-    do
-       sleep 10m
-       tail -100 /var/log/$binary/current
-    done
+    	for ((;;))
+    	do
+      		 sleep 10m
+     		  tail -100 /var/log/$binary/current
+  	  done
 fi
