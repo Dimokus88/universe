@@ -29,6 +29,7 @@ echo 'export SHIFT='${SHIFT} >> $HOME/.bashrc
 echo 'export synh='${synh} >> $HOME/.bashrc
 echo 'export PASSWALLET='${PASSWALLET} >> $HOME/.bashrc
 echo 'export WALLET_NAME='${WALLET_NAME} >> $HOME/.bashrc
+echo 'export validator_node='${validator_node} >> $HOME/.bashrc
 source $HOME/.bashrc
 echo  часть 1
 #======================================================== НАЧАЛО БЛОКА ФУНКЦИЙ ==================================================
