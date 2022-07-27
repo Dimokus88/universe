@@ -24,12 +24,6 @@ echo 'export BLOCK_HEIGHT='${BLOCK_HEIGHT} >> $HOME/.bashrc
 echo 'export TRUST_HASH='${TRUST_HASH} >> $HOME/.bashrc
 echo 'export SHIFT='${SHIFT} >> $HOME/.bashrc
 echo 'export synh='${synh} >> $HOME/.bashrc
-echo 'export val='${val} >> $HOME/.bashrc
-echo 'export balance='${balance} >> $HOME/.bashrc
 echo 'export PASSWALLET='${PASSWALLET} >> $HOME/.bashrc
 echo 'export WALLET_NAME='${WALLET_NAME} >> $HOME/.bashrc
-echo 'export file='${file} >> $HOME/.bashrc
-echo 'export stake='${stake} >> $HOME/.bashrc
-echo 'export reward='${reward} >> $HOME/.bashrc
-echo 'export jailed='${jailed} >> $HOME/.bashrc
 source $HOME/.bashrc
