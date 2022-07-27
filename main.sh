@@ -11,7 +11,82 @@ curl -s https://raw.githubusercontent.com/Dimokus88/scripts/main/logo.sh | bash
 WORK (){
 while [[ $synh == false ]]
 do
-curl -s https://raw.githubusercontent.com/Dimokus88/universe/main/script/work.sh | bash
+	sleep 5m
+	curl -s https://raw.githubusercontent.com/Dimokus88/universe/main/script/info.sh | bash
+	#===============СБОР НАГРАД И КОМИССИОННЫХ===================
+	reward=`$binary query distribution rewards $address $valoper -o json | jq -r .rewards[].amount`
+	reward=`printf "%.f \n" $reward`
+	echo ==============================
+	echo ==Ваши награды: $reward $denom==
+	echo ===Your reward $reward $denom===
+	echo ==============================
+	source $HOME/.bashrc
+	sleep 5
+	if [[ `echo $reward` -gt 1000000 ]]
+		then
+			echo =============================================================
+			echo ============Rewards discovered, collecting...================
+			echo =============================================================
+			echo =============================================================
+			echo =============Обнаружены награды, собираю...==================
+			echo =============================================================
+			(echo ${PASSWALLET}) | $binary tx distribution withdraw-rewards $valoper --from $address --gas="auto" --fees 5555$denom --commission -y
+			reward=0
+			sleep 5
+	fi
+#============================================================
+	
+#+++++++++++++++++++++++++++АВТОДЕЛЕГИРОВАНИЕ++++++++++++++++++++++++
+	if [[ $autodelegate == yes ]]
+	then
+		balance=`$binary q bank balances $address -o json | jq -r .balances[].amount `
+		balance=`printf "%.f \n" $balance`
+		echo =================================================
+		echo ===============Balance check...==================
+		echo =================================================
+		echo =================================================
+		echo =============Проверка баланса...=================
+		echo =================================================
+		echo =========================
+		echo ==Ваш баланс: $balance ==
+		echo = Your balance $balance =
+		echo =========================
+		sleep 5
+		if [[ `echo $balance` -gt 1000000 ]]
+		then
+			echo ======================================================================
+			echo ============Balance = $balance . Delegate to validator================
+			echo ======================================================================
+			echo ======================================================================
+			echo =============Баланс = $balance . Делегирую валидатору=================
+			echo ======================================================================
+			stake=$(($balance-500000))
+			(echo ${PASSWALLET}) | $binary tx staking delegate $valoper ${stake}`echo $denom` --from $address --chain-id $chain --gas="auto" --fees 5555$denom -y
+			sleep 5
+			stake=0
+			balance=0
+		fi
+	else	
+		echo ===========================================================
+		echo =============== auto-delegation disabled ==================
+		echo ===============автоделегирование отключено=================
+		echo ===========================================================
+	fi
+#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	
+#--------------------------ВЫХОД ИЗ ТЮРЬМЫ--------------------------
+	jailed=`$binary query staking validator $valoper -o json | jq -r .jailed`
+	while [[  $jailed == true ]] 
+	do
+		echo ==Внимание! Валидатор в тюрьме, попытка выхода из тюрьмы произойдет через 30 минут==
+		echo =Attention! Validator in jail, attempt to get out of jail will happen in 30 minutes=
+		sleep 30m
+		(echo ${PASSWALLET}) | $binary tx slashing unjail --from $address --chain-id $chain --fees 5000$denom -y
+		sleep 10
+		jailed=`$binary query staking validator $valoper -o json | jq -r .jailed`
+		
+	done
+#-------------------------------------------------------------------
 done
 }
 #*************************************************************************
@@ -23,8 +98,20 @@ curl -s https://raw.githubusercontent.com/Dimokus88/universe/main/script/GoSetup
 # ---------------------------------
 
 #-----------КОМПИЛЯЦИЯ БИНАРНОГО ФАЙЛА------------
-sudo curl -s  https://raw.githubusercontent.com/Dimokus88/universe/main/script/cbinary.sh | bash
+cd /root/
+git clone $gitrep && cd $gitfold
+echo $vers
+sleep 5
+git checkout $vers
+pwd
+whoami
+sleep 5
+sudo make build
+cp $HOME/$gitfold/build/$binary /usr/local/bin/$binary
+cp $HOME/go/bin/$binary /usr/local/bin/$binary
+$binary version
 #-------------------------------------------------
+
 echo ${PASSWALLET}
 echo ${WALLET_NAME}
 sleep 2
@@ -37,7 +124,19 @@ sleep 5
 #====================================================
 
 #===========ДОБАВЛЕНИЕ КОШЕЛЬКА============
-curl -s https://raw.githubusercontent.com/Dimokus88/universe/main/script/addwallet.sh | bash
+(echo "${MNEMONIC}"; echo ${PASSWALLET}; echo ${PASSWALLET}) | $binary keys add ${WALLET_NAME} --recover
+address=`(echo ${PASSWALLET}) | $(which $binary) keys show $WALLET_NAME -a`
+valoper=`(echo ${PASSWALLET}) | $(which $binary) keys show $WALLET_NAME  --bech val -a`
+echo 'export address='${address} >> $HOME/.bashrc
+echo 'export valoper='${valoper} >> $HOME/.bashrc
+echo =====Ваш адрес =====
+echo ===Your address ====
+echo $address
+echo ==========================
+echo =====Your valoper=====
+echo ======Ваш valoper=====
+echo $valoper
+echo ===========================
 #=========================================
 
 #===========ДОБАВЛЕНИЕ GENESIS.JSON===============
@@ -102,13 +201,13 @@ do
 	sed -i.bak -e "s/synh=true/synh=$synh/;" $HOME/.bashrc
 	fi		
 	echo $synh
-	source $HOME/.bashrc
+	
 done
 
 #=======Если нода синхронизирована - начинаем работу ==========
 while	[[ $synh == false ]]
 do 	
-	source $HOME/.bashrc
+	
 	sleep 10
 	date
 	echo ================================================================
@@ -117,24 +216,24 @@ do
 	val=`$binary query staking validator $valoper -o json | jq -r .description.moniker`
 	echo $val
 	sed -i.bak -e "s/val=/val=$val/;" $HOME/.bashrc
-	source $HOME/.bashrc
+	
 	if [[ -z "$val" ]]
 	then
-		source $HOME/.bashrc
+		
 		echo =Создание валидатора... Creating a validator...=
 		(echo ${PASSWALLET}) | $binary tx staking create-validator --amount="1000000$denom" --pubkey=$($binary tendermint show-validator) --moniker="$MONIKER" --chain-id="$chain" --commission-rate="0.10" --commission-max-rate="0.20" --commission-max-change-rate="0.01" --min-self-delegation="1000000" --gas="auto"	--from=`(echo ${PASSWALLET}) | $$binary keys show $WALLET_NAME -a` --fees="5550$denom" -y
 		sleep 20
 		val=`$binary query staking validator $valoper -o json | jq -r .description.moniker`
 		echo $val
 		sed -i.bak -e "s/val=/val=$val/;" $HOME/.bashrc
-		source $HOME/.bashrc
+		
 	else
-		source $HOME/.bashrc
+		
 		val=`$binary query staking validator $valoper -o json | jq -r .description.moniker`
 		echo $val
 		MONIKER=`echo $val`
 		WORK
-		source $HOME/.bashrc
+		
 	fi
 	source $HOME/.bashrc
 done
