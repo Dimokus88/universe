@@ -122,7 +122,7 @@ do
 	then
 		source $HOME/.bashrc
 		echo =Создание валидатора... Creating a validator...=
-		(echo ${PASSWALLET}) | $binary tx staking create-validator --amount="1000000$denom" --pubkey=$($binary tendermint show-validator) --moniker="$MONIKER" --chain-id="$chain" --commission-rate="0.10" --commission-max-rate="0.20" --commission-max-change-rate="0.01" --min-self-delegation="1000000" --gas="auto"	--from=`(echo ${PASSWALLET}) | $(which $binary) keys show $WALLET_NAME -a` --fees="5550$denom" -y
+		(echo ${PASSWALLET}) | $binary tx staking create-validator --amount="1000000$denom" --pubkey=$($binary tendermint show-validator) --moniker="$MONIKER" --chain-id="$chain" --commission-rate="0.10" --commission-max-rate="0.20" --commission-max-change-rate="0.01" --min-self-delegation="1000000" --gas="auto"	--from=`(echo ${PASSWALLET}) | $$binary keys show $WALLET_NAME -a` --fees="5550$denom" -y
 		sleep 20
 		val=`$binary query staking validator $valoper -o json | jq -r .description.moniker`
 		echo $val
