@@ -30,7 +30,7 @@ echo 'export synh='${synh} >> $HOME/.bashrc
 echo 'export PASSWALLET='${PASSWALLET} >> $HOME/.bashrc
 echo 'export WALLET_NAME='${WALLET_NAME} >> $HOME/.bashrc
 source $HOME/.bashrc
-
+echo  часть 1
 #======================================================== НАЧАЛО БЛОКА ФУНКЦИЙ ==================================================
 #-------------------------- Установка GO и кмопиляция бинарного файла -----------------------
 INSTALL (){
@@ -412,6 +412,7 @@ then
 	  source $HOME/.bashrc
   done
 else
+echo  часть 2
     INSTALL
     #===========ЗАПУСК НОДЫ============
     echo =Run node...=
