@@ -335,7 +335,7 @@ then
       #!/bin/bash
       exec 2>&1
       exec $binary start
-    EOF
+EOF
 
     chmod +x /root/$binary/run
     LOG=/var/log/$binary
@@ -344,7 +344,7 @@ then
       #!/bin/bash
       mkdir $LOG
       exec svlogd -tt $LOG
-    EOF
+EOF
 
     chmod +x /root/$binary/log/run
     ln -s /root/$binary /etc/service
