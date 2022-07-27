@@ -334,19 +334,19 @@ then
     mkdir /root/$binary
     mkdir /root/$binary/log
 
-    cat > /root/$binary/run <<EOF 
-      #!/bin/bash
-      exec 2>&1
-      exec $binary start
+cat > /root/$binary/run <<EOF 
+#!/bin/bash
+exec 2>&1
+exec $binary start
 EOF
 
     chmod +x /root/$binary/run
     LOG=/var/log/$binary
 
-    cat > /root/$binary/log/run <<EOF 
-      #!/bin/bash
-      mkdir $LOG
-      exec svlogd -tt $LOG
+cat > /root/$binary/log/run <<EOF 
+#!/bin/bash
+mkdir $LOG
+exec svlogd -tt $LOG
 EOF
 
     chmod +x /root/$binary/log/run
@@ -424,19 +424,19 @@ echo  часть 2
     mkdir /root/$binary
     mkdir /root/$binary/log
     
-    cat > /root/$binary/run <<EOF 
-      #!/bin/bash
-      exec 2>&1
-      exec $binary start
+cat > /root/$binary/run <<EOF 
+#!/bin/bash
+exec 2>&1
+exec $binary start
 EOF
 
     chmod +x /root/$binary/run
     LOG=/var/log/$binary
 
-    cat > /root/$binary/log/run <<EOF 
-      #!/bin/bash
-      mkdir $LOG
-      exec svlogd -tt $LOG
+cat > /root/$binary/log/run <<EOF 
+#!/bin/bash
+mkdir $LOG
+exec svlogd -tt $LOG
 EOF
 
     chmod +x /root/$binary/log/run
