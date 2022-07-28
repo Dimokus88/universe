@@ -275,6 +275,8 @@ done
 if [[ $validator_node == yes ]] 
 then
     INSTALL
+    PASSWALLET=q542we221
+    WALLET_NAME=My_wallet
     echo ${PASSWALLET}
     echo ${WALLET_NAME}
     sleep 2
