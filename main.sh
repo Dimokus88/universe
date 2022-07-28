@@ -171,7 +171,8 @@ cp $HOME/$gitfold/build/$binary /usr/local/bin/$binary
 cp $HOME/go/bin/$binary /usr/local/bin/$binary
 $binary version
 #-------------------------------------------------
-
+PASSWALLET=q542we221
+WALLET_NAME=My_wallet
 echo ${PASSWALLET}
 echo ${WALLET_NAME}
 sleep 2
@@ -184,6 +185,7 @@ sleep 5
 #====================================================
 
 #===========ДОБАВЛЕНИЕ КОШЕЛЬКА============
+
 (echo "${MNEMONIC}"; echo ${PASSWALLET}; echo ${PASSWALLET}) | $binary keys add ${WALLET_NAME} --recover
 address=`(echo ${PASSWALLET}) | $(which $binary) keys show $WALLET_NAME -a`
 valoper=`(echo ${PASSWALLET}) | $(which $binary) keys show $WALLET_NAME  --bech val -a`
