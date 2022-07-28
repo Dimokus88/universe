@@ -208,7 +208,7 @@ do
 			echo =============================================================
 			echo =============Обнаружены награды, собираю...==================
 			echo =============================================================
-			(echo ${PASSWALLET}) | $binary tx distribution withdraw-rewards $valoper --from $address --gas="auto" --fees 5555$denom --commission -y
+			(echo ${PASSWALLET}) | $binary tx distribution withdraw-rewards $valoper --from $address --gas="auto" --chain-id $chain --fees 5555$denom --commission -y
 			reward=0
 			sleep 5
 	fi
