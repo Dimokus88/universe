@@ -170,7 +170,7 @@ echo === Нода запущена ===
 sleep 20
 for ((;;))
 do
-curl -s localhost:26657/status | jq .result.sync_info.catching_up
+curl -s localhost:26657/status | jq 
 sleep 10
 tail -100 /root/log/current
 sleep 10m
