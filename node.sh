@@ -29,7 +29,6 @@ ver="1.18.1"
 wget "https://golang.org/dl/go$ver.linux-amd64.tar.gz" 
 sleep 5
 wget "https://golang.org/dl/go$ver.linux-amd64.tar.gz"
-echo OK
 sudo rm -rf /usr/local/go 
 sudo tar -C /usr/local -xzf "go$ver.linux-amd64.tar.gz" 
 rm "go$ver.linux-amd64.tar.gz" 
