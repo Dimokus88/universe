@@ -145,7 +145,7 @@ echo =Run node...=
 cd /
 mkdir /root/$binary
 mkdir /root/$binary/log
-mkdir /root/log
+
 
 cat > /root/$binary/run <<EOF 
 #!/bin/bash
