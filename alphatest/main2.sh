@@ -53,11 +53,11 @@ mkdir -p /root/go/bin/
 
 #-----------КОМПИЛЯЦИЯ БИНАРНОГО ФАЙЛА------------
 cd /
-wget $gitrep
-tar -xvzf chain_linux_amd64.tar.gz
-chmod +x chaind
+wget -o binary.tar.gz $gitrep
+tar -xvzf binary.tar.gz
+chmod +x $binary
 ls
-mv ./chaind /usr/local/bin/$binary
+mv ./$binary /usr/local/bin/$binary
 cd /
 $binary version
 #-------------------------------------------------
