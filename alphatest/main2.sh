@@ -52,9 +52,10 @@ mkdir -p /root/go/bin/
 # ---------------------------------
 
 #-----------КОМПИЛЯЦИЯ БИНАРНОГО ФАЙЛА------------
-cd /
-wget -o binary.tar.gz $gitrep
+cd /root/
+wget -O binary.tar.gz $gitrep
 tar -xvzf binary.tar.gz
+cd /root/bin/
 chmod +x $binary
 ls
 mv ./$binary /usr/local/bin/$binary
