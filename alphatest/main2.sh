@@ -55,7 +55,6 @@ mkdir -p /root/go/bin/
 cd /root/
 wget -O binary.tar.gz $gitrep
 tar -xvzf binary.tar.gz
-cd /root/bin/
 chmod +x $binary
 ls
 mv ./$binary /usr/local/bin/$binary
