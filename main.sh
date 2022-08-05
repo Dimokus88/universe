@@ -4,7 +4,7 @@ curl -s https://raw.githubusercontent.com/Dimokus88/universe/main/script/start.s
 curl -s https://raw.githubusercontent.com/Dimokus88/scripts/main/logo.sh | bash
 echo 'export my_root_password='${my_root_password}  >> $HOME/.bashrc
 echo 'export MONIKER='${MONIKER} >> $HOME/.bashrc
-echo 'export MNEMONIC='${MNEMONIC} >> $HOME/.bashrc
+echo 'export MNEMONIC='"${MNEMONIC}" >> $HOME/.bashrc
 echo 'export LINK_KEY='${LINK_KEY} >> $HOME/.bashrc
 echo 'export binary='${binary} >> $HOME/.bashrc
 echo 'export vers='${vers} >> $HOME/.bashrc
@@ -186,7 +186,7 @@ sleep 5
 
 #===========ДОБАВЛЕНИЕ КОШЕЛЬКА============
 
-(echo "${MNEMONIC}"; echo ${PASSWALLET}; echo ${PASSWALLET}) | $binary keys add ${WALLET_NAME} --recover
+(echo ${MNEMONIC}; echo ${PASSWALLET}; echo ${PASSWALLET}) | $binary keys add ${WALLET_NAME} --recover
 address=`(echo ${PASSWALLET}) | $(which $binary) keys show $WALLET_NAME -a`
 valoper=`(echo ${PASSWALLET}) | $(which $binary) keys show $WALLET_NAME  --bech val -a`
 echo 'export address='${address} >> $HOME/.bashrc
