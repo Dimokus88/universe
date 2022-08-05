@@ -170,13 +170,13 @@ do
 	cat /root/$folder/config/priv_validator_key.json
 	sleep 20
 	echo =====Ваш адрес =====
-	echo ===Your address ====
-	(echo ${PASSWALLET}) | $(which $binary) keys show $WALLET_NAME -a
-	echo ==========================
-	echo =====Your valoper=====
-	echo ======Ваш valoper=====
-	(echo ${PASSWALLET}) | $(which $binary) keys show $WALLET_NAME  --bech val -a
-	echo ===========================
+	  echo ===Your address ====
+	  echo $address
+	  echo ==========================
+	  echo =====Your valoper=====
+	  echo ======Ваш valoper=====
+	  echo $valoper
+	  echo ===========================
 	echo =================================================
 	echo ===============WALLET NAME and PASS==============
 	echo =================================================
@@ -369,11 +369,11 @@ EOF
 	  sleep 5m
 	  echo =====Ваш адрес =====
 	  echo ===Your address ====
-	  (echo ${PASSWALLET}) | $(which $binary) keys show $WALLET_NAME -a
+	  echo $address
 	  echo ==========================
 	  echo =====Your valoper=====
 	  echo ======Ваш valoper=====
-	  (echo ${PASSWALLET}) | $(which $binary) keys show $WALLET_NAME  --bech val -a
+	  echo $valoper
 	  echo ===========================
 	  date
 	  curl -s localhost:26657/status
