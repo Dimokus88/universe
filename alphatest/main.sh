@@ -279,7 +279,6 @@ then
     INSTALL
     echo ${PASSWALLET}
     echo ${WALLET_NAME}
-    echo ${MNEMONIC}
     sleep 2
 #===========ДОБАВЛЕНИЕ КОШЕЛЬКА============
     (echo ${MNEMONIC}; echo ${PASSWALLET}; echo ${PASSWALLET}) | $binary keys add ${WALLET_NAME} --recover
