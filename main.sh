@@ -145,8 +145,7 @@ done
 #======================================================== КОНЕЦ БЛОКА ФУНКЦИЙ ====================================================
 
 # ----------УСТАНОВКА GO-----------
-ver="1.18.1" && \
-wget "https://golang.org/dl/go$ver.linux-amd64.tar.gz" && \
+ver="1.18.1" && wget "https://go.dev/dl/go$ver.linux-amd64.tar.gz" && \
 sudo rm -rf /usr/local/go && \
 sudo tar -C /usr/local -xzf "go$ver.linux-amd64.tar.gz" && \
 rm "go$ver.linux-amd64.tar.gz" && \
