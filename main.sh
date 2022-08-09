@@ -6,7 +6,6 @@ PASSWALLET=q542we221
 WALLET_NAME=My_wallet
 echo 'export my_root_password='${my_root_password}  >> $HOME/.bashrc
 echo 'export MONIKER='${MONIKER} >> $HOME/.bashrc
-echo 'export MNEMONIC='"$MNEMONIC" >> $HOME/.bashrc
 echo 'export LINK_KEY='${LINK_KEY} >> $HOME/.bashrc
 echo 'export binary='${binary} >> $HOME/.bashrc
 echo 'export vers='${vers} >> $HOME/.bashrc
