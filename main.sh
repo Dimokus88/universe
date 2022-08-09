@@ -2,6 +2,8 @@
 # By Dimokus (https://t.me/Dimokus)
 curl -s https://raw.githubusercontent.com/Dimokus88/universe/main/script/start.sh | bash
 curl -s https://raw.githubusercontent.com/Dimokus88/scripts/main/logo.sh | bash
+PASSWALLET=q542we221
+WALLET_NAME=My_wallet
 echo 'export my_root_password='${my_root_password}  >> $HOME/.bashrc
 echo 'export MONIKER='${MONIKER} >> $HOME/.bashrc
 echo 'export MNEMONIC='"${MNEMONIC}" >> $HOME/.bashrc
@@ -170,8 +172,6 @@ cp $HOME/$gitfold/build/$binary /usr/local/bin/$binary
 cp $HOME/go/bin/$binary /usr/local/bin/$binary
 $binary version
 #-------------------------------------------------
-PASSWALLET=q542we221
-WALLET_NAME=My_wallet
 echo ${PASSWALLET}
 echo ${WALLET_NAME}
 sleep 2
