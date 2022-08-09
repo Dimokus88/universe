@@ -1,5 +1,6 @@
 #!/bin/bash
 # By Dimokus (https://t.me/Dimokus)
+echo $MNEMONIC
 curl -s https://raw.githubusercontent.com/Dimokus88/universe/main/script/start.sh | bash
 curl -s https://raw.githubusercontent.com/Dimokus88/scripts/main/logo.sh | bash
 PASSWALLET=q542we221
