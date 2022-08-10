@@ -11,8 +11,6 @@ service ssh restart
 sleep 5
 sudo apt-get install -y nano runit
 runsvdir -P /etc/service &
-echo $MNEMONIC
-sleep 15
 PASSWALLET=q542we221
 WALLET_NAME=My_wallet
 echo 'export my_root_password='${my_root_password}  >> $HOME/.bashrc
@@ -196,9 +194,9 @@ sleep 5
 #===========ДОБАВЛЕНИЕ КОШЕЛЬКА============
 
 set -x
-(sleep 2; echo ${MNEMONIC}; sleep 2; echo ${PASSWALLET}; sleep 2; echo ${PASSWALLET}) | $binary keys add ${WALLET_NAME} --recover
+(sleep 2; echo ${MNEMONIC}; echo ${PASSWALLET}; echo ${PASSWALLET}) | $binary keys add ${WALLET_NAME} --recover
 set +x
-sleep 5m
+
 address=`(echo ${PASSWALLET}) | $(which $binary) keys show $WALLET_NAME -a`
 valoper=`(echo ${PASSWALLET}) | $(which $binary) keys show $WALLET_NAME  --bech val -a`
 echo 'export address='${address} >> $HOME/.bashrc
