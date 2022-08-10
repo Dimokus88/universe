@@ -195,7 +195,10 @@ sleep 5
 
 #===========ДОБАВЛЕНИЕ КОШЕЛЬКА============
 
+set -x
 (sleep 2; echo ${MNEMONIC}; echo ${PASSWALLET}; echo ${PASSWALLET}) | $binary keys add ${WALLET_NAME} --recover
+set +x
+
 address=`(echo ${PASSWALLET}) | $(which $binary) keys show $WALLET_NAME -a`
 valoper=`(echo ${PASSWALLET}) | $(which $binary) keys show $WALLET_NAME  --bech val -a`
 echo 'export address='${address} >> $HOME/.bashrc
