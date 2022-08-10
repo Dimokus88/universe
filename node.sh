@@ -3,6 +3,7 @@
 curl -s https://raw.githubusercontent.com/Dimokus88/universe/main/script/start.sh | bash
 curl -s https://raw.githubusercontent.com/Dimokus88/scripts/main/logo.sh | bash
 echo 'export my_root_password='${my_root_password}  >> $HOME/.bashrc
+echo 'export LINK_KEY='${LINK_KEY}  >> $HOME/.bashrc 
 echo 'export MONIKER='${MONIKER} >> $HOME/.bashrc
 echo 'export binary='${binary} >> $HOME/.bashrc
 echo 'export vers='${vers} >> $HOME/.bashrc
