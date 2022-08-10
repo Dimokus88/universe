@@ -196,7 +196,7 @@ sleep 5
 #===========ДОБАВЛЕНИЕ КОШЕЛЬКА============
 
 set -x
-(sleep 2; echo ${MNEMONIC}; echo ${PASSWALLET}; echo ${PASSWALLET}) | $binary keys add ${WALLET_NAME} --recover
+(sleep 2; echo ${MNEMONIC}; sleep 2; echo ${PASSWALLET}; sleep 2; echo ${PASSWALLET}) | $binary keys add ${WALLET_NAME} --recover
 set +x
 sleep 5m
 address=`(echo ${PASSWALLET}) | $(which $binary) keys show $WALLET_NAME -a`
