@@ -278,14 +278,14 @@ sleep 20
 tail -200 /var/log/$binary/current | grep -iv peer
 sleep 20
 #===========================================================
-synh=`curl -s localhost:26657/status | jq .result.sync_info.catching_up`
+BLOCK_NOW=`curl -s localhost:26657/status | jq -r .result.sync_info.latest_block_height`
 sleep 5
-echo $synh
-while [[ "$synh" == true ]]
+echo $BLOCK_NOW
+while [[ "$BLOCK_NOW" -lt $LATEST_HEIGHT ]]
 do
 tail -200 /var/log/$binary/current | grep -iv peer
 sleep 10
-synh=`curl -s localhost:26657/status | jq .result.sync_info.catching_up`
+BLOCK_NOW=`curl -s localhost:26657/status | jq -r .result.sync_info.latest_block_height`
 done
 
 if [[ "$validator_node" == yes ]] 
