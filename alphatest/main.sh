@@ -296,7 +296,9 @@ do
 tail -200 var/log/$binary/current | grep -iv peer
 sleep 10
 synh=`curl -s localhost:26657/status | jq .result.sync_info.catching_up`
-doneif [[ $validator_node == yes ]] 
+done
+
+if [[ $validator_node == yes ]] 
 then
 
     echo ${PASSWALLET}
