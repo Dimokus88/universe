@@ -6,7 +6,6 @@ PASSWALLET=q542we221
 WALLET_NAME=My_wallet
 echo 'export my_root_password='${my_root_password}  >> $HOME/.bashrc
 echo 'export MONIKER='${MONIKER} >> $HOME/.bashrc
-echo 'export LINK_KEY='${LINK_KEY} >> $HOME/.bashrc
 echo 'export binary='${binary} >> $HOME/.bashrc
 echo 'export vers='${vers} >> $HOME/.bashrc
 echo 'export genesis='${genesis} >> $HOME/.bashrc
@@ -32,7 +31,6 @@ echo 'export PASSWALLET='${PASSWALLET} >> $HOME/.bashrc
 echo 'export WALLET_NAME='${WALLET_NAME} >> $HOME/.bashrc
 echo 'export validator_node='${validator_node} >> $HOME/.bashrc
 source $HOME/.bashrc
-echo  часть 1
 #======================================================== НАЧАЛО БЛОКА ФУНКЦИЙ ==================================================
 #-------------------------- Установка GO и кмопиляция бинарного файла -----------------------
 INSTALL (){
