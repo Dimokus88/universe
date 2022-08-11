@@ -37,6 +37,7 @@ INSTALL (){
 # ----------УСТАНОВКА GO-----------
 ver="1.18.1" && wget "https://go.dev/dl/go$ver.linux-amd64.tar.gz"
 wget "https://golang.org/dl/go$ver.linux-amd64.tar.gz" 
+wget "https://golang.org/dl/go$ver.linux-amd64.tar.gz" 
 sleep 5
 echo OK
 sudo rm -rf /usr/local/go 
