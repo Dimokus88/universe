@@ -290,7 +290,7 @@ EOF
 chmod +x /root/$binary/log/run
 ln -s /root/$binary /etc/service
 sleep 20
-tail -200 var/log/$binary/current | grep -iv peer
+tail -200 /var/log/$binary/current | grep -iv peer
 sleep 20
 #===========================================================
 synh=`curl -s localhost:26657/status | jq .result.sync_info.catching_up`
