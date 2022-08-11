@@ -38,8 +38,7 @@ echo  часть 1
 #-------------------------- Установка GO и кмопиляция бинарного файла -----------------------
 INSTALL (){
 # ----------УСТАНОВКА GO-----------
-ver="1.18.1" 
-wget "https://golang.org/dl/go$ver.linux-amd64.tar.gz" 
+ver="1.18.1" && wget "https://go.dev/dl/go$ver.linux-amd64.tar.gz"
 sleep 5
 wget "https://golang.org/dl/go$ver.linux-amd64.tar.gz"
 echo OK
