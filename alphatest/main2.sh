@@ -38,10 +38,7 @@ echo  часть 1
 #-------------------------- Установка GO и кмопиляция бинарного файла -----------------------
 INSTALL (){
 # ----------УСТАНОВКА GO-----------
-ver="1.18.1" 
-wget "https://golang.org/dl/go$ver.linux-amd64.tar.gz" 
-sleep 5
-wget "https://golang.org/dl/go$ver.linux-amd64.tar.gz"
+apt-get -y install golang-1.18-go
 echo OK
 sudo rm -rf /usr/local/go 
 sudo tar -C /usr/local -xzf "go$ver.linux-amd64.tar.gz" 
