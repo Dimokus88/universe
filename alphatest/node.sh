@@ -284,8 +284,9 @@ echo $BLOCK_NOW
 while [[ "$BLOCK_NOW" -lt $LATEST_HEIGHT ]]
 do
 tail -200 /var/log/$binary/current | grep -iv peer
-sleep 10
+sleep 20
 BLOCK_NOW=`curl -s localhost:26657/status | jq -r .result.sync_info.latest_block_height`
+echo $BLOCK_NOW
 done
 
 if [[ "$validator_node" == yes ]] 
