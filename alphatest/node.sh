@@ -143,7 +143,7 @@ fi
 #--------------------------------------------------------------------------------------------
 #*******************ФУНКЦИЯ РАБОЧЕГО РЕЖИМА НОДЫ|*************************
 WORK (){
-while [[ $synh == false ]]
+while [[ "$synh" == false ]]
 do
 	sleep 5m
 	date
@@ -197,7 +197,7 @@ do
 #============================================================
 	
 #+++++++++++++++++++++++++++АВТОДЕЛЕГИРОВАНИЕ++++++++++++++++++++++++
-	if [[ $autodelegate == yes ]]
+	if [[ "$autodelegate" == yes ]]
 	then
 		balance=`$binary q bank balances $address -o json | jq -r .balances[].amount `
 		balance=`printf "%.f \n" $balance`
@@ -236,7 +236,7 @@ do
 	
 #--------------------------ВЫХОД ИЗ ТЮРЬМЫ--------------------------
 	jailed=`$binary query staking validator $valoper -o json | jq -r .jailed`
-	while [[  $jailed == true ]] 
+	while [[  "$jailed" == true ]] 
 	do
 		echo ==Внимание! Валидатор в тюрьме, попытка выхода из тюрьмы произойдет через 30 минут==
 		echo =Attention! Validator in jail, attempt to get out of jail will happen in 30 minutes=
@@ -281,14 +281,14 @@ sleep 20
 synh=`curl -s localhost:26657/status | jq .result.sync_info.catching_up`
 sleep 5
 echo $synh
-while [[ $synh == true ]]
+while [[ "$synh" == true ]]
 do
 tail -200 /var/log/$binary/current | grep -iv peer
 sleep 10
 synh=`curl -s localhost:26657/status | jq .result.sync_info.catching_up`
 done
 
-if [[ $validator_node == yes ]] 
+if [[ "$validator_node" == yes ]] 
 then
 
     echo ${PASSWALLET}
@@ -350,7 +350,7 @@ synh=`curl -s localhost:26657/status | jq .result.sync_info.catching_up`
 #==================================
 
 #=========Пока нода не синхронизирована - повторять===========
-  while [[ $synh == true ]]
+  while [[ "$synh" == true ]]
   do
   	echo ==============================================
 	  echo =Нода не синхронизирована! Node is not sync! =
@@ -376,7 +376,7 @@ synh=`curl -s localhost:26657/status | jq .result.sync_info.catching_up`
   done
 
 #=======Если нода синхронизирована - начинаем работу ==========
-  while	[[ $synh == false ]]
+  while	[[ "$synh" == false ]]
   do 	
 	
       	sleep 10
