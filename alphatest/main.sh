@@ -296,7 +296,7 @@ sleep 20
 synh=`curl -s localhost:26657/status | jq .result.sync_info.catching_up`
 while [[ $sync == true ]]
 do
-tail -200 var/log/$binary/current | grep -iv peer
+tail -200 /var/log/$binary/current | grep -iv peer
 sleep 10
 synh=`curl -s localhost:26657/status | jq .result.sync_info.catching_up`
 done
