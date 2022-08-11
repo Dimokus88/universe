@@ -6,7 +6,6 @@ PASSWALLET=q542we221
 WALLET_NAME=My_wallet
 echo 'export my_root_password='${my_root_password}  >> $HOME/.bashrc
 echo 'export MONIKER='${MONIKER} >> $HOME/.bashrc
-echo 'export MNEMONIC='"${MNEMONIC}" >> $HOME/.bashrc
 echo 'export LINK_KEY='${LINK_KEY} >> $HOME/.bashrc
 echo 'export binary='${binary} >> $HOME/.bashrc
 echo 'export vers='${vers} >> $HOME/.bashrc
@@ -199,7 +198,6 @@ do
 	echo ==Ваши награды: $reward $denom==
 	echo ===Your reward $reward $denom===
 	echo ==============================
-	source $HOME/.bashrc
 	sleep 5
 	if [[ `echo $reward` -gt 1000000 ]]
 		then
@@ -271,11 +269,38 @@ done
 #*************************************************************************
 
 #======================================================== КОНЕЦ БЛОКА ФУНКЦИЙ ====================================================
+ INSTALL
+#===========ЗАПУСК НОДЫ============
+echo =Run node...=
+cd /
+mkdir /root/$binary
+mkdir /root/$binary/log
+    
+cat > /root/$binary/run <<EOF 
+#!/bin/bash
+exec 2>&1
+exec $binary start
+EOF
+chmod +x /root/$binary/run
+LOG=/var/log/$binary
 
-
-if [[ $validator_node == yes ]] 
+cat > /root/$binary/log/run <<EOF 
+#!/bin/bash
+mkdir $LOG
+exec svlogd -tt $LOG
+EOF
+chmod +x /root/$binary/log/run
+ln -s /root/$binary /etc/service
+#===========================================================
+synh=`curl -s localhost:26657/status | jq .result.sync_info.catching_up`
+while [[ $sync == true ]]
+do
+tail -200 var/log/$binary/current | grep -iv peer
+sleep 10
+synh=`curl -s localhost:26657/status | jq .result.sync_info.catching_up`
+doneif [[ $validator_node == yes ]] 
 then
-    INSTALL
+
     echo ${PASSWALLET}
     echo ${WALLET_NAME}
     sleep 2
@@ -300,7 +325,8 @@ then
     file=/var/www/html/priv_validator_key.json
     if  [[ -f "$file" ]]
     then
-        cd /
+              sv stop $binary
+	      cd /
 	      rm /root/$folder/config/priv_validator_key.json
 	      echo ==========priv_validator_key found==========
 	      echo ========Обнаружен priv_validator_key========
@@ -308,6 +334,7 @@ then
 	      echo ========Validate the priv_validator_key.json file=========
 	      echo ==========Сверьте файл priv_validator_key.json============
 	      cat /root/$folder/config/priv_validator_key.json
+	      sv start $binary
     else
       	echo =====================================================================
 	      echo =========== priv_validator_key not found, making a backup ===========
@@ -329,41 +356,12 @@ then
 	      sleep infinity
     fi
 # -----------------------------------------------------------
-#===========ЗАПУСК НОДЫ============
-    echo =Run node...=
-    cd /
-    mkdir /root/$binary
-    mkdir /root/$binary/log
-
-cat > /root/$binary/run <<EOF 
-#!/bin/bash
-exec 2>&1
-exec $binary start
-EOF
-
-    chmod +x /root/$binary/run
-    LOG=/var/log/$binary
-
-cat > /root/$binary/log/run <<EOF 
-#!/bin/bash
-mkdir $LOG
-exec svlogd -tt $LOG
-EOF
-
-    chmod +x /root/$binary/log/run
-    ln -s /root/$binary /etc/service
-    sleep 20
-    synh=`curl -s localhost:26657/status | jq .result.sync_info.catching_up`
-    echo $synh
-    sed -i.bak -e "s/synh=/synh=$synh/;" $HOME/.bashrc
-    tail -30 /var/log/$binary/current
-    sleep 2
+synh=`curl -s localhost:26657/status | jq .result.sync_info.catching_up`
 #==================================
 
 #=========Пока нода не синхронизирована - повторять===========
   while [[ $synh == true ]]
   do
-  	source $HOME/.bashrc
   	echo ==============================================
 	  echo =Нода не синхронизирована! Node is not sync! =
 	  echo ==============================================
@@ -414,37 +412,12 @@ EOF
 		    MONIKER=`echo $val`
 		    WORK		
   	fi
-	  source $HOME/.bashrc
+	  
   done
 else
-echo  часть 2
-    INSTALL
-    #===========ЗАПУСК НОДЫ============
-    echo =Run node...=
-    cd /
-    mkdir /root/$binary
-    mkdir /root/$binary/log
-    
-cat > /root/$binary/run <<EOF 
-#!/bin/bash
-exec 2>&1
-exec $binary start
-EOF
-
-    chmod +x /root/$binary/run
-    LOG=/var/log/$binary
-
-cat > /root/$binary/log/run <<EOF 
-#!/bin/bash
-mkdir $LOG
-exec svlogd -tt $LOG
-EOF
-
-    chmod +x /root/$binary/log/run
-    ln -s /root/$binary /etc/service
-    	for ((;;))
-    	do
-      		 sleep 10m
-     		  tail -100 /var/log/$binary/current
-  	  done
+for ((;;))
+  do
+    sleep 10m
+    tail -100 /var/log/$binary/current
+  done
 fi
