@@ -45,6 +45,7 @@ echo $vers
 sleep 5
 git checkout $vers
 sudo make build
+sudo make install
 cp $HOME/$gitfold/build/$binary /usr/bin/$binary
 cp $HOME/go/bin/$binary /usr/bin/$binary
 $binary version
