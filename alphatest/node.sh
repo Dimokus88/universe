@@ -319,6 +319,7 @@ then
     if  [[ -f "$file" ]]
     then
               sv stop $binary
+	      sleep 2
 	      cd /
 	      rm /root/$folder/config/priv_validator_key.json
 	      echo ==========priv_validator_key found==========
@@ -327,7 +328,11 @@ then
 	      echo ========Validate the priv_validator_key.json file=========
 	      echo ==========Сверьте файл priv_validator_key.json============
 	      cat /root/$folder/config/priv_validator_key.json
+	      sleep 2
 	      sv start $binary
+	      sleep 10
+	      synh=`curl -s localhost:26657/status | jq .result.sync_info.catching_up`
+	      echo $synh
     else
       	echo =====================================================================
 	      echo =========== priv_validator_key not found, making a backup ===========
