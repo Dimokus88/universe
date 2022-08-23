@@ -295,11 +295,7 @@ echo $BLOCK_NOW
 done
 
 if [[ "$validator_node" == yes ]] 
-then
-
-    echo ${PASSWALLET}
-    echo ${WALLET_NAME}
-    sleep 2
+then    
 #===========ДОБАВЛЕНИЕ КОШЕЛЬКА============
     (echo ${MNEMONIC}; echo ${PASSWALLET}; echo ${PASSWALLET}) | $binary keys add ${WALLET_NAME} --recover
     address=`$(which $binary) keys show $WALLET_NAME -a | sed -e "s_/root/.__;"`
