@@ -297,9 +297,9 @@ done
 if [[ "$validator_node" == yes ]] 
 then    
 #===========ДОБАВЛЕНИЕ КОШЕЛЬКА============
-    (echo ${MNEMONIC}; echo ${PASSWALLET}; echo ${PASSWALLET}) | $binary keys add ${WALLET_NAME} --recover
-    address=`$(which $binary) keys show $WALLET_NAME -a | sed -e "s_/root/.__;"`
-    valoper=`$(which $binary) keys show $WALLET_NAME --bech val -a | sed -e "s_/root/.__;"`
+    (echo ${MNEMONIC}; echo ${PASSWALLET}; echo ${PASSWALLET}) | $binary keys add ${WALLET_NAME} --recover --keyring-backend os
+    address=`$binary keys show $WALLET_NAME -a | sed -e "s_/root/.__;"`
+    valoper=`$binary keys show $WALLET_NAME --bech val -a | sed -e "s_/root/.__;"`
     echo 'export address='${address} >> $HOME/.bashrc
     echo 'export valoper='${valoper} >> $HOME/.bashrc
     echo =====Ваш адрес =====
