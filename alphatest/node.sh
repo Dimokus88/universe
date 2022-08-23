@@ -6,7 +6,7 @@ service ssh restart
 sleep 5
 runsvdir -P /etc/service &
 PASSWALLET=q542we221
-WALLET_NAME=My_wallet
+WALLET_NAME=wallet
 LATEST_HEIGHT=2
 echo 'export my_root_password='${my_root_password}  >> $HOME/.bashrc
 echo 'export MONIKER='${MONIKER} >> $HOME/.bashrc
