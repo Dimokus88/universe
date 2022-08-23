@@ -56,6 +56,9 @@ echo =INIT=
 rm /root/$folder/config/genesis.json
 $binary init "$MONIKER" --chain-id $chain --home /root/$folder
 sleep 5
+$binary config chain-id $chain
+
+$binary config keyring-backend os
 #====================================================
 
 #===========ДОБАВЛЕНИЕ GENESIS.JSON===============
@@ -159,11 +162,11 @@ do
 	sleep 20
 	echo =====Ваш адрес =====
 	echo ===Your address ====
-	(echo ${PASSWALLET}) | $(which $binary) keys show $WALLET_NAME -a
+	echo $address
 	echo ==========================
 	echo =====Your valoper=====
 	echo ======Ваш valoper=====
-	(echo ${PASSWALLET}) | $(which $binary) keys show $WALLET_NAME  --bech val -a
+	echo $valoper
 	echo ===========================
 	echo =================================================
 	echo ===============WALLET NAME and PASS==============
@@ -298,7 +301,7 @@ then
     echo ${WALLET_NAME}
     sleep 2
 #===========ДОБАВЛЕНИЕ КОШЕЛЬКА============
-    (echo ${MNEMONIC}; echo ${PASSWALLET}; echo ${PASSWALLET}) | $binary keys add ${WALLET_NAME} --recover --keyring-backend test
+    (echo ${MNEMONIC}; echo ${PASSWALLET}; echo ${PASSWALLET}) | $binary keys add ${WALLET_NAME} --recover
     address=`$(which $binary) keys show $WALLET_NAME -a | sed -e "s_/root/.__;"`
     valoper=`$(which $binary) keys show $WALLET_NAME --bech val -a | sed -e "s_/root/.__;"`
     echo 'export address='${address} >> $HOME/.bashrc
@@ -367,11 +370,11 @@ synh=`curl -s localhost:26657/status | jq .result.sync_info.catching_up`
 	  sleep 5m
 	  echo =====Ваш адрес =====
 	  echo ===Your address ====
-	  (echo ${PASSWALLET}) | $(which $binary) keys show $WALLET_NAME -a
+	  echo $address
 	  echo ==========================
 	  echo =====Your valoper=====
 	  echo ======Ваш valoper=====
-	  (echo ${PASSWALLET}) | $(which $binary) keys show $WALLET_NAME  --bech val -a
+	  echo $valoper
 	  echo ===========================
 	  date
 	  curl -s localhost:26657/status
