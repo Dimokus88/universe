@@ -180,7 +180,7 @@ do
 	tail -30 /var/log/$binary/current
 	sleep 10
 	#===============СБОР НАГРАД И КОМИССИОННЫХ===================
-	reward=`$binary query distribution rewards $address $valoper -o json | jq -r .rewards[].amount`
+	reward=`$binary query distribution rewards $address $valoper -o json | jq -r .rewards[0].amount`
 	reward=`printf "%.f \n" $reward`
 	echo ==============================
 	echo ==Ваши награды: $reward $denom==
@@ -204,7 +204,7 @@ do
 #+++++++++++++++++++++++++++АВТОДЕЛЕГИРОВАНИЕ++++++++++++++++++++++++
 	if [[ "$autodelegate" == yes ]]
 	then
-		balance=`$binary q bank balances $address -o json | jq -r .balances[].amount `
+		balance=`$binary q bank balances $address -o json | jq -r .balances[0].amount `
 		balance=`printf "%.f \n" $balance`
 		echo =================================================
 		echo ===============Balance check...==================
