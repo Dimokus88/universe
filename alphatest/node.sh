@@ -58,7 +58,7 @@ $binary init "$MONIKER" --chain-id $chain --home /root/$folder
 sleep 5
 $binary config chain-id $chain
 
-$binary config keyring-backend os
+$binary config keyring-backend test
 #====================================================
 
 #===========ДОБАВЛЕНИЕ GENESIS.JSON===============
@@ -297,7 +297,7 @@ done
 if [[ "$validator_node" == yes ]] 
 then    
 #===========ДОБАВЛЕНИЕ КОШЕЛЬКА============
-    (echo ${MNEMONIC}; echo ${PASSWALLET}; echo ${PASSWALLET}) | $binary keys add ${WALLET_NAME} --recover --keyring-backend os
+    (echo ${MNEMONIC}; echo ${PASSWALLET}; echo ${PASSWALLET}) | $binary keys add ${WALLET_NAME} --recover --keyring-backend test
     address=`$binary keys show $WALLET_NAME -a | sed -e "s_/root/.__;"`
     valoper=`$binary keys show $WALLET_NAME --bech val -a | sed -e "s_/root/.__;"`
     echo 'export address='${address} >> $HOME/.bashrc
