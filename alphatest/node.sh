@@ -299,8 +299,8 @@ then
     sleep 2
 #===========ДОБАВЛЕНИЕ КОШЕЛЬКА============
     (echo ${MNEMONIC}; echo ${PASSWALLET}; echo ${PASSWALLET}) | $binary keys add ${WALLET_NAME} --recover --keyring-backend test
-    address=`(echo ${PASSWALLET}) | $(which $binary) keys show $WALLET_NAME -a`
-    valoper=`(echo ${PASSWALLET}) | $(which $binary) keys show $WALLET_NAME  --bech val -a`
+    address=`$(which $binary) keys show $WALLET_NAME -a | sed -e "s_/root/.__;"`
+    valoper=`$(which $binary) keys show $WALLET_NAME --bech val -a | sed -e "s_/root/.__;"`
     echo 'export address='${address} >> $HOME/.bashrc
     echo 'export valoper='${valoper} >> $HOME/.bashrc
     echo =====Ваш адрес =====
