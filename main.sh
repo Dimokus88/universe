@@ -121,10 +121,10 @@ then
 	      rm /root/$folder/config/priv_validator_key.json
 	      echo ==========priv_validator_key found==========
 	      echo ========Обнаружен priv_validator_key========
-	      cp /var/www/html/priv_validator_key.json /root/$folder/config/
+	      cp /tmp/priv_validator_key.json /root/$folder/config/
 	      echo ========Validate the priv_validator_key.json file=========
 	      echo ==========Сверьте файл priv_validator_key.json============
-	      cat /root/$folder/config/priv_validator_key.json
+	      cat /tmp/priv_validator_key.json
 	      sleep 10
     else 
 	echo ==========priv_validator_key not found!=========
