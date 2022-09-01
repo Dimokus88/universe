@@ -1,5 +1,6 @@
 #!/bin/bash
-source ~/.bashrc
+source /root/.bashrc
+sleep 1
 echo $binary
 echo == Начало работы скрипта по созданию валидатора ==
 sleep 5
