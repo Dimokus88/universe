@@ -2,7 +2,8 @@
 source ~/.bashrc
 echo == Начало работы скрипта по созданию валидатора ==
 sleep 5
-if [[ -z "$MNEMONIC" ]]; then
+if [[ -z "$MNEMONIC" ]]
+then
 echo 111111111111111
 read -p "Enter mnemonic: " MNEMONIC
 fi
