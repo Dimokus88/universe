@@ -15,6 +15,7 @@ if [[ -z "$MNEMONIC" ]]
 then
 echo "\nВведите мнемоник от кошелька (скрытый ввод):"
 read -s -p "Enter mnemonic (hidden input): " MNEMONIC
+echo $MNEMONIC
 fi
 sleep 2
 if [[ -z "$wallet_name" ]]
