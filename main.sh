@@ -7,7 +7,6 @@ sleep 5
 runsvdir -P /etc/service &
 echo 'export MONIKER='${MONIKER} >> $HOME/.bashrc
 echo 'export binary='${binary} >> $HOME/.bashrc
-echo 'export folder='${folder} >> $HOME/.bashrc
 echo 'export denom='${denom} >> $HOME/.bashrc
 echo 'export chain='${chain} >> $HOME/.bashrc
 source $HOME/.bashrc
