@@ -32,7 +32,7 @@ read -s -p "Enter wallet password (hidden input): " pass_wallet
 echo 'export pass_wallet='${pass_wallet} >> $HOME/.bashrc
 fi
 echo -e "\n== Импортирую кошелек =="
-echo -e "${MNEMONIC}\n${pass_wallet}\n${pass_wallet}\n" | $binary keys add ${wallet_name} --recover
+echo -e "${MNEMONIC}\n${pass_wallet}\n${pass_wallet}\n" | $binary keys add ${wallet_name} --recover --keyring-backend os
 sleep 2
 echo -e "\n== Запрашиваю баланс =="
 address=`$binary keys show $wallet_name -a | sed -e "s_/root/.__;"`
