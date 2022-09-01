@@ -5,7 +5,7 @@ sleep 5
 if [[ -z "$MNEMONIC" ]]
 then
 echo 111111111111111
-read -p "Enter mnemonic: " MNEMONIC
+read -e -p "Enter mnemonic: " MNEMONIC
 fi
 sleep 2
 if [[ -z "$wallet_name" ]]; then
