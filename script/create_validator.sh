@@ -31,13 +31,13 @@ echo 'export valoper='${valoper} >> $HOME/.bashrc
 echo -e "\n== Запросите токены из крана на адрес ${address} =="
 sleep 5
 sync=`curl -s localhost:26657/status | jq .result.sync_info.catching_up`
-while [[ `echo $sync` -eq  true ]]
-do
-echo -e "\n== Нода не синхронизирована! Ожидание полной синхронизации.. =="
-sleep 1m
-sync=`curl -s localhost:26657/status | jq .result.sync_info.catching_up`
-done
-echo -e "\n== Нода синхронизирована! продолжаю работу.. =="
+#while [[ `echo $sync` -eq  true ]]
+#do
+#echo -e "\n== Нода не синхронизирована! Ожидание полной синхронизации.. =="
+#sleep 1m
+#sync=`curl -s localhost:26657/status | jq .result.sync_info.catching_up`
+#done
+#echo -e "\n== Нода синхронизирована! продолжаю работу.. =="
 sleep 2
 echo -e "\n== Запрашиваю баланс =="
 sleep 2
