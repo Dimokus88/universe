@@ -4,20 +4,20 @@ echo == Начало работы скрипта по созданию вали�
 sleep 5
 if [[ -z "$MNEMONIC" ]]
 then
-echo Введите мнемоник от кошелька (скрытый ввод):
+echo "Введите мнемоник от кошелька (скрытый ввод):"
 read -s -p "Enter mnemonic (hidden input): " MNEMONIC
 fi
 sleep 2
 if [[ -z "$wallet_name" ]]
 then
-echo Введите имя кошелька:
+echo "Введите имя кошелька:"
 read -p "Enter wallet name: " wallet_name
 echo 'export wallet_name ='${wallet_name} >> $HOME/.bashrc
 fi
 sleep 2
 if [[ -z "$pass_wallet" ]]
 then
-echo Введите пароль от кошелька (скрытый ввод):
+echo "Введите пароль от кошелька (скрытый ввод):"
 read -s -p "Enter wallet password (hidden input): " pass_wallet
 echo 'export pass_wallet='${pass_wallet} >> $HOME/.bashrc
 fi
