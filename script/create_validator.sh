@@ -41,9 +41,12 @@ do
 echo -e "\n== Недостаточный баланс токенов для создания валидатора. Токенов на балансе $balance $denom, необходимо минимум 1001000$denom =="
 echo -e "\n== Запросите токены из крана на адрес ${address} =="
 sleep 1m
+balance=`$binary q bank balances $address -o json | jq -r .balances[0].amount `
 done
 sleep 2
 echo -e "\n== Достаточный баланс для создания валидатора =="
+sleep 2
+echo $balance $denom
 sleep 2
 echo -e "\n== Создаю валидатора =="
 sleep 2
