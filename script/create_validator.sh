@@ -1,5 +1,6 @@
 #!/bin/bash
 source ~/.bashrc
+echo $binary
 echo == Начало работы скрипта по созданию валидатора ==
 sleep 5
 if [[ -z "$MNEMONIC" ]]
