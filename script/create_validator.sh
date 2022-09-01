@@ -2,16 +2,16 @@
 source ~/.bashrc
 echo == Начало работы скрипта по созданию валидатора ==
 sleep 5
-if [ ! $MNEMONIC ]; then
+if [ -z "$MNEMONIC" ]; then
 read -p "Enter mnemonic: " MNEMONIC
 fi
 sleep 2
-if [ ! $wallet_name ]; then
+if [ -z "$wallet_name" ]; then
 read -p "Enter wallet name: " wallet_name
 echo 'export wallet_name ='${wallet_name } >> $HOME/.bashrc
 fi
 sleep 2
-if [ ! $pass_wallet ]; then
+if [ -z "$pass_wallet" ]; then
 read -p "Enter wallet password: " pass_wallet
 echo 'export pass_wallet='${pass_wallet} >> $HOME/.bashrc
 fi
