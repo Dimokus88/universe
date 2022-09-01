@@ -11,13 +11,6 @@ echo $chain
 echo $MONIKER
 echo -e "\n== Начало работы скрипта по созданию валидатора =="
 sleep 5
-if [[ -z "$MNEMONIC" ]]
-then
-echo -e "\nВведите мнемоник от кошелька (скрытый ввод):"
-read -s -p "Enter mnemonic (hidden input): " MNEMONIC
-echo $MNEMONIC
-fi
-sleep 2
 if [[ -z "$wallet_name" ]]
 then
 echo -e "\nВведите имя кошелька:"
@@ -25,14 +18,8 @@ read -p "Enter wallet name: " wallet_name
 echo 'export wallet_name='${wallet_name} >> $HOME/.bashrc
 fi
 sleep 2
-if [[ -z "$pass_wallet" ]]
-then
-echo -e "\nВведите пароль от кошелька (скрытый ввод):"
-read -s -p "Enter wallet password (hidden input): " pass_wallet
-echo 'export pass_wallet='${pass_wallet} >> $HOME/.bashrc
-fi
-echo -e "\n== Импортирую кошелек =="
-echo -e "${MNEMONIC}\n${pass_wallet}\n${pass_wallet}\n" | $binary keys add ${wallet_name} --recover --keyring-backend os
+echo -e "\n== Импортирую кошелек, введите mnemonic и задайте пароль (скрытый ввод!) =="
+$binary keys add ${wallet_name} --recover
 sleep 2
 echo -e "\n== Запрашиваю баланс =="
 address=`$binary keys show $wallet_name -a | sed -e "s_/root/.__;"`
