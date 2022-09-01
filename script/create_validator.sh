@@ -20,7 +20,7 @@ sleep 2
 if [[ -z "$wallet_pass" ]]
 then
 echo -e "\nПовторите ввод пароля от кошелька:"
-read -p "Re-enter your wallet password: " wallet_pass
+read -s -p "Re-enter your wallet password: " wallet_pass
 echo 'export wallet_pass='${wallet_pass} >> $HOME/.bashrc
 fi
 address=`(echo ${wallet_pass}) | $binary keys show $wallet_name -a | sed -e "s_/root/.__;"`
