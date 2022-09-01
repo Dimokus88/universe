@@ -1,7 +1,12 @@
 #!/bin/bash
 echo 'source $HOME/.bashrc' >> $HOME/.bash_profile
 sleep 1
+binary=`cat ~/.bashrc | grep binary | sed -e "s_export binary=__;"`
+denom=`cat ~/.bashrc | grep denom | sed -e "s_export denom=__;"`
+chain=`cat ~/.bashrc | grep chain | sed -e "s_export chain=__;"`
 echo $binary
+echo $denom
+echo $chain
 echo == Начало работы скрипта по созданию валидатора ==
 sleep 5
 if [[ -z "$MNEMONIC" ]]
