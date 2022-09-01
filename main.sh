@@ -132,12 +132,12 @@ then
 	echo ======== priv_validator_key not found! Specify direct download link ===============
 	echo ===== of the validator key file in the LINK_KEY variable in your deploy.yml =======
 	echo ===== If you don't have a key file, use the instructions at the link below: =======
-	echo == $guide ====
+	echo == "$guide" ====
 	echo ===================================================================================
 	echo ========  priv_validator_key ненайден! Укажите ссылку напрямое скачивание  ========
 	echo ========  файла ключа валидатора в переменной LINK_KEY в вашем deploy.yml  ========
 	echo =====  Если у вас нет файла ключа, воспользуйтесь инструкцией по ссылке ниже: =====
-	echo == $guide ====
+	echo == "$guide" ====
 	echo ===================================================================================
 	sleep infinity 	
     fi
