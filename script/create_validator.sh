@@ -21,15 +21,14 @@ sleep 2
 echo -e "\n== Импортирую кошелек, введите mnemonic и задайте пароль (скрытый ввод!) =="
 $binary keys add ${wallet_name} --recover
 sleep 2
-address=`$binary keys show $wallet_name -a | sed -e "s_/root/.__;"`
+address=`$binary keys show $wallet_name -a --keyring-backend os| sed -e "s_/root/.__;"`
+echo 'export address='${address} >> $HOME/.bashrc
+sleep 2
+valoper=`$binary keys show $wallet_name --bech val -a --keyring-backend os | sed -e "s_/root/.__;"`
+echo 'export valoper='${valoper} >> $HOME/.bashrc
 echo -e "\n== Запросите токены из крана на адрес ${address} =="
 sleep 5
 echo -e "\n== Запрашиваю баланс =="
-address=`$binary keys show $wallet_name -a | sed -e "s_/root/.__;"`
-echo 'export address='${address} >> $HOME/.bashrc
-sleep 2
-valoper=`$binary keys show $wallet_name --bech val -a | sed -e "s_/root/.__;"`
-echo 'export valoper='${valoper} >> $HOME/.bashrc
 sleep 2
 balance=`$binary q bank balances $address -o json | jq -r .balances[0].amount `
 sleep 2
@@ -47,7 +46,7 @@ sleep 2
 echo -e "\n== Создаю валидатора =="
 sleep 2
 DATE=`date`
-$binary tx staking create-validator --amount="1000000$denom" --pubkey=$($binary tendermint show-validator) --moniker="$MONIKER" --chain-id="$chain" --commission-rate="0.10" --commission-max-rate="0.20" --commission-max-change-rate="0.01" --min-self-delegation="1000000" --from="$address" --details="Powered on Akash Network! Create $DATE" --fees="5550$denom" --gas="auto" -y
+$binary tx staking create-validator --amount="1000000$denom" --pubkey=$($binary tendermint show-validator) --moniker="$MONIKER" --chain-id="$chain" --commission-rate="0.10" --commission-max-rate="0.20" --commission-max-change-rate="0.01" --min-self-delegation="1000000" --from="$address" --details="Powered on Akash Network! Create $DATE" --fees="5550$denom" --gas="auto" --keyring-backend os -y
 sleep 10
 val=`$binary query staking validator $valoper -o json | jq -r .description.moniker`
 if [[ -z "$val" ]]
