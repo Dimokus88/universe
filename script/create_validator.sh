@@ -22,7 +22,7 @@ if [[ -z "$wallet_name" ]]
 then
 echo -e "\nВведите имя кошелька:"
 read -p "Enter wallet name: " wallet_name
-echo 'export wallet_name ='${wallet_name} >> $HOME/.bashrc
+echo 'export wallet_name='${wallet_name} >> $HOME/.bashrc
 fi
 sleep 2
 if [[ -z "$pass_wallet" ]]
