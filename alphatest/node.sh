@@ -5,35 +5,10 @@ echo "PermitRootLogin yes" >> /etc/ssh/sshd_config
 service ssh restart
 sleep 5
 runsvdir -P /etc/service &
-PASSWALLET=q542we221
-WALLET_NAME=wallet
-LATEST_HEIGHT=2
-echo 'export my_root_password='${my_root_password}  >> $HOME/.bashrc
 echo 'export MONIKER='${MONIKER} >> $HOME/.bashrc
 echo 'export binary='${binary} >> $HOME/.bashrc
-echo 'export vers='${vers} >> $HOME/.bashrc
-echo 'export genesis='${genesis} >> $HOME/.bashrc
-echo 'export folder='${folder} >> $HOME/.bashrc
 echo 'export denom='${denom} >> $HOME/.bashrc
 echo 'export chain='${chain} >> $HOME/.bashrc
-echo 'export gitrep='${gitrep} >> $HOME/.bashrc
-echo 'export gitfold='${gitfold} >> $HOME/.bashrc
-echo 'export link_peer='${link_peer} >> $HOME/.bashrc
-echo 'export autodelegate='${autodelegate}  >> $HOME/.bashrc
-echo 'export PEER='${PEER} >> $HOME/.bashrc
-echo 'export link_seed='${link_seed} >> $HOME/.bashrc
-echo 'export SEED='${SEED} >> $HOME/.bashrc
-echo 'export link_rpc='${link_rpc} >> $HOME/.bashrc
-echo 'export SNAP_RPC='${SNAP_RPC} >> $HOME/.bashrc
-echo 'export LINK_SNAPSHOT='${LINK_SNAPSHOT} >> $HOME/.bashrc
-echo 'export LATEST_HEIGHT='${LATEST_HEIGHT} >> $HOME/.bashrc
-echo 'export BLOCK_HEIGHT='${BLOCK_HEIGHT} >> $HOME/.bashrc
-echo 'export TRUST_HASH='${TRUST_HASH} >> $HOME/.bashrc
-echo 'export SHIFT='${SHIFT} >> $HOME/.bashrc
-echo 'export synh='${synh} >> $HOME/.bashrc
-echo 'export PASSWALLET='${PASSWALLET} >> $HOME/.bashrc
-echo 'export WALLET_NAME='${WALLET_NAME} >> $HOME/.bashrc
-echo 'export validator_node='${validator_node} >> $HOME/.bashrc
 source $HOME/.bashrc
 #======================================================== НАЧАЛО БЛОКА ФУНКЦИЙ ==================================================
 #-------------------------- Установка GO и кмопиляция бинарного файла -----------------------
@@ -58,7 +33,7 @@ $binary init "$MONIKER" --chain-id $chain --home /root/$folder
 sleep 5
 $binary config chain-id $chain
 
-$binary config keyring-backend test
+$binary config keyring-backend os
 #====================================================
 
 #===========ДОБАВЛЕНИЕ GENESIS.JSON===============
@@ -72,16 +47,57 @@ rm $HOME/$folder/config/addrbook.json
 wget -O $HOME/$folder/config/addrbook.json $addrbook
 #==================================================
 #-----ВНОСИМ ИЗМЕНЕНИЯ В CONFIG.TOML , APP.TOML.-----------
-if [[ -n $link_peer ]]
-then
-	PEER=`curl -s $link_peer`
-fi
 
-if [[ -n $link_seed ]]
+if [[ -n $SNAP_RPC ]]
 then
-	SEED=`curl -s $link_seed`
-fi
+n_peers=`curl -s $SNAP_RPC/net_info? | jq -r .result.n_peers`
+let n_peers="$n_peers"-1
+RPC="$SNAP_RPC"
+echo "$RPC," >> /root/RPC.txt
+p=0
+echo "Search peers..."
+while [[ "$p" -le  "$n_peers" ]]
+do
+	PEER=`curl -s  $SNAP_RPC/net_info? | jq -r .result.peers["$p"].node_info.listen_addr`
+        if [[ ! "$PEER" =~ "tcp" ]] 
+        then
+			id=`curl -s  $SNAP_RPC/net_info? | jq -r .result.peers["$p"].node_info.id`
+            echo "$id@$PEER," >> /root/PEER.txt
+			echo "peer"
+			echo $PEER
+			rm /root/addr.tmp
+			echo $PEER | sed 's/:/ /g' > /root/addr.tmp
+			ADDRESS=(`cat addr.tmp`)
+			ADDRESS=`echo ${ADDRESS[0]}`
+			PORT=(`cat /root/addr.tmp`)
+			PORT=`echo ${PORT[1]}`
+			let PORT=$PORT+1
+			RPC=`echo $ADDRESS:$PORT`
+			
+			if [[ `curl -s http://$RPC/abci_info? --connect-timeout 5 | jq -r .result.response.last_block_height` -gt 0 ]]
+			then
+				echo "rpc"
+				echo "$RPC," >> /root/RPC.txt
+				RPC=0
+			else
+			echo "rpc not found"
+			fi
+			RPC=0
+   	     fi
+	p="$p"+1
+	done
+PEER=`cat /root/PEER.txt`
+else
+	if [[ -n $link_peer ]]
+	then
+		PEER=`curl -s $link_peer`
+	fi
 
+	if [[ -n $link_seed ]]
+	then
+		SEED=`curl -s $link_seed`
+	fi
+fi
 echo $PEER
 echo $SEED
 sleep 5
@@ -142,122 +158,42 @@ then
 fi
 #================================================
 # |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
-
+wget -O /tmp/priv_validator_key.json ${LINK_KEY}
+file=/tmp/priv_validator_key.json
+if  [[ -f "$file" ]]
+then
+	      sleep 2
+	      cd /
+	      rm /root/$folder/config/priv_validator_key.json
+	      echo ==========priv_validator_key found==========
+	      echo ========Обнаружен priv_validator_key========
+	      cp /tmp/priv_validator_key.json /root/$folder/config/
+	      echo ========Validate the priv_validator_key.json file=========
+	      echo ==========Сверьте файл priv_validator_key.json============
+	      cat /tmp/priv_validator_key.json
+	      sleep 10
+    else     	
+    	echo "==================================================================================="
+	echo "======== priv_validator_key not found! Specify direct download link ==============="
+	echo "===== of the validator key file in the LINK_KEY variable in your deploy.yml ======="
+	echo "===== If you don't have a key file, use the instructions at the link below ======="
+	echo "== https://github.com/Dimokus88/guides/blob/main/Cosmos%20SDK/valkey/README.md ===="
+	echo "==================================================================================="
+	echo "========  priv_validator_key ненайден! Укажите ссылку напрямое скачивание  ========"
+	echo "========  файла ключа валидатора в переменной LINK_KEY в вашем deploy.yml  ========"
+	echo "=====  Если у вас нет файла ключа, воспользуйтесь инструкцией по ссылке ниже ====="
+	echo "== https://github.com/Dimokus88/guides/blob/main/Cosmos%20SDK/valkey/README.md ===="
+	echo "==================================================================================="
+	echo "============= The node is running with the generated validator key! ==============="
+	echo "==================================================================================="
+	echo "================= Нода запущена с сгенерированным ключом валидатора! =============="
+	echo "==================================================================================="
+	RUN
+	sleep infinity 	
+    fi
 }
 
-#--------------------------------------------------------------------------------------------
-#*******************ФУНКЦИЯ РАБОЧЕГО РЕЖИМА НОДЫ|*************************
-WORK (){
-while [[ "$synh" == false ]]
-do
-	sleep 5m
-	date
-	echo =======================================================================
-	echo =============Check if the validator keys are correct! =================
-	echo =======================================================================
-	echo =======================================================================
-	echo =============Проверьте корректность ключей валидатора!=================
-	echo =======================================================================
-	cat /root/$folder/config/priv_validator_key.json
-	sleep 20
-	echo =====Ваш адрес =====
-	echo ===Your address ====
-	echo $address
-	echo ==========================
-	echo =====Your valoper=====
-	echo ======Ваш valoper=====
-	echo $valoper
-	echo ===========================
-	echo =================================================
-	echo ===============WALLET NAME and PASS==============
-	echo =================================================
-	echo =========== Name ${WALLET_NAME} Имя =============
-	echo ========== Pass ${PASSWALLET} Пароль ============
-	echo =================================================
-	echo =============Имя кошелька и его пароль===========
-	echo =================================================
-	sleep 10
-	tail -30 /var/log/$binary/current
-	sleep 10
-	#===============СБОР НАГРАД И КОМИССИОННЫХ===================
-	reward=`$binary query distribution rewards $address $valoper -o json | jq -r .rewards[0].amount`
-	reward=`printf "%.f \n" $reward`
-	echo ==============================
-	echo ==Ваши награды: $reward $denom==
-	echo ===Your reward $reward $denom===
-	echo ==============================
-	sleep 5
-	if [[ `echo $reward` -gt 1000000 ]]
-		then
-			echo =============================================================
-			echo ============Rewards discovered, collecting...================
-			echo =============================================================
-			echo =============================================================
-			echo =============Обнаружены награды, собираю...==================
-			echo =============================================================
-			(echo ${PASSWALLET}) | $binary tx distribution withdraw-rewards $valoper --from $address --gas="auto" --chain-id $chain --fees 5555$denom --commission -y
-			reward=0
-			sleep 5
-	fi
-#============================================================
-	
-#+++++++++++++++++++++++++++АВТОДЕЛЕГИРОВАНИЕ++++++++++++++++++++++++
-	if [[ "$autodelegate" == yes ]]
-	then
-		balance=`$binary q bank balances $address -o json | jq -r .balances[0].amount `
-		balance=`printf "%.f \n" $balance`
-		echo =================================================
-		echo ===============Balance check...==================
-		echo =================================================
-		echo =================================================
-		echo =============Проверка баланса...=================
-		echo =================================================
-		echo =========================
-		echo ==Ваш баланс: $balance ==
-		echo = Your balance $balance =
-		echo =========================
-		sleep 5
-		if [[ `echo $balance` -gt 1000000 ]]
-		then
-			echo ======================================================================
-			echo ============Balance = $balance . Delegate to validator================
-			echo ======================================================================
-			echo ======================================================================
-			echo =============Баланс = $balance . Делегирую валидатору=================
-			echo ======================================================================
-			stake=$(($balance-500000))
-			(echo ${PASSWALLET}) | $binary tx staking delegate $valoper ${stake}`echo $denom` --from $address --chain-id $chain --gas="auto" --fees 5555$denom -y
-			sleep 5
-			stake=0
-			balance=0
-		fi
-	else	
-		echo ===========================================================
-		echo =============== auto-delegation disabled ==================
-		echo ===============автоделегирование отключено=================
-		echo ===========================================================
-	fi
-#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-	
-#--------------------------ВЫХОД ИЗ ТЮРЬМЫ--------------------------
-	jailed=`$binary query staking validator $valoper -o json | jq -r .jailed`
-	while [[  "$jailed" == true ]] 
-	do
-		echo ==Внимание! Валидатор в тюрьме, попытка выхода из тюрьмы произойдет через 30 минут==
-		echo =Attention! Validator in jail, attempt to get out of jail will happen in 30 minutes=
-		sleep 30m
-		(echo ${PASSWALLET}) | $binary tx slashing unjail --from $address --chain-id $chain --fees 5000$denom -y
-		sleep 10
-		jailed=`$binary query staking validator $valoper -o json | jq -r .jailed`
-		
-	done
-#-------------------------------------------------------------------
-done
-}
-#*************************************************************************
-
-#======================================================== КОНЕЦ БЛОКА ФУНКЦИЙ ====================================================
- INSTALL
+RUN (){
 #===========ЗАПУСК НОДЫ============
 echo =Run node...=
 cd /
@@ -279,143 +215,17 @@ exec svlogd -tt $LOG
 EOF
 chmod +x /root/$binary/log/run
 ln -s /root/$binary /etc/service
-sleep 20
-tail -200 /var/log/$binary/current | grep -iv peer
-sleep 20
-#===========================================================
-BLOCK_NOW=`curl -s localhost:26657/status | jq -r .result.sync_info.latest_block_height`
-sleep 5
-echo $BLOCK_NOW
-while [[ "$BLOCK_NOW" -lt $LATEST_HEIGHT ]]
-do
-tail -200 /var/log/$binary/current | grep -iv peer
-sleep 20
-BLOCK_NOW=`curl -s localhost:26657/status | jq -r .result.sync_info.latest_block_height`
-echo $BLOCK_NOW
-done
-
-if [[ "$validator_node" == yes ]] 
-then    
-#===========ДОБАВЛЕНИЕ КОШЕЛЬКА============
-    (echo ${MNEMONIC}; echo ${PASSWALLET}; echo ${PASSWALLET}) | $binary keys add ${WALLET_NAME} --recover --keyring-backend test
-    address=`$binary keys show $WALLET_NAME -a | sed -e "s_/root/.__;"`
-    valoper=`$binary keys show $WALLET_NAME --bech val -a | sed -e "s_/root/.__;"`
-    echo 'export address='${address} >> $HOME/.bashrc
-    echo 'export valoper='${valoper} >> $HOME/.bashrc
-    echo =====Ваш адрес =====
-    echo ===Your address ====
-    echo $address
-    echo ==========================
-    echo =====Your valoper=====
-    echo ======Ваш valoper=====
-    echo $valoper
-    echo ===========================
-#=========================================
-    
-# ------ПРОВЕРКА НАЛИЧИЯ priv_validator_key--------
-    wget -O /var/www/html/priv_validator_key.json ${LINK_KEY}
-    file=/var/www/html/priv_validator_key.json
-    if  [[ -f "$file" ]]
-    then
-              sv stop $binary
-	      sleep 2
-	      cd /
-	      rm /root/$folder/config/priv_validator_key.json
-	      echo ==========priv_validator_key found==========
-	      echo ========Обнаружен priv_validator_key========
-	      cp /var/www/html/priv_validator_key.json /root/$folder/config/
-	      echo ========Validate the priv_validator_key.json file=========
-	      echo ==========Сверьте файл priv_validator_key.json============
-	      cat /root/$folder/config/priv_validator_key.json
-	      sleep 2
-	      sv start $binary
-	      sleep 10
-	      synh=`curl -s localhost:26657/status | jq .result.sync_info.catching_up`
-	      echo $synh
-    else
-      	echo =====================================================================
-	      echo =========== priv_validator_key not found, making a backup ===========
-	      echo =====================================================================
-	      echo =====================================================================
-	      echo ====== priv_validator_key не обнаружен, создаю резервную копию ======
-	      echo =====================================================================
-	      sleep 2
-	      cp /root/$folder/config/priv_validator_key.json /var/www/html/
-	      echo =========================================================================================
-	      echo = priv_validator_key has been created! Save the output to a .json file on google drive. =
-	      echo == Place a direct link to download the file in the manifest and update the deployment! ==
-	      echo ==================================Work has been suspended!===============================
-	      echo =========================================================================================
-	      echo = priv_validator_key создан! Сохраните вывод в файл с расширением .json на google диск. =
-	      echo ==== Разместите прямую ссылку на скачивание файла в манифесте и обновите деплоймент! ====
-	      echo ====================================Работа приостановлена!===============================
-	      cat /root/$folder/config/priv_validator_key.json
-	      sleep infinity
-    fi
+}
+#--------------------------------------------------------------------------------------------
+#======================================================== КОНЕЦ БЛОКА ФУНКЦИЙ ====================================================
+INSTALL
+sleep 15
+RUN
+sleep 1m
 # -----------------------------------------------------------
-synh=`curl -s localhost:26657/status | jq .result.sync_info.catching_up`
-#==================================
-
-#=========Пока нода не синхронизирована - повторять===========
-  while [[ "$synh" == true ]]
-  do
-  	echo ==============================================
-	  echo =Нода не синхронизирована! Node is not sync! =
-	  echo ==============================================
-	  tail -30 /var/log/$binary/current
-	  sleep 5m
-	  echo =====Ваш адрес =====
-	  echo ===Your address ====
-	  echo $address
-	  echo ==========================
-	  echo =====Your valoper=====
-	  echo ======Ваш valoper=====
-	  echo $valoper
-	  echo ===========================
-	  date
-	  curl -s localhost:26657/status
-	  synh=`curl -s localhost:26657/status | jq .result.sync_info.catching_up`
-	  if [[ $synh == false ]]
-	  then
-	  sed -i.bak -e "s/synh=true/synh=$synh/;" $HOME/.bashrc
-	  fi		
-	  echo $synh
-  done
-
-#=======Если нода синхронизирована - начинаем работу ==========
-  while	[[ "$synh" == false ]]
-  do 	
-	
-      	sleep 10
-      	date
-	      echo ================================================================
-	      echo =Нода синхронизирована успешно! Node synchronized successfully!=
-	      echo ================================================================
-	     val=`$binary query staking validator $valoper -o json | jq -r .description.moniker`
-	     echo $val
-	     sed -i.bak -e "s/val=/val=$val/;" $HOME/.bashrc
-	
-	  if [[ -z "$val" ]]
-	  then		
-	  	  echo =Создание валидатора... Creating a validator...=
-		  DATE=`date`
-	  	  (echo ${PASSWALLET}) | $binary tx staking create-validator --amount="1000000$denom" --pubkey=$($binary tendermint show-validator) --moniker="$MONIKER" --chain-id="$chain" --commission-rate="0.10" --commission-max-rate="0.20" --commission-max-change-rate="0.01" --min-self-delegation="1000000" --from="$address" --details="Powered on Akash Network! Create $DATE" --fees="5550$denom" --gas="auto" -y
-	  	  sleep 20
-	  	  val=`$binary query staking validator $valoper -o json | jq -r .description.moniker`
-	  	  echo $val
-	  	  sed -i.bak -e "s/val=/val=$val/;" $HOME/.bashrc		
-	  else		
-		    val=`$binary query staking validator $valoper -o json | jq -r .description.moniker`
-		    echo $val
-		    MONIKER=`echo $val`
-		    WORK		
-  	fi
-	  
-  done
-else
 for ((;;))
-  do
+  do    
+    tail -100 /var/log/$binary/current | grep -iv peer
     sleep 10m
-    tail -100 /var/log/$binary/current
   done
 fi
