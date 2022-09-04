@@ -63,7 +63,6 @@ do
         then
 			id=`curl -s  $SNAP_RPC/net_info? | jq -r .result.peers["$p"].node_info.id`
             		echo -n "$id@$PEER," >> /root/PEER.txt
-			echo "Find peer"
 			echo $id@$PEER
 			rm /root/addr.tmp
 			echo $PEER | sed 's/:/ /g' > /root/addr.tmp
@@ -76,7 +75,6 @@ do
 			
 			if [[ `curl -s http://$RPC/abci_info? --connect-timeout 5 | jq -r .result.response.last_block_height` -gt 0 ]]
 			then
-				echo "Find RPC"
 				echo "$RPC"
 				echo -n "$RPC," >> /root/RPC.txt
 				RPC=0
@@ -85,6 +83,7 @@ do
    	     fi
 	p="$p"+1
 	done
+echo "Search peers is complete!"
 PEER=`cat /root/PEER.txt | sed 's/,$//'`
 else
 	if [[ -n $link_peer ]]
