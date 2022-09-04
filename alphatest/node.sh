@@ -85,7 +85,7 @@ do
    	     fi
 	p="$p"+1
 	done
-PEER=`cat /root/RPC.txt | sed 's/,$//'`
+PEER=`cat /root/PEER.txt | sed 's/,$//'`
 else
 	if [[ -n $link_peer ]]
 	then
