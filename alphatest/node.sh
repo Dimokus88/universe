@@ -76,7 +76,8 @@ do
 			
 			if [[ `curl -s http://$RPC/abci_info? --connect-timeout 5 | jq -r .result.response.last_block_height` -gt 0 ]]
 			then
-				echo "rpc"
+				echo "Find RPC"
+				echo "$RPC"
 				echo -n "$RPC," >> /root/RPC.txt
 				RPC=0
 			fi
