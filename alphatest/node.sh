@@ -9,7 +9,6 @@ then
 chain=`curl -s "$SNAP_RPC"/genesis | jq -r .result.genesis.chain_id`
 denom=`curl -s "$SNAP_RPC"/genesis | grep denom -m 1 | tr -d \"\, | sed "s/denom://" | tr -d \ `
 folder=`curl -s "$SNAP_RPC"/abci_info | jq -r .result.response.data`
-binary=`echo "$folder"`
 folder=`echo $folder | sed "s/$folder/.$folder/"`
 vers=`curl -s "$SNAP_RPC"/abci_info | jq -r .result.response.version`
 fi
@@ -21,7 +20,7 @@ echo $binary
 echo $vers
 sleep 10
 echo 'export MONIKER='${MONIKER} >> $HOME/.bashrc
-echo 'export binary='${binary} >> $HOME/.bashrc
+
 echo 'export denom='${denom} >> $HOME/.bashrc
 echo 'export chain='${chain} >> $HOME/.bashrc
 source $HOME/.bashrc
@@ -36,6 +35,12 @@ sleep 5
 git checkout $vers
 sudo make build
 sudo make install
+binary=`ls $HOME/go/bin`
+if [[ -z $SNAP_RPC ]]
+then
+binary=`ls $HOME/$gitfold/build/`
+fi
+echo 'export binary='${binary} >> $HOME/.bashrc
 cp $HOME/$gitfold/build/$binary /usr/bin/$binary
 cp $HOME/go/bin/$binary /usr/bin/$binary
 $binary version
