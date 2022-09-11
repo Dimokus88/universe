@@ -9,7 +9,7 @@ then
 chain=`curl -s "$SNAP_RPC"/genesis | jq -r .result.genesis.chain_id`
 denom=`curl -s "$SNAP_RPC"/genesis | jq -r .result.genesis.app_state.bank.params.send_enabled[0].denom`
 folder=`echo $denom | sed "s/u/./"`
-folder=`echo $denom | sed "s/t/./"`
+folder=`echo $folder | sed "s/t/./"`
 binary=`echo "$folder"d | sed "s/.//"`
 vers=`curl -s "$SNAP_RPC"/abci_info | jq -r .result.response.version`
 fi
