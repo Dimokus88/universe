@@ -73,7 +73,7 @@ do
 			PORT=`echo ${PORT[1]}`
 			let PORT=$PORT+1
 			RPC=`echo $ADDRESS:$PORT`
-			count="$count"+1
+			let count="$count"+1
 			echo $count
 			if [[ `curl -s http://$RPC/abci_info? --connect-timeout 5 | jq -r .result.response.last_block_height` -gt 0 ]]
 			then
