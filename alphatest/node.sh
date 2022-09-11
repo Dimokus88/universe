@@ -16,7 +16,6 @@ fi
 echo $chain
 echo $denom
 echo $folder
-echo $binary
 echo $vers
 sleep 10
 echo 'export MONIKER='${MONIKER} >> $HOME/.bashrc
@@ -40,6 +39,7 @@ if [[ -z $binary ]]
 then
 binary=`ls $HOME/$gitfold/build/`
 fi
+echo $binary
 echo 'export binary='${binary} >> $HOME/.bashrc
 cp $HOME/$gitfold/build/$binary /usr/bin/$binary
 cp $HOME/go/bin/$binary /usr/bin/$binary
