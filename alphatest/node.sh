@@ -8,7 +8,7 @@ if [[ -n $SNAP_RPC ]]
 then 
 chain=`curl -s "$SNAP_RPC"/genesis | jq -r .result.genesis.chain_id`
 denom=`curl -s "$SNAP_RPC"/genesis | jq -r .result.genesis.app_state.bank.params.send_enabled[0].denom`
-folder=`curl -s "$SNAP_RPC"/abci_info | jq -r .result.response.data"`
+folder=`curl -s "$SNAP_RPC"/abci_info | jq -r .result.response.data`
 binary=`echo "$folder"d`
 folder=`echo $folder | sed "s/$folder/.$folder/"`
 vers=`curl -s "$SNAP_RPC"/abci_info | jq -r .result.response.version`
