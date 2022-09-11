@@ -86,6 +86,7 @@ do
 	done
 echo "Search peers is complete!"
 PEER=`cat /root/PEER.txt | sed 's/,$//'`
+RPC=`cat /root/RPC.txt | sed 's/,$//'`
 else
 	if [[ -n $link_peer ]]
 	then
@@ -125,12 +126,7 @@ sed -i.bak -e "s/^snapshot-interval *=.*/snapshot-interval = \"$snapshot_interva
 # ====================RPC======================
 if [[ -n $SNAP_RPC ]]
 then
-	if [[ -n $link_rpc ]]
-	then
-		RPC=`curl -s $link_rpc`
-	else
-		RPC=`echo $SNAP_RPC,$SNAP_RPC`
-	fi
+	RPC=`echo $SNAP_RPC,$RPC`
 	echo $RPC
 	LATEST_HEIGHT=`curl -s $SNAP_RPC/block | jq -r .result.block.header.height`; \
 	BLOCK_HEIGHT=$((LATEST_HEIGHT - $SHIFT)); \
