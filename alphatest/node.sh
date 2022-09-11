@@ -1,10 +1,25 @@
 #!/bin/bash
 # By Dimokus (https://t.me/Dimokus)
 echo "PermitRootLogin yes" >> /etc/ssh/sshd_config
-(echo ${my_root_password}; echo ${my_root_password}) | passwd root
-service ssh restart
+(echo ${my_root_password}; echo ${my_root_password}) | passwd root && service ssh restart
 sleep 5
 runsvdir -P /etc/service &
+if [[ -n $SNAP_RPC ]]
+then 
+chain=`curl -s "$SNAP_RPC"/genesis | jq -r .result.genesis.chain_id`
+denom=`curl -s "$SNAP_RPC"/genesis | jq -r .result.genesis.app_state.bank.params.send_enabled[0].denom`
+folder=`echo $denom | sed "s/u/./"`
+folder=`echo $denom | sed "s/t/./"`
+binary=`echo "$folder"d | sed "s/.//"`
+vers=`curl -s "$SNAP_RPC"/abci_info | jq -r .result.response.version`
+fi
+
+echo $chain
+echo $denom
+echo $folder
+echo $binary
+echo $vers
+sleep 10
 echo 'export MONIKER='${MONIKER} >> $HOME/.bashrc
 echo 'export binary='${binary} >> $HOME/.bashrc
 echo 'export denom='${denom} >> $HOME/.bashrc
@@ -32,20 +47,20 @@ rm /root/$folder/config/genesis.json
 $binary init "$MONIKER" --chain-id $chain --home /root/$folder
 sleep 5
 $binary config chain-id $chain
-
 $binary config keyring-backend os
 #====================================================
 
 #===========ДОБАВЛЕНИЕ GENESIS.JSON===============
+if [[ -n $SNAP_RPC ]]
+then 
+curl -s "$SNAP_RPC"/genesis | jq .result >> $HOME/$folder/config/genesis.json
+else
 wget -O $HOME/$folder/config/genesis.json $genesis
 sha256sum ~/$folder/config/genesis.json
 cd && cat $folder/data/priv_validator_state.json
+fi
 #=================================================
 
-#===========ДОБАВЛЕНИЕ ADDRBOOK.JSON===============
-rm $HOME/$folder/config/addrbook.json
-wget -O $HOME/$folder/config/addrbook.json $addrbook
-#==================================================
 #-----ВНОСИМ ИЗМЕНЕНИЯ В CONFIG.TOML , APP.TOML.-----------
 
 if [[ -n $SNAP_RPC ]]
@@ -57,7 +72,7 @@ echo -n "$RPC," >> /root/RPC.txt
 p=0
 count=0
 echo "Search peers..."
-while [[ "$p" -le  "$n_peers" ]] && [[ "$count" -le  5 ]]
+while [[ "$p" -le  "$n_peers" ]] && [[ "$count" -le  10 ]]
 do
 	PEER=`curl -s  $SNAP_RPC/net_info? | jq -r .result.peers["$p"].node_info.listen_addr`
         if [[ ! "$PEER" =~ "tcp" ]] 
@@ -114,10 +129,6 @@ sed -i -e "s/^pruning *=.*/pruning = \"$pruning\"/" $HOME/$folder/config/app.tom
 sed -i -e "s/^pruning-keep-recent *=.*/pruning-keep-recent = \"$pruning_keep_recent\"/" $HOME/$folder/config/app.toml && \
 sed -i -e "s/^pruning-keep-every *=.*/pruning-keep-every = \"$pruning_keep_every\"/" $HOME/$folder/config/app.toml && \
 sed -i -e "s/^pruning-interval *=.*/pruning-interval = \"$pruning_interval\"/" $HOME/$folder/config/app.toml
-
-sed -i 's/max_num_inbound_peers =.*/max_num_inbound_peers = 100/g' $HOME/$folder/config/config.toml
-sed -i 's/max_num_outbound_peers =.*/max_num_outbound_peers = 100/g' $HOME/$folder/config/config.toml
-
 snapshot_interval="1000" && \
 sed -i.bak -e "s/^snapshot-interval *=.*/snapshot-interval = \"$snapshot_interval\"/" $HOME/$folder/config/app.toml
 #-----------------------------------------------------------
