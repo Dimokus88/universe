@@ -53,8 +53,10 @@ $binary config keyring-backend os
 #===========ДОБАВЛЕНИЕ GENESIS.JSON===============
 if [[ -n $SNAP_RPC ]]
 then 
+rm /root/$folder/config/genesis.json
 curl -s "$SNAP_RPC"/genesis | jq .result.genesis >> $HOME/$folder/config/genesis.json
 else
+rm /root/$folder/config/genesis.json
 wget -O $HOME/$folder/config/genesis.json $genesis
 sha256sum ~/$folder/config/genesis.json
 cd && cat $folder/data/priv_validator_state.json
