@@ -36,7 +36,7 @@ git checkout $vers
 sudo make build
 sudo make install
 binary=`ls $HOME/go/bin`
-if [[ -z $SNAP_RPC ]]
+if [[ -z $binary ]]
 then
 binary=`ls $HOME/$gitfold/build/`
 fi
