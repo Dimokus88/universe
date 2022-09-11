@@ -55,8 +55,9 @@ let n_peers="$n_peers"-1
 RPC="$SNAP_RPC"
 echo -n "$RPC," >> /root/RPC.txt
 p=0
+count=0
 echo "Search peers..."
-while [[ "$p" -le  "$n_peers" ]]
+while [[ "$p" -le  "$n_peers" ]] || [[ "$count" -le  5 ]]
 do
 	PEER=`curl -s  $SNAP_RPC/net_info? | jq -r .result.peers["$p"].node_info.listen_addr`
         if [[ ! "$PEER" =~ "tcp" ]] 
@@ -72,7 +73,7 @@ do
 			PORT=`echo ${PORT[1]}`
 			let PORT=$PORT+1
 			RPC=`echo $ADDRESS:$PORT`
-			
+			count="$count"+1
 			if [[ `curl -s http://$RPC/abci_info? --connect-timeout 5 | jq -r .result.response.last_block_height` -gt 0 ]]
 			then
 				echo "$RPC"
