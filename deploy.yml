@@ -13,10 +13,10 @@ services:
 #==================================================================
 #2.Раздел переменных для работы ноды
 #2.Section of variables for node operation"
-     - "gitrep="
-     - "gitfold="
-     - "SHIFT="
-     - "SNAP_RPC="
+      - "gitrep="
+      - "gitfold="
+      - "SHIFT="
+      - "SNAP_RPC="
 #====================================   
     command:
       - "bash"
