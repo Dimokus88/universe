@@ -18,11 +18,11 @@ echo $denom
 echo $folder
 echo $vers
 sleep 10
-echo 'export MONIKER='${MONIKER} >> $HOME/.bashrc
+echo 'export MONIKER='${MONIKER} >> /root/.bashrc
 
-echo 'export denom='${denom} >> $HOME/.bashrc
-echo 'export chain='${chain} >> $HOME/.bashrc
-source $HOME/.bashrc
+echo 'export denom='${denom} >> /root/.bashrc
+echo 'export chain='${chain} >> /root/.bashrc
+source /root/.bashrc
 #======================================================== НАЧАЛО БЛОКА ФУНКЦИЙ ==================================================
 #-------------------------- Установка GO и кмопиляция бинарного файла -----------------------
 INSTALL (){
@@ -34,15 +34,15 @@ sleep 5
 git checkout $vers
 sudo make build
 sudo make install
-binary=`ls $HOME/go/bin`
+binary=`ls /root/go/bin`
 if [[ -z $binary ]]
 then
-binary=`ls $HOME/$gitfold/build/`
+binary=`ls /root/$gitfold/build/`
 fi
 echo $binary
-echo 'export binary='${binary} >> $HOME/.bashrc
-cp $HOME/$gitfold/build/$binary /usr/bin/$binary
-cp $HOME/go/bin/$binary /usr/bin/$binary
+echo 'export binary='${binary} >> /root/.bashrc
+cp /root/$gitfold/build/$binary /usr/bin/$binary
+cp /root/go/bin/$binary /usr/bin/$binary
 $binary version
 #-------------------------------------------------
 
@@ -59,10 +59,10 @@ $binary config keyring-backend os
 if [[ -n $SNAP_RPC ]]
 then 
 rm /root/$folder/config/genesis.json
-curl -s "$SNAP_RPC"/genesis | jq .result.genesis >> $HOME/$folder/config/genesis.json
+curl -s "$SNAP_RPC"/genesis | jq .result.genesis >> /root/$folder/config/genesis.json
 else
 rm /root/$folder/config/genesis.json
-wget -O $HOME/$folder/config/genesis.json $genesis
+wget -O /root/$folder/config/genesis.json $genesis
 sha256sum ~/$folder/config/genesis.json
 cd && cat $folder/data/priv_validator_state.json
 fi
@@ -123,21 +123,21 @@ fi
 echo $PEER
 echo $SEED
 sleep 5
-sed -i.bak -e "s/^minimum-gas-prices *=.*/minimum-gas-prices = \"0.0025$denom\"/;" $HOME/$folder/config/app.toml
+sed -i.bak -e "s/^minimum-gas-prices *=.*/minimum-gas-prices = \"0.0025$denom\"/;" /root/$folder/config/app.toml
 sleep 1
-sed -i.bak -e "s/^seeds *=.*/seeds = \"$SEED\"/;" $HOME/$folder/config/config.toml
-sed -i.bak -e "s/^persistent_peers *=.*/persistent_peers = \"$PEER\"/;" $HOME/$folder/config/config.toml
-sed -i.bak -e "s_"tcp://127.0.0.1:26657"_"tcp://0.0.0.0:26657"_;" $HOME/$folder/config/config.toml
+sed -i.bak -e "s/^seeds *=.*/seeds = \"$SEED\"/;" /root/$folder/config/config.toml
+sed -i.bak -e "s/^persistent_peers *=.*/persistent_peers = \"$PEER\"/;" /root/$folder/config/config.toml
+sed -i.bak -e "s_"tcp://127.0.0.1:26657"_"tcp://0.0.0.0:26657"_;" /root/$folder/config/config.toml
 pruning="custom" && \
 pruning_keep_recent="5" && \
 pruning_keep_every="1000" && \
 pruning_interval="50" && \
-sed -i -e "s/^pruning *=.*/pruning = \"$pruning\"/" $HOME/$folder/config/app.toml && \
-sed -i -e "s/^pruning-keep-recent *=.*/pruning-keep-recent = \"$pruning_keep_recent\"/" $HOME/$folder/config/app.toml && \
-sed -i -e "s/^pruning-keep-every *=.*/pruning-keep-every = \"$pruning_keep_every\"/" $HOME/$folder/config/app.toml && \
-sed -i -e "s/^pruning-interval *=.*/pruning-interval = \"$pruning_interval\"/" $HOME/$folder/config/app.toml
+sed -i -e "s/^pruning *=.*/pruning = \"$pruning\"/" /root/$folder/config/app.toml && \
+sed -i -e "s/^pruning-keep-recent *=.*/pruning-keep-recent = \"$pruning_keep_recent\"/" /root/$folder/config/app.toml && \
+sed -i -e "s/^pruning-keep-every *=.*/pruning-keep-every = \"$pruning_keep_every\"/" /root/$folder/config/app.toml && \
+sed -i -e "s/^pruning-interval *=.*/pruning-interval = \"$pruning_interval\"/" /root/$folder/config/app.toml
 snapshot_interval="1000" && \
-sed -i.bak -e "s/^snapshot-interval *=.*/snapshot-interval = \"$snapshot_interval\"/" $HOME/$folder/config/app.toml
+sed -i.bak -e "s/^snapshot-interval *=.*/snapshot-interval = \"$snapshot_interval\"/" /root/$folder/config/app.toml
 #-----------------------------------------------------------
 
 #|||||||||||||||||||||||||||||||||||ФУНКЦИЯ Backup||||||||||||||||||||||||||||||||||||||||||||||||||||||
@@ -153,7 +153,7 @@ then
 	sed -i.bak -E "s|^(enable[[:space:]]+=[[:space:]]+).*$|\1true| ; \
 	s|^(rpc_servers[[:space:]]+=[[:space:]]+).*$|\1\"$RPC\"| ; \
 	s|^(trust_height[[:space:]]+=[[:space:]]+).*$|\1$BLOCK_HEIGHT| ; \
-	s|^(trust_hash[[:space:]]+=[[:space:]]+).*$|\1\"$TRUST_HASH\"|" $HOME/$folder/config/config.toml
+	s|^(trust_hash[[:space:]]+=[[:space:]]+).*$|\1\"$TRUST_HASH\"|" /root/$folder/config/config.toml
 	echo RPC
 fi
 #================================================
