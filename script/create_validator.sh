@@ -42,11 +42,11 @@ balance=`$binary q bank balances $address -o json | jq -r .balances[0].amount `
 sleep 2
 echo $balance $denom
 sleep 2
-while [[ `echo $balance` -lt  1001000 ]]
+while [[ `echo $balance` -lt  1000000 ]]
 do
-echo -e "\n=== Insufficient balance of tokens to create a validator. Tokens on balance $balance $denom, minimum 1001000$denom required ===="
+echo -e "\n=== Insufficient balance of tokens to create a validator. Tokens on balance $balance $denom, minimum 1000000$denom required ===="
 echo -e "\n===================== Request tokens from faucet at ${address} ==========================="
-echo -e "\n== Недостаточный баланс токенов для создания валидатора. Токенов на балансе $balance $denom, необходимо минимум 1001000$denom =="
+echo -e "\n== Недостаточный баланс токенов для создания валидатора. Токенов на балансе $balance $denom, необходимо минимум 1000000$denom =="
 echo -e "\n===================== Запросите токены из крана на адрес ${address} ==================="
 sleep 1m
 balance=`$binary q bank balances $address -o json | jq -r .balances[0].amount `
@@ -61,7 +61,7 @@ echo -e "\n== Creating a validator =="
 echo -e "\n==== Создаю валидатора ==="
 sleep 2
 DATE=`date`
-(echo ${wallet_pass}) | $binary tx staking create-validator --amount="1000000$denom" --pubkey=$($binary tendermint show-validator) --moniker="$MONIKER" --chain-id="$chain" --commission-rate="0.10" --commission-max-rate="0.20" --commission-max-change-rate="0.01" --min-self-delegation="1000000" --from="$address" --details="Powered on Akash Network! Create $DATE" --fees="5550$denom" --gas="auto" -y
+(echo ${wallet_pass}) | $binary tx staking create-validator --amount="900000$denom" --pubkey=$($binary tendermint show-validator) --moniker="$MONIKER" --chain-id="$chain" --commission-rate="0.10" --commission-max-rate="0.20" --commission-max-change-rate="0.01" --min-self-delegation="1000000" --from="$address" --details="Powered on Akash Network! Create $DATE" --fees="5550$denom" --gas="auto" -y
 sleep 10
 val=`$binary query staking validator $valoper -o json | jq -r .description.moniker`
 if [[ -z "$val" ]]
