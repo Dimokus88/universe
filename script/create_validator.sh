@@ -61,7 +61,7 @@ echo -e "\n== Creating a validator =="
 echo -e "\n==== Создаю валидатора ==="
 sleep 2
 DATE=`date`
-(echo ${wallet_pass}) | $binary tx staking create-validator --amount="900000$denom" --pubkey=$($binary tendermint show-validator) --moniker="$MONIKER" --chain-id="$chain" --commission-rate="0.10" --commission-max-rate="0.20" --commission-max-change-rate="0.01" --min-self-delegation="100000" --from="$address" --details="Powered on Akash Network! Create $DATE" --fees="5550$denom" --gas="auto" -y
+(echo ${wallet_pass}) | $binary tx staking create-validator --amount="900000$denom" --pubkey=$($binary tendermint show-validator) --moniker="$MONIKER" --chain-id="$chain" --commission-rate="0.10" --commission-max-rate="0.20" --commission-max-change-rate="0.01" --min-self-delegation="100000" --from="$address" --details="Powered on Akash Network! Create $DATE" --fees="5550$denom" -y
 sleep 10
 val=`$binary query staking validator $valoper -o json | jq -r .description.moniker`
 if [[ -z "$val" ]]
