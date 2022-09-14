@@ -22,3 +22,4 @@ PARSER="Markdown"
 MESSAGE=`cat /root/bot/text.txt`
 TEXT=" %0A*$DATE  *%0A %0A*%E2%9C%85 Node status:* %0A %0A$MESSAGE  %0A *%0A%F0%9F%9A%80Powered by Akash Network%F0%9F%9A%80* %0A %0ADiscord: https://discord.gg/ybKMsYYZkx %0ATelegram EN: https://t.me/AkashNW  %0ATelegram RU: https://t.me/akash\_ru"
 curl -s --max-time $TTL -d "chat_id=$CHAT_ID&parse_mode=$PARSER&disable_web_page_preview=1&text=$TEXT" $URL
+sleep 20
