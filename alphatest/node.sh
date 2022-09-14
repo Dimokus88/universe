@@ -221,6 +221,34 @@ ln -s /root/$binary /etc/service
 INSTALL
 sleep 15
 RUN
+#=====Включение алерт бота =====
+if [[ -n $CHAT_ID ]]
+then
+sleep 10
+echo == Включение оповещение Telegram ==
+mkdir /root/bot/
+wget -O /root/bot/bot.sh https://raw.githubusercontent.com/Dimokus88/universe/main/script/alert_bot.sh && chmod +x /root/bot/bot.sh
+mkdir /root/bot/log
+sleep 5  
+cat > /root/bot/run <<EOF 
+#!/bin/bash
+exec 2>&1
+exec /root/bot/bot.sh $CHAT_ID $binary $valoper
+EOF
+chmod +x /root/bot/run
+LOG=/var/log/bot
+
+cat > /root/bot/log/run <<EOF 
+#!/bin/bash
+mkdir $LOG
+exec svlogd -tt $LOG
+EOF
+chmod +x /root/bot/log/run
+ln -s /root/bot /etc/service
+sleep 5
+echo == Оповещение Telegram включено ==
+fi
+#==============================
 sleep 1m
 # -----------------------------------------------------------
 for ((;;))
