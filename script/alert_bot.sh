@@ -1,14 +1,12 @@
 #!/bin/bash
 CHAT_ID=$1
 binary=$2
-valoper=$3
 rm /root/bot/text.txt
 echo -e "\n\xF0\x9F\x94\x97Blockchain status:" >>/root/bot/text.txt
 echo - Moniker: `curl -s localhost:26657/status | jq -r .result.node_info.moniker | sed "s/_/ /"`>> /root/bot/text.txt
 echo - Network: `curl -s localhost:26657/status | jq -r .result.node_info.network | sed "s/_/-/"` >> /root/bot/text.txt
 echo - Latest block: `curl -s localhost:26657/status | jq -r .result.sync_info.latest_block_height` >> /root/bot/text.txt
 echo - Catching up: `curl -s localhost:26657/status | jq -r .result.sync_info.catching_up` >> /root/bot/text.txt
-echo - Jailed: `$binary query staking validator $valoper -o json | jq -r .jailed` >> /root/bot/text.txt
 echo -e "\n\xF0\x9F\x92\xBBHardware status:" >>/root/bot/text.txt
 echo - CPU used: `ps -aux | grep -m1 "$binary start" | awk '{print $3}'`% >> /root/bot/text.txt
 echo - RAM used: `ps -aux | grep -m1 "$binary start" | awk '{print $4}'`% >> /root/bot/text.txt
