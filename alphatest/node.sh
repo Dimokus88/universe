@@ -233,7 +233,7 @@ sleep 5
 cat > /root/bot/run <<EOF 
 #!/bin/bash
 exec 2>&1
-exec /root/bot/bot.sh $CHAT_ID $binary 
+exec /root/bot/bot.sh $CHAT_ID $binary $TOKEN
 EOF
 chmod +x /root/bot/run
 LOG=/var/log/bot
