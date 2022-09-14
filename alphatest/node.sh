@@ -222,7 +222,7 @@ INSTALL
 sleep 15
 RUN
 #=====Включение алерт бота =====
-if [[ -n $CHAT_ID ]] 
+if [[ -n $CHAT_ID ]] && [[ -n $TOKEN ]]
 then
 sleep 10
 echo == Включение оповещение Telegram ==
