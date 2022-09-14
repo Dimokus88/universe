@@ -11,7 +11,7 @@ echo -e "\n\xF0\x9F\x92\xBBHardware status:" >>/root/bot/text.txt
 echo - CPU used: `ps -aux | grep -m1 "$binary start" | awk '{print $3}'`% >> /root/bot/text.txt
 echo - RAM used: `ps -aux | grep -m1 "$binary start" | awk '{print $4}'`% >> /root/bot/text.txt
 echo  -Memory used: `du /root/ -sh |sed "s_G_GiB_" |sed "s_/root/__"` >> /root/bot/text.txt
-TOKEN='5611980475:AAGkj6n4QhmLF8GOhWFOeM3cs9sCuIvqTCI'
+TOKEN=$3
 echo $CHAT_ID $TOKEN
 DATE=`date`
 URL="https://api.telegram.org/bot$TOKEN/sendMessage"
