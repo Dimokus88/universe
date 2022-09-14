@@ -19,7 +19,6 @@ echo $folder
 echo $vers
 sleep 10
 echo 'export MONIKER='${MONIKER} >> /root/.bashrc
-echo 'export valoper='${valoper} >> /root/.bashrc
 echo 'export CHAT_ID='${CHAT_ID} >> /root/.bashrc
 echo 'export denom='${denom} >> /root/.bashrc
 echo 'export chain='${chain} >> /root/.bashrc
@@ -223,7 +222,7 @@ INSTALL
 sleep 15
 RUN
 #=====Включение алерт бота =====
-if [[ -n $CHAT_ID ]] && [[ -n $valoper ]]
+if [[ -n $CHAT_ID ]] 
 then
 sleep 10
 echo == Включение оповещение Telegram ==
@@ -234,7 +233,7 @@ sleep 5
 cat > /root/bot/run <<EOF 
 #!/bin/bash
 exec 2>&1
-exec /root/bot/bot.sh $CHAT_ID $binary $valoper
+exec /root/bot/bot.sh $CHAT_ID $binary 
 EOF
 chmod +x /root/bot/run
 LOG=/var/log/bot
