@@ -221,7 +221,16 @@ ln -s /root/$binary /etc/service
 INSTALL
 sleep 15
 RUN
+sleep 30
+catching_up=`curl -s localhost:26657/status | jq -r .result.sync_info.catching_up`
+while [[ "$catching_up" -eq "true" ]]
+do
+echo == Нода не синхронизирована ==
+sleep 2m
+catching_up=`curl -s localhost:26657/status | jq -r .result.sync_info.catching_up`
+done
 #=====Включение алерт бота =====
+
 if [[ -n $CHAT_ID ]] && [[ -n $TOKEN ]]
 then
 sleep 10
