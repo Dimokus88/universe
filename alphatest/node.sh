@@ -228,6 +228,7 @@ do
 echo == Нода не синхронизирована ==
 sleep 2m
 catching_up=`curl -s localhost:26657/status | jq -r .result.sync_info.catching_up`
+echo $catching_up
 done
 #=====Включение алерт бота =====
 
