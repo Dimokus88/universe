@@ -19,6 +19,7 @@ sleep 1
 MESSAGE=`cat /root/tmp/proposal$id.txt`
 TEXT="%0AFind proposal:  %0A$MESSAGE"
 curl -s --max-time $TTL -d "chat_id=$CHAT_ID&parse_mode=$PARSER&disable_web_page_preview=1&text=$TEXT" $URL
+sleep 2
 fi
 echo complited
 done
