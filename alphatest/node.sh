@@ -223,7 +223,7 @@ sleep 15
 RUN
 sleep 30
 catching_up=`curl -s localhost:26657/status | jq -r .result.sync_info.catching_up`
-while [[ "$catching_up" -eq "true" ]]
+while [[ "$catching_up" -eq false ]]
 do
 echo == Нода не синхронизирована ==
 sleep 2m
