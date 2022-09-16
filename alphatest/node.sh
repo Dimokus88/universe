@@ -236,8 +236,6 @@ if [[ -n $CHAT_ID ]] && [[ -n $TOKEN ]]
 then
 apt install -y python3 pip
 pip install pyTelegramBotAPI
-pip install os
-pip install subprocess
 sleep 10
 echo == Включение оповещение Telegram ==
 mkdir /root/bot/
