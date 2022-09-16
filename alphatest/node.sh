@@ -234,16 +234,45 @@ done
 
 if [[ -n $CHAT_ID ]] && [[ -n $TOKEN ]]
 then
+apt install -y python3 pip
+pip install pyTelegramBotAPI
+pip install os
+pip install subprocess
 sleep 10
 echo == Включение оповещение Telegram ==
 mkdir /root/bot/
-wget -O /root/bot/bot.sh https://raw.githubusercontent.com/Dimokus88/universe/main/script/alert_bot.sh && chmod +x /root/bot/bot.sh
+wget -O /root/bot/status.sh https://raw.githubusercontent.com/Dimokus88/universe/main/bots/status.sh && chmod +x /root/bot/status.sh
+cat > /root/bot/CosmoBot.py <<EOF 
+import telebot
+from telebot import types
+import os
+import subprocess
+bot = telebot.TeleBot("$TOKEN")
+binary = os.getenv('bunary')
+@bot.message_handler(commands=['start'])
+def start_message(message):
+        bot.send_message(message.chat.id,"Welcome to Akash Nodes Alert Bot!")
+        markup=types.ReplyKeyboardMarkup(resize_keyboard=True)
+        item1=types.KeyboardButton("Status")
+        markup.add(item1)
+        bot.send_message(message.chat.id,"Select functions please!",reply_markup=markup)
+
+@bot.message_handler(content_types=['text'])
+def handle_text(message):
+        if message.text == "Status":
+                subprocess.check_call("/root/bot/script.sh '%s'" % binary, shell=True)
+                text = open ('/root/bot/text.txt')
+                bot.send_message(message.chat.id,text.read())
+bot.infinity_polling()
+EOF
+chmod +x /root/bot/CosmoBot.py
+
 mkdir /root/bot/log
 sleep 5  
 cat > /root/bot/run <<EOF 
 #!/bin/bash
 exec 2>&1
-exec /root/bot/bot.sh $CHAT_ID $binary $TOKEN
+exec python3 /root/bot/CosmoBot.py
 EOF
 chmod +x /root/bot/run
 LOG=/var/log/bot
