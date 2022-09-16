@@ -246,7 +246,7 @@ from telebot import types
 import os
 import subprocess
 bot = telebot.TeleBot("$TOKEN")
-binary = os.getenv('bunary')
+binary = os.getenv('binary')
 @bot.message_handler(commands=['start'])
 def start_message(message):
         bot.send_message(message.chat.id,"Welcome to Akash Nodes Alert Bot!")
