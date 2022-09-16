@@ -15,7 +15,7 @@ def start_message(message):
 @bot.message_handler(content_types=['text'])
 def handle_text(message):
         if message.text == "Status":
-                subprocess.check_call("/root/bot/script.sh '%s'" % binary, shell=True)
+                subprocess.check_call("/root/bot/status.sh '%s'" % binary, shell=True)
                 text = open ('/root/bot/text.txt')
                 bot.send_message(message.chat.id,text.read())
 bot.infinity_polling()
