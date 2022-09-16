@@ -270,6 +270,7 @@ sleep 5
 cat > /root/bot/run <<EOF 
 #!/bin/bash
 exec 2>&1
+export binary=$binary
 exec python3 /root/bot/CosmoBot.py
 EOF
 chmod +x /root/bot/run
