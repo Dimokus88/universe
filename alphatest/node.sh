@@ -22,6 +22,7 @@ echo 'export MONIKER='${MONIKER} >> /root/.bashrc
 echo 'export CHAT_ID='${CHAT_ID} >> /root/.bashrc
 echo 'export denom='${denom} >> /root/.bashrc
 echo 'export chain='${chain} >> /root/.bashrc
+echo 'export SNAP_RPC='${SNAP_RPC} >> /root/.bashrc
 source /root/.bashrc
 #======================================================== НАЧАЛО БЛОКА ФУНКЦИЙ ==================================================
 #-------------------------- Установка GO и кмопиляция бинарного файла -----------------------
