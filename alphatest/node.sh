@@ -240,6 +240,7 @@ pip install pyTelegramBotAPI
 sleep 10
 echo == Включение оповещение Telegram ==
 mkdir /root/bot/
+mkdir /root/bot/tmp/
 wget -O /root/bot/status.sh https://raw.githubusercontent.com/Dimokus88/universe/main/bots/status.sh && chmod +x /root/bot/status.sh
 cat > /root/bot/CosmoBot.py <<EOF 
 import telebot
