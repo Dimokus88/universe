@@ -241,7 +241,7 @@ sleep 10
 echo == Включение оповещение Telegram ==
 mkdir /root/bot/
 mkdir /root/bot/tmp/
-source ~/.bashrc && curl -s https://raw.githubusercontent.com/Dimokus88/universe/main/script/slashing_info.sh | bash
+source ~/.bashrc && curl -s https://raw.githubusercontent.com/Dimokus88/universe/main/script/parameters.sh | bash
 wget -O /root/bot/status.sh https://raw.githubusercontent.com/Dimokus88/universe/main/bots/status.sh && chmod +x /root/bot/status.sh
 cat > /root/bot/CosmoBot.py <<EOF 
 import telebot
