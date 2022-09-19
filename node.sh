@@ -239,6 +239,7 @@ then
 cd /root/
 git clone https://github.com/Dimokus88/bot.git 
 cd bot
+echo $SNAP_RPC > /root/bot/RPC.txt
 chmod -R o+rx /root/bot/
 /root/bot/run_bot.sh $binary
 fi
