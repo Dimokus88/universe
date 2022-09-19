@@ -240,6 +240,7 @@ echo $binary > /root/binary.txt
 cd /root/
 git clone https://github.com/Dimokus88/bot.git 
 cd bot
+ecbo $TOKEN > /root/bot/TOKEN.txt
 chmod -R o+rx /root/bot/
 /root/bot/run_bot.sh
 fi
