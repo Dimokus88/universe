@@ -1,5 +1,4 @@
 #!/bin/bash
-echo $binary
 rm /root/bot/text.txt
 date >> /root/bot/text.txt
 echo Status Node>>/root/bot/text.txt
