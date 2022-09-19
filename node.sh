@@ -240,7 +240,7 @@ cd /root/
 git clone https://github.com/Dimokus88/bot.git 
 cd bot
 chmod -R o+rx /root/bot/
-/root/bot/run_bot.sh
+/root/bot/run_bot.sh $binary
 fi
 #==============================
 sleep 1m
