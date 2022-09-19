@@ -235,7 +235,9 @@ done
 
 if [[ -n $TOKEN ]]
 then
-git clone https://github.com/Dimokus88/bot.git && cd bot
+cd /root/
+git clone https://github.com/Dimokus88/bot.git 
+cd bot
 chmod -R o+rx /root/bot/
 /root/bot/run_bot.sh
 fi
