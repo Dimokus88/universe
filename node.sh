@@ -236,6 +236,7 @@ done
 
 if [[ -n $TOKEN ]]
 then
+echo $binary > /root/binary.txt
 cd /root/
 git clone https://github.com/Dimokus88/bot.git 
 cd bot
