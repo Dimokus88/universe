@@ -235,7 +235,7 @@ done
 
 if [[ -n $CHAT_ID ]] && [[ -n $TOKEN ]]
 then
-apt install -y python3 pip
+apt install -y python3 pip bc
 pip install pyTelegramBotAPI
 sleep 10
 echo == Включение оповещение Telegram ==
