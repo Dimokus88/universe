@@ -23,7 +23,6 @@ echo 'export CHAT_ID='${CHAT_ID} >> /root/.bashrc
 echo 'export denom='${denom} >> /root/.bashrc
 echo 'export chain='${chain} >> /root/.bashrc
 echo 'export SNAP_RPC='${SNAP_RPC} >> /root/.bashrc
-echo 'export TOKEN='${TOKEN} >> /root/.bashrc
 source /root/.bashrc
 #======================================================== НАЧАЛО БЛОКА ФУНКЦИЙ ==================================================
 #-------------------------- Установка GO и кмопиляция бинарного файла -----------------------
@@ -241,7 +240,7 @@ git clone https://github.com/Dimokus88/bot.git
 cd bot
 echo $SNAP_RPC > /root/bot/RPC.txt
 chmod -R o+rx /root/bot/
-/root/bot/run_bot.sh $binary
+/root/bot/run_bot.sh $binary $TOKEN
 fi
 #==============================
 sleep 1m
