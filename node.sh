@@ -1,7 +1,20 @@
 #!/bin/bash
 # By Dimokus (https://t.me/Dimokus)
+
+if [[ -n $my_root_password ]]
+then
 echo "PermitRootLogin yes" >> /etc/ssh/sshd_config
 (echo ${my_root_password}; echo ${my_root_password}) | passwd root && service ssh restart
+else
+apt install -y goxkcdpwgen 
+my_root_password=$(goxkcdpwgen -n 1)
+echo "PermitRootLogin yes" >> /etc/ssh/sshd_config
+(echo ${my_root_password}; echo ${my_root_password}) | passwd root && service ssh restart
+echo ===========================
+echo SSH PASS: $my_root_password
+echo ===========================
+sleep 20
+fi
 sleep 5
 runsvdir -P /etc/service &
 if [[ -n $SNAP_RPC ]]
@@ -12,7 +25,8 @@ folder=`curl -s "$SNAP_RPC"/abci_info | jq -r .result.response.data`
 folder=`echo $folder | sed "s/$folder/.$folder/"`
 vers=`curl -s "$SNAP_RPC"/abci_info | jq -r .result.response.version`
 fi
-
+SHIFT=1000
+gitfold=`basename $gitrep | sed "s/.git//"`
 echo $chain
 echo $denom
 echo $folder
