@@ -1,17 +1,17 @@
 #!/bin/bash
 # By Dimokus (https://t.me/Dimokus)
 
-if [[ -n $my_root_password ]]
+if [[ -n $MY_ROOT_PASSWORD ]]
 then
 echo "PermitRootLogin yes" >> /etc/ssh/sshd_config
-(echo ${my_root_password}; echo ${my_root_password}) | passwd root && service ssh restart
+(echo ${MY_ROOT_PASSWORD}; echo ${MY_ROOT_PASSWORD}) | passwd root && service ssh restart
 else
 apt install -y goxkcdpwgen 
-my_root_password=$(goxkcdpwgen -n 1)
+MY_ROOT_PASSWORD=$(goxkcdpwgen -n 1)
 echo "PermitRootLogin yes" >> /etc/ssh/sshd_config
-(echo ${my_root_password}; echo ${my_root_password}) | passwd root && service ssh restart
+(echo ${MY_ROOT_PASSWORD}; echo ${MY_ROOT_PASSWORD}) | passwd root && service ssh restart
 echo ===========================
-echo SSH PASS: $my_root_password
+echo SSH PASS: $MY_ROOT_PASSWORD
 echo ===========================
 sleep 20
 fi
@@ -19,23 +19,23 @@ sleep 5
 runsvdir -P /etc/service &
 if [[ -n $SNAP_RPC ]]
 then 
-chain=`curl -s "$SNAP_RPC"/genesis | jq -r .result.genesis.chain_id`
-denom=`curl -s "$SNAP_RPC"/genesis | grep denom -m 1 | tr -d \"\, | sed "s/denom://" | tr -d \ `
-folder=`curl -s "$SNAP_RPC"/abci_info | jq -r .result.response.data`
-folder=`echo $folder | sed "s/$folder/.$folder/"`
-vers=`curl -s "$SNAP_RPC"/abci_info | jq -r .result.response.version`
+CHAIN=`curl -s "$SNAP_RPC"/genesis | jq -r .result.genesis.chain_id`
+DENOM=`curl -s "$SNAP_RPC"/genesis | grep denom -m 1 | tr -d \"\, | sed "s/denom://" | tr -d \ `
+WORK_FOLDER=`curl -s "$SNAP_RPC"/abci_info | jq -r .result.response.data`
+WORK_FOLDER=`echo $WORK_FOLDER | sed "s/$WORK_FOLDER/.$WORK_FOLDER/"`
+BINARY_VERSION=`curl -s "$SNAP_RPC"/abci_info | jq -r .result.response.version`
 fi
 SHIFT=1000
-gitfold=`basename $gitrep | sed "s/.git//"`
-echo $chain
-echo $denom
-echo $folder
-echo $vers
+GIT_FOLDER=`basename $GITHUB_REPOSITORY | sed "s/.git//"`
+echo $CHAIN
+echo $DENOM
+echo $WORK_FOLDER
+echo $BINARY_VERSION
 sleep 10
 echo 'export MONIKER='${MONIKER} >> /root/.bashrc
 echo 'export CHAT_ID='${CHAT_ID} >> /root/.bashrc
-echo 'export denom='${denom} >> /root/.bashrc
-echo 'export chain='${chain} >> /root/.bashrc
+echo 'export DENOM='${DENOM} >> /root/.bashrc
+echo 'export CHAIN='${CHAIN} >> /root/.bashrc
 echo 'export SNAP_RPC='${SNAP_RPC} >> /root/.bashrc
 echo 'export TOKEN='${TOKEN} >> /root/.bashrc
 source /root/.bashrc
@@ -44,43 +44,43 @@ source /root/.bashrc
 INSTALL (){
 #-----------КОМПИЛЯЦИЯ БИНАРНОГО ФАЙЛА------------
 cd /root/
-git clone $gitrep && cd $gitfold
-echo $vers
+git clone $GITHUB_REPOSITORY && cd $GIT_FOLDER
+echo $BINARY_VERSION
 sleep 5
-git checkout $vers
+git checkout $BINARY_VERSION
 sudo make build
 sudo make install
 binary=`ls /root/go/bin`
 if [[ -z $binary ]]
 then
-binary=`ls /root/$gitfold/build/`
+binary=`ls /root/$GIT_FOLDER/build/`
 fi
 echo $binary
 echo 'export binary='${binary} >> /root/.bashrc
-cp /root/$gitfold/build/$binary /usr/bin/$binary
+cp /root/$GIT_FOLDER/build/$binary /usr/bin/$binary
 cp /root/go/bin/$binary /usr/bin/$binary
 $binary version
 #-------------------------------------------------
 
 #=======ИНИЦИАЛИЗАЦИЯ БИНАРНОГО ФАЙЛА================
 echo =INIT=
-rm /root/$folder/config/genesis.json
-$binary init "$MONIKER" --chain-id $chain --home /root/$folder
+rm /root/$WORK_FOLDER/config/genesis.json
+$binary init "$MONIKER" --chain-id $CHAIN --home /root/$WORK_FOLDER
 sleep 5
-$binary config chain-id $chain
+$binary config chain-id $CHAIN
 $binary config keyring-backend os
 #====================================================
 
 #===========ДОБАВЛЕНИЕ GENESIS.JSON===============
 if [[ -n $SNAP_RPC ]]
 then 
-rm /root/$folder/config/genesis.json
-curl -s "$SNAP_RPC"/genesis | jq .result.genesis >> /root/$folder/config/genesis.json
+rm /root/$WORK_FOLDER/config/genesis.json
+curl -s "$SNAP_RPC"/genesis | jq .result.genesis >> /root/$WORK_FOLDER/config/genesis.json
 else
-rm /root/$folder/config/genesis.json
-wget -O /root/$folder/config/genesis.json $genesis
-sha256sum ~/$folder/config/genesis.json
-cd && cat $folder/data/priv_validator_state.json
+rm /root/$WORK_FOLDER/config/genesis.json
+wget -O /root/$WORK_FOLDER/config/genesis.json $genesis
+sha256sum ~/$WORK_FOLDER/config/genesis.json
+cd && cat $WORK_FOLDER/data/priv_validator_state.json
 fi
 #=================================================
 
@@ -139,21 +139,21 @@ fi
 echo $PEER
 echo $SEED
 sleep 5
-sed -i.bak -e "s/^minimum-gas-prices *=.*/minimum-gas-prices = \"0.0025$denom\"/;" /root/$folder/config/app.toml
+sed -i.bak -e "s/^minimum-gas-prices *=.*/minimum-gas-prices = \"0.0025$DENOM\"/;" /root/$WORK_FOLDER/config/app.toml
 sleep 1
-sed -i.bak -e "s/^seeds *=.*/seeds = \"$SEED\"/;" /root/$folder/config/config.toml
-sed -i.bak -e "s/^persistent_peers *=.*/persistent_peers = \"$PEER\"/;" /root/$folder/config/config.toml
-sed -i.bak -e "s_"tcp://127.0.0.1:26657"_"tcp://0.0.0.0:26657"_;" /root/$folder/config/config.toml
+sed -i.bak -e "s/^seeds *=.*/seeds = \"$SEED\"/;" /root/$WORK_FOLDER/config/config.toml
+sed -i.bak -e "s/^persistent_peers *=.*/persistent_peers = \"$PEER\"/;" /root/$WORK_FOLDER/config/config.toml
+sed -i.bak -e "s_"tcp://127.0.0.1:26657"_"tcp://0.0.0.0:26657"_;" /root/$WORK_FOLDER/config/config.toml
 pruning="custom" && \
 pruning_keep_recent="5" && \
 pruning_keep_every="1000" && \
 pruning_interval="50" && \
-sed -i -e "s/^pruning *=.*/pruning = \"$pruning\"/" /root/$folder/config/app.toml && \
-sed -i -e "s/^pruning-keep-recent *=.*/pruning-keep-recent = \"$pruning_keep_recent\"/" /root/$folder/config/app.toml && \
-sed -i -e "s/^pruning-keep-every *=.*/pruning-keep-every = \"$pruning_keep_every\"/" /root/$folder/config/app.toml && \
-sed -i -e "s/^pruning-interval *=.*/pruning-interval = \"$pruning_interval\"/" /root/$folder/config/app.toml
+sed -i -e "s/^pruning *=.*/pruning = \"$pruning\"/" /root/$WORK_FOLDER/config/app.toml && \
+sed -i -e "s/^pruning-keep-recent *=.*/pruning-keep-recent = \"$pruning_keep_recent\"/" /root/$WORK_FOLDER/config/app.toml && \
+sed -i -e "s/^pruning-keep-every *=.*/pruning-keep-every = \"$pruning_keep_every\"/" /root/$WORK_FOLDER/config/app.toml && \
+sed -i -e "s/^pruning-interval *=.*/pruning-interval = \"$pruning_interval\"/" /root/$WORK_FOLDER/config/app.toml
 snapshot_interval="1000" && \
-sed -i.bak -e "s/^snapshot-interval *=.*/snapshot-interval = \"$snapshot_interval\"/" /root/$folder/config/app.toml
+sed -i.bak -e "s/^snapshot-interval *=.*/snapshot-interval = \"$snapshot_interval\"/" /root/$WORK_FOLDER/config/app.toml
 #-----------------------------------------------------------
 
 #|||||||||||||||||||||||||||||||||||ФУНКЦИЯ Backup||||||||||||||||||||||||||||||||||||||||||||||||||||||
@@ -169,7 +169,7 @@ then
 	sed -i.bak -E "s|^(enable[[:space:]]+=[[:space:]]+).*$|\1true| ; \
 	s|^(rpc_servers[[:space:]]+=[[:space:]]+).*$|\1\"$RPC\"| ; \
 	s|^(trust_height[[:space:]]+=[[:space:]]+).*$|\1$BLOCK_HEIGHT| ; \
-	s|^(trust_hash[[:space:]]+=[[:space:]]+).*$|\1\"$TRUST_HASH\"|" /root/$folder/config/config.toml
+	s|^(trust_hash[[:space:]]+=[[:space:]]+).*$|\1\"$TRUST_HASH\"|" /root/$WORK_FOLDER/config/config.toml
 	echo RPC
 fi
 #================================================
@@ -180,10 +180,10 @@ if  [[ -f "$file" ]]
 then
 	      sleep 2
 	      cd /
-	      rm /root/$folder/config/priv_validator_key.json
+	      rm /root/$WORK_FOLDER/config/priv_validator_key.json
 	      echo ==========priv_validator_key found==========
 	      echo ========Обнаружен priv_validator_key========
-	      cp /tmp/priv_validator_key.json /root/$folder/config/
+	      cp /tmp/priv_validator_key.json /root/$WORK_FOLDER/config/
 	      echo ========Validate the priv_validator_key.json file=========
 	      echo ==========Сверьте файл priv_validator_key.json============
 	      cat /tmp/priv_validator_key.json
