@@ -23,7 +23,7 @@ CHAIN=`curl -s "$SNAP_RPC"/genesis | jq -r .result.genesis.chain_id`
 DENOM=`curl -s "$SNAP_RPC"/genesis | grep denom -m 1 | tr -d \"\, | sed "s/denom://" | tr -d \ `
 WORK_FOLDER=`curl -s "$SNAP_RPC"/abci_info | jq -r .result.response.data`
 WORK_FOLDER=`echo $WORK_FOLDER | sed "s/$WORK_FOLDER/.$WORK_FOLDER/"`
-BINARY_VERSION=`curl -s "$SNAP_RPC"/abci_info | jq -r .result.response.version`
+BINARY_VERSION=v`curl -s "$SNAP_RPC"/abci_info | jq -r .result.response.version`
 fi
 SHIFT=1000
 GIT_FOLDER=`basename $GITHUB_REPOSITORY | sed "s/.git//"`
