@@ -19,8 +19,7 @@ sleep 5
 runsvdir -P /etc/service &
 if [[ -n $SNAP_RPC ]]
 then 
-CHAIN=`curl -s "$SNAP_RPC"/genesis | jq -r .result.genesis.chain_id`
-DENOM=`curl -s "$SNAP_RPC"/genesis | grep denom -m 1 | tr -d \"\, | sed "s/denom://" | tr -d \ `
+CHAIN=`curl -s "$SNAP_RPC"/status | jq -r .result.node_info.network`
 WORK_FOLDER=`curl -s "$SNAP_RPC"/abci_info | jq -r .result.response.data`
 WORK_FOLDER=`echo $WORK_FOLDER | sed "s/$WORK_FOLDER/.$WORK_FOLDER/"`
 BINARY_VERSION=v`curl -s "$SNAP_RPC"/abci_info | jq -r .result.response.version`
@@ -28,14 +27,12 @@ fi
 SHIFT=1000
 GIT_FOLDER=`basename $GITHUB_REPOSITORY | sed "s/.git//"`
 echo $CHAIN
-echo $DENOM
 echo $WORK_FOLDER
 echo $BINARY_VERSION
 echo $GENESIS
 sleep 10
 echo 'export MONIKER='${MONIKER} >> /root/.bashrc
 echo 'export CHAT_ID='${CHAT_ID} >> /root/.bashrc
-echo 'export DENOM='${DENOM} >> /root/.bashrc
 echo 'export CHAIN='${CHAIN} >> /root/.bashrc
 echo 'export SNAP_RPC='${SNAP_RPC} >> /root/.bashrc
 echo 'export TOKEN='${TOKEN} >> /root/.bashrc
@@ -80,14 +77,15 @@ rm /root/$WORK_FOLDER/config/genesis.json
 	if [[ -n $GENESIS ]]
 	then
 	wget -O $HOME/$folder/config/genesis.json $GENESIS
+	DENOM=`cat $HOME/$folder/config/genesis.json | grep denom -m 1 | tr -d \"\, | sed "s/denom://" | tr -d \ `
+	echo 'export DENOM='${DENOM} >> /root/.bashrc
 	else
 	curl -s "$SNAP_RPC"/genesis | jq .result.genesis >> /root/$WORK_FOLDER/config/genesis.json
+	DENOM=`curl -s "$SNAP_RPC"/genesis | grep denom -m 1 | tr -d \"\, | sed "s/denom://" | tr -d \ `
+	echo 'export DENOM='${DENOM} >> /root/.bashrc
 	fi
-else
-rm /root/$WORK_FOLDER/config/genesis.json
-wget -O /root/$WORK_FOLDER/config/genesis.json $genesis
-sha256sum ~/$WORK_FOLDER/config/genesis.json
-cd && cat $WORK_FOLDER/data/priv_validator_state.json
+echo $DENOM
+sleep 5
 fi
 #=================================================
 
