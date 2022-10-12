@@ -31,6 +31,7 @@ echo $CHAIN
 echo $DENOM
 echo $WORK_FOLDER
 echo $BINARY_VERSION
+echo $GENESIS
 sleep 10
 echo 'export MONIKER='${MONIKER} >> /root/.bashrc
 echo 'export CHAT_ID='${CHAT_ID} >> /root/.bashrc
@@ -38,6 +39,7 @@ echo 'export DENOM='${DENOM} >> /root/.bashrc
 echo 'export CHAIN='${CHAIN} >> /root/.bashrc
 echo 'export SNAP_RPC='${SNAP_RPC} >> /root/.bashrc
 echo 'export TOKEN='${TOKEN} >> /root/.bashrc
+echo 'export GENESIS='${GENESIS} >> /root/.bashrc
 source /root/.bashrc
 #======================================================== НАЧАЛО БЛОКА ФУНКЦИЙ ==================================================
 #-------------------------- Установка GO и кмопиляция бинарного файла -----------------------
@@ -75,7 +77,12 @@ $binary config keyring-backend os
 if [[ -n $SNAP_RPC ]]
 then 
 rm /root/$WORK_FOLDER/config/genesis.json
-curl -s "$SNAP_RPC"/genesis | jq .result.genesis >> /root/$WORK_FOLDER/config/genesis.json
+	if [[ -n $GENESIS ]]
+	then
+	wget -O $HOME/$folder/config/genesis.json $GENESIS
+	else
+	curl -s "$SNAP_RPC"/genesis | jq .result.genesis >> /root/$WORK_FOLDER/config/genesis.json
+	fi
 else
 rm /root/$WORK_FOLDER/config/genesis.json
 wget -O /root/$WORK_FOLDER/config/genesis.json $genesis
