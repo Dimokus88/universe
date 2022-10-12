@@ -8,6 +8,7 @@ MONIKER=`cat ~/.bashrc | grep MONIKER | sed -e "s_export MONIKER=__;"`
 echo -e "\n=== Starting the script to create the validator =="
 echo -e "\n== Начало работы скрипта по созданию валидатора =="
 wallet_name=wallet
+echo 'export wallet_name='${wallet_name} >> $HOME/.bashrc
 sleep 2
 echo -e "\n==== Importing wallet, enter mnemonic and set password (hidden input!) ===="
 echo -e "\n== Импортирую кошелек, введите mnemonic и задайте пароль (скрытый ввод!) =="
