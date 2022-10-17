@@ -56,15 +56,15 @@ echo -e "\n== Creating a validator =="
 echo -e "\n==== Создаю валидатора ==="
 sleep 2
 DATE=`date`
-(echo ${WALLET_PASS}) | $binary tx staking create-validator --amount="900000$DENOM" --pubkey=$($binary tendermint show-validator) --moniker="$MONIKER" --chain-id="$CHAIN" --commission-rate="0.10" --commission-max-rate="0.20" --commission-max-change-rate="0.01" --min-self-delegation="100000" --from="$address" --details="Powered on Akash Network! Create $DATE" --fees="5550$DENOM" -y
+(echo ${WALLET_PASS}) | $binary tx staking create-validator --amount="900000$DENOM" --pubkey=$($binary tendermint show-validator) --moniker="$MONIKER" --chain-id="$CHAIN" --commission-rate="0.10" --commission-max-rate="0.20" --commission-max-change-rate="0.01" --min-self-delegation="100000" --from="$address" --details="Powered on Akash Network! Create $DATE" --fees="10000$DENOM" -y
 sleep 10
 val=`$binary query staking validator $valoper -o json | jq -r .description.moniker`
 if [[ -z "$val" ]]
 then
-echo "\n========================================= Validator not created! ==========================================="
-echo "\n======== Check the log for errors, you can contact Akash_ru chat for support: https://t.me/AkashNW ========="
-echo "\n========================================== Валидатор не создан! ============================================"
-echo "\n== Проверьте лог на наличие ошибок, за поддержкой можете обратиться в чат Akash_ru: https://t.me/akash_ru =="
+echo -e "\n========================================= Validator not created! ==========================================="
+echo -e "\n======== Check the log for errors, you can contact Akash_ru chat for support: https://t.me/AkashNW ========="
+echo -e "\n========================================== Валидатор не создан! ============================================"
+echo -e "\n== Проверьте лог на наличие ошибок, за поддержкой можете обратиться в чат Akash_ru: https://t.me/akash_ru =="
 else
 echo -e "\n== $val validator created successfully! =="
 echo -e "\n===== Валидатор $val успешно создан! ====="
