@@ -246,7 +246,8 @@ sleep 30
 catching_up=`curl -s localhost:26657/status | jq -r .result.sync_info.catching_up`
 while [[ $catching_up == true ]]
 do
-echo == Нода не синхронизирована ==
+echo == Нода не синхронизирована, ожидайте.. ==
+echo == Node out of sync, please wait.. ==
 sleep 2m
 catching_up=`curl -s localhost:26657/status | jq -r .result.sync_info.catching_up`
 echo $catching_up
