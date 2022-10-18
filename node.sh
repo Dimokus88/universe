@@ -24,7 +24,7 @@ WORK_FOLDER=`curl -s "$SNAP_RPC"/abci_info | jq -r .result.response.data`
 WORK_FOLDER=`echo $WORK_FOLDER | sed "s/$WORK_FOLDER/.$WORK_FOLDER/"`
 BINARY_VERSION=v`curl -s "$SNAP_RPC"/abci_info | jq -r .result.response.version`
 fi
-SHIFT=1000
+SHIFT=5000
 GIT_FOLDER=`basename $GITHUB_REPOSITORY | sed "s/.git//"`
 echo $CHAIN
 echo $WORK_FOLDER
