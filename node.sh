@@ -32,7 +32,7 @@ echo $BINARY_VERSION
 echo $GENESIS
 sleep 10
 echo 'export MONIKER='${MONIKER} >> /root/.bashrc
-echo 'export CHAT_ID='${CHAT_ID} >> /root/.bashrc
+echo 'export WORK_FOLDER='${WORK_FOLDER} >> /root/.bashrc
 echo 'export CHAIN='${CHAIN} >> /root/.bashrc
 echo 'export SNAP_RPC='${SNAP_RPC} >> /root/.bashrc
 echo 'export TOKEN='${TOKEN} >> /root/.bashrc
@@ -63,7 +63,6 @@ $binary version
 
 #=======ИНИЦИАЛИЗАЦИЯ БИНАРНОГО ФАЙЛА================
 echo =INIT=
-rm /root/$WORK_FOLDER/config/genesis.json
 $binary init "$MONIKER" --chain-id $CHAIN --home /root/$WORK_FOLDER
 sleep 5
 $binary config chain-id $CHAIN
@@ -161,7 +160,6 @@ snapshot_interval="1000" && \
 sed -i.bak -e "s/^snapshot-interval *=.*/snapshot-interval = \"$snapshot_interval\"/" /root/$WORK_FOLDER/config/app.toml
 #-----------------------------------------------------------
 
-#|||||||||||||||||||||||||||||||||||ФУНКЦИЯ Backup||||||||||||||||||||||||||||||||||||||||||||||||||||||
 # ====================RPC======================
 if [[ -n $SNAP_RPC ]]
 then
@@ -178,7 +176,6 @@ then
 	echo RPC
 fi
 #================================================
-# |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 wget -O /tmp/priv_validator_key.json ${LINK_KEY}
 file=/tmp/priv_validator_key.json
 if  [[ -f "$file" ]]
@@ -200,7 +197,7 @@ then
 	echo "===== If you don't have a key file, use the instructions at the link below ======="
 	echo "== https://github.com/Dimokus88/guides/blob/main/Cosmos%20SDK/valkey/README.md ===="
 	echo "==================================================================================="
-	echo "========  priv_validator_key ненайден! Укажите ссылку напрямое скачивание  ========"
+	echo "========  priv_validator_key не найден! Укажите ссылку напрямое скачивание  ======="
 	echo "========  файла ключа валидатора в переменной LINK_KEY в вашем deploy.yml  ========"
 	echo "=====  Если у вас нет файла ключа, воспользуйтесь инструкцией по ссылке ниже ====="
 	echo "== https://github.com/Dimokus88/guides/blob/main/Cosmos%20SDK/valkey/README.md ===="
@@ -215,6 +212,10 @@ then
 }
 
 RUN (){
+# +++++++++++ Защита от двойной подписи ++++++++++++
+
+
+# ++++++++++++++++++++++++++++++++++++++++++++++++++
 #===========ЗАПУСК НОДЫ============
 echo =Run node...=
 cd /
