@@ -145,6 +145,7 @@ echo $SEED
 sleep 5
 sed -i.bak -e "s/^minimum-gas-prices *=.*/minimum-gas-prices = \"0.0025$DENOM\"/;" /root/$WORK_FOLDER/config/app.toml
 sleep 1
+sed -i.bak -e "s/^double_sign_check_height *=.*/double_sign_check_height = 15/;" /root/$WORK_FOLDER/config/config.toml
 sed -i.bak -e "s/^seeds *=.*/seeds = \"$SEED\"/;" /root/$WORK_FOLDER/config/config.toml
 sed -i.bak -e "s/^persistent_peers *=.*/persistent_peers = \"$PEER\"/;" /root/$WORK_FOLDER/config/config.toml
 sed -i.bak -e "s_"tcp://127.0.0.1:26657"_"tcp://0.0.0.0:26657"_;" /root/$WORK_FOLDER/config/config.toml
@@ -213,8 +214,24 @@ then
 
 RUN (){
 # +++++++++++ Защита от двойной подписи ++++++++++++
-
-
+HEX=`cat /root/$WORK_FOLDER/config/priv_validator_key.json | jq -r .address`
+COUNT=15
+CHECKING_BLOCK=`curl -s $SNAP_RPC/abci_info? | jq -r .result.response.last_block_height`
+while [[ $COUNT -gt 0 ]]
+do
+CHEKER=`curl -s $SNAP_RPC/commit?height=$CHECKING_BLOCK | grep $HEX`
+if [[ -n $CHEKER  ]]
+then
+	echo ++ Защита от двойной подписи!++
+	echo ++ ВНИМАНИЕ! ОБНАРУЖЕНА ПОДПИСЬ В ВАЛИДАТОРА НА БЛОКЕ № $CHECKING_BLOCK ! ЗАПУСК НОДЫ ОСТАНОВЛЕН! ++
+	echo ++ Double signature protection!++
+	echo ++ WARNING! VALIDATOR SIGNATURE DETECTED ON BLOCK # $CHECKING_BLOCK ! NODE LAUNCH HAS BEEN STOPPED! ++
+	sleep infinity
+fi
+let COUNT=$COUNT-1
+let CHECKING_BLOCK=$CHECKING_BLOCK-1
+sleep 1
+done
 # ++++++++++++++++++++++++++++++++++++++++++++++++++
 #===========ЗАПУСК НОДЫ============
 echo =Run node...=
