@@ -6,7 +6,8 @@ echo ==============================
 go version
 echo ==============================
 apt -y install tmate
-tmate -F > ~/tmate && echo -e \n
+tmate -F > tmate &
+cat tmate
 sleep 10
 # ++++++++++++ Установка удаленного доступа ++++++++++++++
 
