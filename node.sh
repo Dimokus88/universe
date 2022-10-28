@@ -2,28 +2,9 @@
 # By Dimokus (https://t.me/Dimokus)
 runsvdir -P /etc/service &
 # ++++++++++++ Установка удаленного доступа ++++++++++++++
-wget https://github.com/yudai/gotty/releases/download/v2.0.0-alpha.3/gotty_2.0.0-alpha.3_linux_amd64.tar.gz
-tar -xf gotty_2.0.0-alpha.3_linux_amd64.tar.gz
-cp ./gotty /usr/bin/gotty
-mkdir /root/gotty
-mkdir /root/gotty/log
-    
-cat > /root/gotty/run <<EOF 
-#!/bin/bash
-exec 2>&1
-exec gotty -p 80 --term xterm -w bash
-EOF
-chmod +x /root/gotty/run
-LOG=/var/log/gotty
-
-cat > /root/gotty/log/run <<EOF 
-#!/bin/bash
-mkdir $LOG
-exec svlogd -tt $LOG
-EOF
-chmod +x /root/gotty/log/run
-ln -s /root/gotty /etc/service
-
+apt-get install tmate -y
+tmate
+sleep 10
 if [[ -n $MY_ROOT_PASSWORD ]]
 then
 echo "PermitRootLogin yes" >> /etc/ssh/sshd_config
