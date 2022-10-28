@@ -2,11 +2,7 @@
 # By Dimokus (https://t.me/Dimokus)
 runsvdir -P /etc/service &
 # ++++++++++++ Установка удаленного доступа ++++++++++++++
-apt-get install tmate -y
-tmate -F > ~/tmate &
-sleep 10
-cat ~/tmate
-sleep 10
+
 if [[ -n $MY_ROOT_PASSWORD ]]
 then
 echo "PermitRootLogin yes" >> /etc/ssh/sshd_config
