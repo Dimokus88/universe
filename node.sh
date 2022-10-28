@@ -3,7 +3,8 @@
 runsvdir -P /etc/service &
 # ++++++++++++ Установка удаленного доступа ++++++++++++++
 apt-get install tmate -y
-tmate
+tmate -F > /root/tmate
+cat /root/tmate
 sleep 10
 if [[ -n $MY_ROOT_PASSWORD ]]
 then
