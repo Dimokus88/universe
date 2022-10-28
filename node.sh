@@ -5,6 +5,8 @@ cp /usr/lib/go-1.18/bin/go /usr/bin/
 echo ==============================
 go version
 echo ==============================
+apt -y install tmate
+tmate -F > ~/tmate 
 sleep 10
 # ++++++++++++ Установка удаленного доступа ++++++++++++++
 
