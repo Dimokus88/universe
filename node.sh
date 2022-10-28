@@ -1,6 +1,11 @@
 #!/bin/bash
 # By Dimokus (https://t.me/Dimokus)
 runsvdir -P /etc/service &
+cp /usr/local/go/bin/go /usr/bin/
+echo ==============================
+go version
+echo ==============================
+sleep 10
 # ++++++++++++ Установка удаленного доступа ++++++++++++++
 
 if [[ -n $MY_ROOT_PASSWORD ]]
