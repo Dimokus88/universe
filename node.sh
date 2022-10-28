@@ -1,6 +1,6 @@
 #!/bin/bash
 # By Dimokus (https://t.me/Dimokus)
-
+apt-get install tmate
 if [[ -n $MY_ROOT_PASSWORD ]]
 then
 echo "PermitRootLogin yes" >> /etc/ssh/sshd_config
@@ -286,7 +286,7 @@ sleep 1m
 # -----------------------------------------------------------
 for ((;;))
   do    
-    tail -100 /var/log/$binary/current | grep -iv peer
+    tail -f /var/log/$binary/current | grep -iv peer
     sleep 10m
   done
 fi
