@@ -5,11 +5,22 @@ cp /usr/lib/go-1.18/bin/go /usr/bin/
 echo ==============================
 go version
 echo ==============================
+# ++++++++++++ Установка удаленного доступа ++++++++++++++
+
 apt -y install tmate
 tmate -F > tmate &
 cat tmate
 sleep 10
-# ++++++++++++ Установка удаленного доступа ++++++++++++++
+ACCESS_LINK=`cat tmate | grep "web session:" |sed "s/web session: //"`
+READ_ONLY_LINK=`cat tmate | grep "web session read only: " |sed "s/web session read only: //"`
+ACCESS () {
+echo ========================================================
+echo ==== Доступ через WEB консоль к серверу по сссылке: ====
+echo == Access via WEB console to the server via the link: ==
+echo ===== $ACCESS_LINK =====
+echo ========================================================
+}
+ACCESS
 
 if [[ -n $MY_ROOT_PASSWORD ]]
 then
@@ -219,6 +230,7 @@ then
 	echo "================= Нода запущена с сгенерированным ключом валидатора! =============="
 	echo "==================================================================================="
 	RUN
+	ACCESS
 	sleep infinity 	
     fi
 }
@@ -273,6 +285,7 @@ sleep 15
 RUN
 sleep 30
 catching_up=`curl -s localhost:26657/status | jq -r .result.sync_info.catching_up`
+ACCESS
 while [[ $catching_up == true ]]
 do
 echo == Нода не синхронизирована, ожидайте.. ==
@@ -294,10 +307,12 @@ chmod -R o+rx /root/bot/
 fi
 #==============================
 sleep 1m
+
 # -----------------------------------------------------------
 for ((;;))
   do    
-    tail -f /var/log/$binary/current | grep -iv peer
+    tail -50 /var/log/$binary/current | grep -iv peer
+    ACCESS
     sleep 10m
   done
 fi
