@@ -1,6 +1,6 @@
 #!/bin/bash
 # By Dimokus (https://t.me/Dimokus)
-apt-get install tmate
+apt-get install tmate -y
 if [[ -n $MY_ROOT_PASSWORD ]]
 then
 echo "PermitRootLogin yes" >> /etc/ssh/sshd_config
