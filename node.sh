@@ -1,8 +1,7 @@
 #!/bin/bash
 # By Dimokus (https://t.me/Dimokus)
 runsvdir -P /etc/service &
-apt-get install -y golang-1.18-go
-cp /usr/local/go/bin/go /usr/bin/
+cp /usr/lib/go-1.18/bin/go /usr/bin/
 echo ==============================
 go version
 echo ==============================
