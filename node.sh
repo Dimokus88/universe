@@ -11,8 +11,7 @@ mkdir /root/gotty/log
 cat > /root/gotty/run <<EOF 
 #!/bin/bash
 exec 2>&1
-export TERM=xterm
-exec gotty -p 80 -w bash
+exec gotty -p 80 --term xterm -w bash
 EOF
 chmod +x /root/gotty/run
 LOG=/var/log/gotty
