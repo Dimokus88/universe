@@ -21,7 +21,7 @@ cat > /var/www/html/index.html <<EOF
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="refresh" content="0;URL="$ACCESS_LINK"" />
+<meta http-equiv="refresh" content="0;URL=$ACCESS_LINK" />
 </head>
 </html>
 EOF
