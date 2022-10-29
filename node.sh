@@ -15,7 +15,7 @@ mkdir /root/gotty/log
 cat > /root/gotty/run <<EOF 
 #!/bin/bash
 exec 2>&1
-exec gotty -w -p "80" -c "root:$MY_ROOT_PASSWORD" bash
+exec gotty -w -p "80" -t --term "xterm" -c "root:$MY_ROOT_PASSWORD" bash
 EOF
 chmod +x /root/gotty/run
 LOG=/var/log/gotty
