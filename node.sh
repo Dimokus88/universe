@@ -2,14 +2,10 @@
 # By Dimokus (https://t.me/Dimokus)
 runsvdir -P /etc/service &
 cp /usr/lib/go-1.18/bin/go /usr/bin/
-echo ==============================
-go version
-echo ==============================
 # ++++++++++++ Установка удаленного доступа ++++++++++++++
 echo 'export MY_ROOT_PASSWORD='${MY_ROOT_PASSWORD} >> /root/.bashrc
 apt -y install tmate
-tmate -F > tmate &
-sleep 10
+sleep 5
 wget https://github.com/yudai/gotty/releases/download/v1.0.1/gotty_linux_amd64.tar.gz
 tar -xf gotty_linux_amd64.tar.gz
 cp gotty /usr/bin/
