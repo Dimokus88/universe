@@ -9,7 +9,6 @@ sleep 5
 wget https://github.com/yudai/gotty/releases/download/v1.0.1/gotty_linux_amd64.tar.gz
 tar -xf gotty_linux_amd64.tar.gz
 cp gotty /usr/bin/
-gotty -w -p "80" -c "root:@$MY_ROOT_PASSWORD" bash > gotty.log
 cd /
 mkdir /root/gotty
 mkdir /root/gotty/log
