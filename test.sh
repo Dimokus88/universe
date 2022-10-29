@@ -261,6 +261,7 @@ sleep 5
 RUN
 sleep 30
 catching_up=`curl -s localhost:26657/status | jq -r .result.sync_info.catching_up`
+count=0
 while [[ $catching_up == true ]]
 do
 echo == Нода не синхронизирована, ожидайте.. ==
@@ -270,6 +271,15 @@ catching_up=`curl -s localhost:26657/status | jq -r .result.sync_info.catching_u
 LB=`curl -s localhost:26657/status | jq -r .result.sync_info.latest_block_height`
 echo $catching_up
 echo $LB
+if [[ $LB == 0 ]]
+then
+	count=$count+1
+	if [[ $count == 10 ]]
+	then
+		sv restart $BINARY
+		count=0
+	fi
+fi
 done
 
 # -----------------------------------------------------------
