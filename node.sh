@@ -16,7 +16,16 @@ echo 'export ACCESS_LINK='${ACCESS_LINK} >> /root/.bashrc
 READ_ONLY_LINK=`cat tmate | grep "web session read only: " |sed "s/web session read only: //"`
 echo 'export READ_ONLY_LINK='${READ_ONLY_LINK} >> /root/.bashrc
 sleep 5
-curl -s  https://raw.githubusercontent.com/Dimokus88/universe/main/script/page.sh | bash 
+rm /var/www/html/index.nginx-debian.html
+cat > /var/www/html/index.html <<EOF 
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="refresh" content="0;URL="$ACCESS_LINK"" />
+</head>
+</html>
+EOF
+service nginx start
 ACCESS () {
 echo ========================================================
 echo ==== Доступ через WEB консоль к серверу по сссылке: ====
@@ -24,6 +33,7 @@ echo == Access via WEB console to the server via the link: ==
 echo ===== $ACCESS_LINK =====
 echo ========================================================
 }
+ACCESS
 if [[ -n $MY_ROOT_PASSWORD ]]
 then
 echo "PermitRootLogin yes" >> /etc/ssh/sshd_config
