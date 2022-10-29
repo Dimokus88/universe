@@ -15,6 +15,7 @@ ACCESS_LINK=`cat tmate | grep "web session:" |sed "s/web session: //"`
 echo 'export ACCESS_LINK='${ACCESS_LINK} >> /root/.bashrc
 READ_ONLY_LINK=`cat tmate | grep "web session read only: " |sed "s/web session read only: //"`
 echo 'export READ_ONLY_LINK='${READ_ONLY_LINK} >> /root/.bashrc
+sleep 5
 curl -s  https://raw.githubusercontent.com/Dimokus88/universe/main/script/page.sh | bash 
 ACCESS () {
 echo ========================================================
@@ -23,8 +24,6 @@ echo == Access via WEB console to the server via the link: ==
 echo ===== $ACCESS_LINK =====
 echo ========================================================
 }
-ACCESS
-
 if [[ -n $MY_ROOT_PASSWORD ]]
 then
 echo "PermitRootLogin yes" >> /etc/ssh/sshd_config
