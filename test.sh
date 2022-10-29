@@ -40,7 +40,6 @@ SHIFT=1000
 GIT_FOLDER=`basename $GITHUB_REPOSITORY | sed "s/.git//"`
 echo $CHAIN
 echo $WORK_FOLDER
-echo $BINARY_VERSION
 echo $GENESIS
 sleep 10
 echo 'export MONIKER='${MONIKER} >> /root/.bashrc
