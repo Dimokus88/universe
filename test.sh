@@ -75,7 +75,7 @@ $BINARY config chain-id $CHAIN
 $BINARY config keyring-backend os
 #====================================================
 #===========ДОБАВЛЕНИЕ GENESIS.JSON===============
-if [[ ${!SNAP_RPC} ]]
+if [[ -n ${SNAP_RPC} ]]
 then 
 	rm /root/$BINARY/config/genesis.json
 	curl -s "$SNAP_RPC"/genesis | jq .result.genesis >> /root/$BINARY/config/genesis.json
@@ -83,7 +83,7 @@ then
 	echo 'export DENOM='${DENOM} >> /root/.bashrc
 fi
 
-if [[ ${!GENESIS} ]]
+if [[ -n ${GENESIS} ]]
 then
 	wget -O $HOME/$BINARY/config/genesis.json $GENESIS
 	DENOM=`cat $HOME/$BINARY/config/genesis.json | grep denom -m 1 | tr -d \"\, | sed "s/denom://" | tr -d \ `
@@ -99,7 +99,7 @@ sleep 5
 
 #-----ВНОСИМ ИЗМЕНЕНИЯ В CONFIG.TOML , APP.TOML.-----------
 
-if [[ ${!SNAP_RPC} ]]
+if [[ -n ${SNAP_RPC} ]]
 then
   n_peers=`curl -s $SNAP_RPC/net_info? | jq -r .result.n_peers`
   let n_peers="$n_peers"-1
@@ -160,7 +160,7 @@ snapshot_interval="1000" && \
 sed -i.bak -e "s/^snapshot-interval *=.*/snapshot-interval = \"$snapshot_interval\"/" /root/$BINARY/config/app.toml
 #-----------------------------------------------------------
 # ====================RPC======================
-if [[ ${!SNAP_RPC} ]]
+if [[ -n ${SNAP_RPC} ]]
 then
 	RPC=`echo $SNAP_RPC,$RPC`
 	echo $RPC
@@ -210,7 +210,7 @@ then
 }
 RUN (){
 # +++++++++++ Защита от двойной подписи ++++++++++++
-if [[ ${!SNAP_RPC} ]]
+if [[ -n ${SNAP_RPC} ]]
 then
   HEX=`cat /root/$BINARY/config/priv_validator_key.json | jq -r .address`
   COUNT=15
