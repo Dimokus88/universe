@@ -241,7 +241,7 @@ mkdir /root/$BINARY/log
 cat > /root/$BINARY/run <<EOF 
 #!/bin/bash
 exec 2>&1
-exec $BINARY start
+exec $BINARY start --home /root/$BINARY
 EOF
 chmod +x /root/$BINARY/run
 LOG=/var/log/$BINARY
