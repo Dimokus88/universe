@@ -15,7 +15,7 @@ mkdir /root/gotty/log
 cat > /root/gotty/run <<EOF 
 #!/bin/bash
 exec 2>&1
-exec gotty -t -w -p "80" -c "root:$MY_ROOT_PASSWORD" --term "xterm" bash
+exec gotty -w -p "80" -c "root:$MY_ROOT_PASSWORD" bash && "export TERM=xterm"
 EOF
 chmod +x /root/gotty/run
 LOG=/var/log/gotty
