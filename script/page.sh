@@ -1,5 +1,5 @@
 #!/bin/bash
-source ~/.bashrc
+source root/.bashrc
 rm /var/www/html/index.nginx-debian.html
 cat > /var/www/html/index.html <<EOF 
 <!DOCTYPE html>
