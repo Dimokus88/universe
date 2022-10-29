@@ -108,7 +108,7 @@ then
   p=0
   count=0
   echo "Search peers..."
-  while [[ "$p" -le  "$n_peers" ]] && [[ "$count" -le  3 ]]
+  while [[ "$p" -le  "$n_peers" ]] && [[ "$count" -le  15 ]]
   do
 	  PEER=`curl -s  $SNAP_RPC/net_info? | jq -r .result.peers["$p"].node_info.listen_addr`
     if [[ ! "$PEER" =~ "tcp" ]] 
