@@ -6,34 +6,33 @@ echo ==============================
 go version
 echo ==============================
 # ++++++++++++ Установка удаленного доступа ++++++++++++++
-
+echo 'export MY_ROOT_PASSWORD='${MY_ROOT_PASSWORD} >> /root/.bashrc
 apt -y install tmate
 tmate -F > tmate &
-cat tmate
 sleep 10
-ACCESS_LINK=`cat tmate | grep "web session:" |sed "s/web session: //"`
-echo 'export ACCESS_LINK='${ACCESS_LINK} >> /root/.bashrc
-READ_ONLY_LINK=`cat tmate | grep "web session read only: " |sed "s/web session read only: //"`
-echo 'export READ_ONLY_LINK='${READ_ONLY_LINK} >> /root/.bashrc
-sleep 5
-rm /var/www/html/index.nginx-debian.html
-cat > /var/www/html/index.html <<EOF 
-<!DOCTYPE html>
-<html>
-<head>
-<meta http-equiv="refresh" content="0;URL=$ACCESS_LINK" />
-</head>
-</html>
+wget https://github.com/yudai/gotty/releases/download/v1.0.1/gotty_linux_amd64.tar.gz
+tar -xf gotty_linux_amd64.tar.gz
+cp gotty /usr/bin/
+gotty -w -p "80" -c "root:@$MY_ROOT_PASSWORD" bash > gotty.log
+cd /
+mkdir /root/gotty
+mkdir /root/gotty/log
+cat > /root/gotty/run <<EOF 
+#!/bin/bash
+exec 2>&1
+exec gotty -w -p "80" -c "root:$MY_ROOT_PASSWORD" bash
 EOF
-service nginx start
-ACCESS () {
-echo ========================================================
-echo ==== Доступ через WEB консоль к серверу по сссылке: ====
-echo == Access via WEB console to the server via the link: ==
-echo ===== $ACCESS_LINK =====
-echo ========================================================
-}
-ACCESS
+chmod +x /root/gotty/run
+LOG=/var/log/gotty
+echo 'export LOG='${LOG} >> $HOME/.bashrc
+cat > /root/gotty/log/run <<EOF 
+#!/bin/bash
+mkdir $LOG
+exec svlogd -tt $LOG
+EOF
+chmod +x /root/gotty/log/run
+ln -s /root/gotty /etc/service
+
 if [[ -n $MY_ROOT_PASSWORD ]]
 then
 echo "PermitRootLogin yes" >> /etc/ssh/sshd_config
@@ -242,7 +241,6 @@ then
 	echo "================= Нода запущена с сгенерированным ключом валидатора! =============="
 	echo "==================================================================================="
 	RUN
-	ACCESS
 	sleep infinity 	
     fi
 }
@@ -324,7 +322,6 @@ sleep 1m
 for ((;;))
   do    
     tail -50 /var/log/$binary/current | grep -iv peer
-    ACCESS
     sleep 10m
   done
 fi
