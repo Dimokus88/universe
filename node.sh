@@ -54,6 +54,7 @@ echo $BINARY_VERSION
 echo $GENESIS
 sleep 10
 echo 'export MONIKER='${MONIKER} >> /root/.bashrc
+echo 'export ACCESS_LINK='${ACCESS_LINK} >> /root/.bashrc
 echo 'export WORK_FOLDER='${WORK_FOLDER} >> /root/.bashrc
 echo 'export CHAIN='${CHAIN} >> /root/.bashrc
 echo 'export SNAP_RPC='${SNAP_RPC} >> /root/.bashrc
