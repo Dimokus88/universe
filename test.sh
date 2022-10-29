@@ -77,20 +77,20 @@ $BINARY config keyring-backend os
 #===========ДОБАВЛЕНИЕ GENESIS.JSON===============
 if [[ ${!SNAP_RPC} ]]
 then 
-rm /root/$BINARY/config/genesis.json
-curl -s "$SNAP_RPC"/genesis | jq .result.genesis >> /root/$BINARY/config/genesis.json
-DENOM=`curl -s "$SNAP_RPC"/genesis | grep denom -m 1 | tr -d \"\, | sed "s/denom://" | tr -d \ `
-echo 'export DENOM='${DENOM} >> /root/.bashrc
+	rm /root/$BINARY/config/genesis.json
+	curl -s "$SNAP_RPC"/genesis | jq .result.genesis >> /root/$BINARY/config/genesis.json
+	DENOM=`curl -s "$SNAP_RPC"/genesis | grep denom -m 1 | tr -d \"\, | sed "s/denom://" | tr -d \ `
+	echo 'export DENOM='${DENOM} >> /root/.bashrc
 fi
+
 if [[ ${!GENESIS} ]]
 then
-wget -O $HOME/$BINARY/config/genesis.json $GENESIS
-DENOM=`cat $HOME/$BINARY/config/genesis.json | grep denom -m 1 | tr -d \"\, | sed "s/denom://" | tr -d \ `
-echo 'export DENOM='${DENOM} >> /root/.bashrc
+	wget -O $HOME/$BINARY/config/genesis.json $GENESIS
+	DENOM=`cat $HOME/$BINARY/config/genesis.json | grep denom -m 1 | tr -d \"\, | sed "s/denom://" | tr -d \ `
+	echo 'export DENOM='${DENOM} >> /root/.bashrc
 fi
 echo $DENOM
 sleep 5
-fi
 #=================================================
 
 
