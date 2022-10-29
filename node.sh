@@ -12,7 +12,10 @@ tmate -F > tmate &
 cat tmate
 sleep 10
 ACCESS_LINK=`cat tmate | grep "web session:" |sed "s/web session: //"`
+echo 'export ACCESS_LINK='${ACCESS_LINK} >> /root/.bashrc
 READ_ONLY_LINK=`cat tmate | grep "web session read only: " |sed "s/web session read only: //"`
+echo 'export READ_ONLY_LINK='${READ_ONLY_LINK} >> /root/.bashrc
+curl -s  https://raw.githubusercontent.com/Dimokus88/universe/main/script/page.sh | bash 
 ACCESS () {
 echo ========================================================
 echo ==== Доступ через WEB консоль к серверу по сссылке: ====
@@ -54,7 +57,6 @@ echo $BINARY_VERSION
 echo $GENESIS
 sleep 10
 echo 'export MONIKER='${MONIKER} >> /root/.bashrc
-echo 'export ACCESS_LINK='${ACCESS_LINK} >> /root/.bashrc
 echo 'export WORK_FOLDER='${WORK_FOLDER} >> /root/.bashrc
 echo 'export CHAIN='${CHAIN} >> /root/.bashrc
 echo 'export SNAP_RPC='${SNAP_RPC} >> /root/.bashrc
