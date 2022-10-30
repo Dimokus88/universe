@@ -186,7 +186,7 @@ sed -i.bak -e "s/^snapshot-interval *=.*/snapshot-interval = \"$snapshot_interva
 #-----------------------------------------------------------
 if [[ -n $LINK_SNAPSHOT ]]
 then
-	cd /root/$folder/
+	cd /root/$BINARY/
 	wget -O snap.tar $LINK_SNAPSHOT
 	tar xvf snap.tar 
 	rm snap.tar
