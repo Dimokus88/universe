@@ -184,7 +184,17 @@ sed -i -e "s/^pruning-interval *=.*/pruning-interval = \"$pruning_interval\"/" /
 snapshot_interval="1000" && \
 sed -i.bak -e "s/^snapshot-interval *=.*/snapshot-interval = \"$snapshot_interval\"/" /root/$WORK_FOLDER/config/app.toml
 #-----------------------------------------------------------
-
+if [[ -n $LINK_SNAPSHOT ]]
+then
+	cd /root/$folder/
+	wget -O snap.tar $LINK_SNAPSHOT
+	tar xvf snap.tar 
+	rm snap.tar
+	echo ===============================================
+	echo ===== Snapshot загружен!Snapshot loaded! ======
+	echo ===============================================
+	cd /
+fi
 # ====================RPC======================
 if [[ -n $SNAP_RPC ]]
 then
