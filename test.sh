@@ -276,6 +276,7 @@ then
 	count=$count+1
 	if [[ $count == 10 ]]
 	then
+		rm /root/$BINARY/config/addrbook.json
 		sv restart $BINARY
 		count=0
 	fi
