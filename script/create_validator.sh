@@ -1,6 +1,6 @@
 #!/bin/bash
 source /root/.bashrc
-BINARY=`cat ~/.bashrc | grep BINARY | sed -e "s_export BINARY=__;"`
+BINARY=`cat ~/.bashrc | grep BINARY= | sed -e "s_export BINARY=__;"`
 echo $BINARY
 sleep 1
 echo -e "\n=== Starting the script to create the validator =="
