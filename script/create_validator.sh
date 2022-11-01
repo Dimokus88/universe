@@ -1,6 +1,9 @@
 #!/bin/bash
 source /root/.bashrc
 BINARY=`cat ~/.bashrc | grep BINARY= | sed -e "s_export BINARY=__;"`
+DENOM=`cat ~/.bashrc | grep DENOM | sed -e "s_export DENOM=__;"`
+CHAIN=`cat ~/.bashrc | grep CHAIN | sed -e "s_export CHAIN=__;"`
+MONIKER=`cat ~/.bashrc | grep MONIKER | sed -e "s_export MONIKER=__;"`
 echo $BINARY
 sleep 1
 echo -e "\n=== Starting the script to create the validator =="
