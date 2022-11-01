@@ -7,12 +7,10 @@ CHAIN=`cat ~/.bashrc | grep CHAIN | sed -e "s_export CHAIN=__;"`
 MONIKER=`cat ~/.bashrc | grep MONIKER | sed -e "s_export MONIKER=__;"`
 echo -e "\n=== Starting the script to create the validator =="
 echo -e "\n== Начало работы скрипта по созданию валидатора =="
-WALLET_NAME=wallet
-echo 'export WALLET_NAME='${WALLET_NAME} >> $HOME/.bashrc
 sleep 2
 echo -e "\n==== Importing wallet, enter mnemonic and set password (hidden input!) ===="
 echo -e "\n== Импортирую кошелек, введите mnemonic и задайте пароль (скрытый ввод!) =="
-$BINARY keys add $WALLET_NAME --recover
+$BINARY keys add wallet --recover
 sleep 2
 if [[ -z "$WALLET_PASS" ]]
 then
@@ -20,10 +18,10 @@ echo -e "\nПовторите ввод пароля от кошелька:"
 read -s -p "Re-enter your wallet password: " WALLET_PASS
 echo 'export WALLET_PASS='${WALLET_PASS} >> $HOME/.bashrc
 fi
-address=`(echo ${WALLET_PASS}) | $BINARY keys show $WALLET_NAME -a | sed -e "s_/root/.__;"`
+address=`(echo ${WALLET_PASS}) | $BINARY keys show wallet -a | sed -e "s_/root/.__;"`
 echo 'export address='${address} >> $HOME/.bashrc
 sleep 2
-valoper=`(echo ${WALLET_PASS}) | $BINARY keys show $WALLET_NAME --bech val -a | sed -e "s_/root/.__;"`
+valoper=`(echo ${WALLET_PASS}) | $BINARY keys show wallet --bech val -a | sed -e "s_/root/.__;"`
 echo 'export valoper='${valoper} >> $HOME/.bashrc
 echo -e "\n===== Request tokens from faucet at ${address} ===="
 echo -e "\n== Запросите токены из крана на адрес ${address} =="
