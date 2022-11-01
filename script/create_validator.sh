@@ -12,7 +12,7 @@ echo 'export WALLET_NAME='${WALLET_NAME} >> $HOME/.bashrc
 sleep 2
 echo -e "\n==== Importing wallet, enter mnemonic and set password (hidden input!) ===="
 echo -e "\n== Импортирую кошелек, введите mnemonic и задайте пароль (скрытый ввод!) =="
-$BINARY keys add ${WALLET_NAME} --recover
+$BINARY keys add $WALLET_NAME --recover
 sleep 2
 if [[ -z "$WALLET_PASS" ]]
 then
