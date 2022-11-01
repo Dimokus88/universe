@@ -1,5 +1,5 @@
 #!/bin/bash
-source $HOME/.bashrc
+source root/.bashrc
 sleep 1
 echo -e "\n=== Starting the script to create the validator =="
 echo -e "\n== Начало работы скрипта по созданию валидатора =="
