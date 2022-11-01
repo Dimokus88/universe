@@ -1,5 +1,5 @@
 #!/bin/bash
-echo 'source $HOME/.bashrc' >> $HOME/.bash_profile
+source $HOME/.bashrc
 sleep 1
 BINARY=`cat ~/.bashrc | grep binary | sed -e "s_export binary=__;"`
 DENOM=`cat ~/.bashrc | grep DENOM | sed -e "s_export DENOM=__;"`
