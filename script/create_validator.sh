@@ -1,7 +1,7 @@
 #!/bin/bash
 echo 'source $HOME/.bashrc' >> $HOME/.bash_profile
 sleep 1
-binary=`cat ~/.bashrc | grep binary | sed -e "s_export binary=__;"`
+BINARY=`cat ~/.bashrc | grep binary | sed -e "s_export binary=__;"`
 DENOM=`cat ~/.bashrc | grep DENOM | sed -e "s_export DENOM=__;"`
 CHAIN=`cat ~/.bashrc | grep CHAIN | sed -e "s_export CHAIN=__;"`
 MONIKER=`cat ~/.bashrc | grep MONIKER | sed -e "s_export MONIKER=__;"`
@@ -12,7 +12,7 @@ echo 'export WALLET_NAME='${WALLET_NAME} >> $HOME/.bashrc
 sleep 2
 echo -e "\n==== Importing wallet, enter mnemonic and set password (hidden input!) ===="
 echo -e "\n== Импортирую кошелек, введите mnemonic и задайте пароль (скрытый ввод!) =="
-$binary keys add ${WALLET_NAME} --recover
+$BINARY keys add ${WALLET_NAME} --recover
 sleep 2
 if [[ -z "$WALLET_PASS" ]]
 then
@@ -33,7 +33,7 @@ sleep 2
 echo -e "\n== Requesting balance =="
 echo -e "\n== Запрашиваю баланс ==="
 sleep 2
-balance=`$binary q bank balances $address -o json | jq -r .balances[0].amount `
+balance=`$BINARY q bank balances $address -o json | jq -r .balances[0].amount `
 sleep 2
 echo $balance $DENOM
 sleep 2
@@ -44,7 +44,7 @@ echo -e "\n===================== Request tokens from faucet at ${address} ======
 echo -e "\n== Недостаточный баланс токенов для создания валидатора. Токенов на балансе $balance $DENOM, необходимо минимум 1000000$DENOM =="
 echo -e "\n===================== Запросите токены из крана на адрес ${address} ==================="
 sleep 1m
-balance=`$binary q bank balances $address -o json | jq -r .balances[0].amount `
+balance=`$BINARY q bank balances $address -o json | jq -r .balances[0].amount `
 done
 sleep 2
 echo -e "\n===== Enough balance to create a validator ====="
@@ -56,9 +56,9 @@ echo -e "\n== Creating a validator =="
 echo -e "\n==== Создаю валидатора ==="
 sleep 2
 DATE=`date`
-(echo ${WALLET_PASS}) | $binary tx staking create-validator --amount="900000$DENOM" --pubkey=$($binary tendermint show-validator) --moniker="$MONIKER" --chain-id="$CHAIN" --identity=86C945B6D5F526E6 --website="https://akash.network/" --commission-rate="0.10" --commission-max-rate="0.20" --commission-max-change-rate="0.01" --min-self-delegation="100000" --from="$address" --details="Powered on Akash Network! Create $DATE" --fees="10000$DENOM" -y
+(echo ${WALLET_PASS}) | $BINARY tx staking create-validator --amount="900000$DENOM" --pubkey=$($BINARY tendermint show-validator) --moniker="$MONIKER" --chain-id="$CHAIN" --identity=86C945B6D5F526E6 --website="https://akash.network/" --commission-rate="0.10" --commission-max-rate="0.20" --commission-max-change-rate="0.01" --min-self-delegation="100000" --from="$address" --details="Powered on Akash Network! Create $DATE" --fees="10000$DENOM" -y
 sleep 10
-val=`$binary query staking validator $valoper -o json | jq -r .description.moniker`
+val=`$BINARY query staking validator $valoper -o json | jq -r .description.moniker`
 if [[ -z "$val" ]]
 then
 echo -e "\n========================================= Validator not created! ==========================================="
