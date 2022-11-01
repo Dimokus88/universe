@@ -120,6 +120,10 @@ n_peers=`curl -s $SNAP_RPC/net_info? | jq -r .result.n_peers`
 let n_peers="$n_peers"-1
 RPC="$SNAP_RPC"
 echo -n "$RPC," >> /root/RPC.txt
+PEER=`curl -s  $SNAP_RPC/status? | jq -r .result.node_info.listen_addr`
+id=`curl -s  $SNAP_RPC/status? | jq -r .result.node_info.id`
+echo -n "$id@$PEER," >> /root/PEER.txt
+echo $id@$PEER
 p=0
 count=0
 echo "Search peers..."
