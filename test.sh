@@ -36,8 +36,16 @@ fi
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 # ---------------- переменные ----------------------
+
+
 SHIFT=1000
 GIT_FOLDER=`basename $GITHUB_REPOSITORY | sed "s/.git//"`
+if [[ -n $SNAP_RPC ]]
+then 
+CHAIN=`curl -s "$SNAP_RPC"/status | jq -r .result.node_info.network`
+BINARY_VERSION=v`curl -s "$SNAP_RPC"/abci_info | jq -r .result.response.version`
+fi
+
 echo $CHAIN
 echo $GENESIS
 sleep 10
