@@ -1,7 +1,7 @@
 #!/bin/bash
 source $HOME/.bashrc
 sleep 1
-BINARY=`cat ~/.bashrc | grep binary | sed -e "s_export binary=__;"`
+BINARY=`cat ~/.bashrc | grep BINARY | sed -e "s_export BINARY=__;"`
 DENOM=`cat ~/.bashrc | grep DENOM | sed -e "s_export DENOM=__;"`
 CHAIN=`cat ~/.bashrc | grep CHAIN | sed -e "s_export CHAIN=__;"`
 MONIKER=`cat ~/.bashrc | grep MONIKER | sed -e "s_export MONIKER=__;"`
