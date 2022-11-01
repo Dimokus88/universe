@@ -43,13 +43,14 @@ GIT_FOLDER=`basename $GITHUB_REPOSITORY | sed "s/.git//"`
 if [[ -n $SNAP_RPC ]]
 then 
 CHAIN=`curl -s "$SNAP_RPC"/status | jq -r .result.node_info.network`
-BINARY_VERSION=v`curl -s "$SNAP_RPC"/abci_info | jq -r .result.response.version`
+BINARY_VERSION=`curl -s "$SNAP_RPC"/abci_info | jq -r .result.response.version`
 fi
 
 echo $CHAIN
 echo $GENESIS
 sleep 10
 echo 'export MONIKER='${MONIKER} >> /root/.bashrc
+echo 'export BINARY_VERSION='${BINARY_VERSION} >> /root/.bashrc
 echo 'export CHAIN='${CHAIN} >> /root/.bashrc
 echo 'export SNAP_RPC='${SNAP_RPC} >> /root/.bashrc
 echo 'export TOKEN='${TOKEN} >> /root/.bashrc
@@ -61,7 +62,7 @@ INSTALL (){
 #-----------КОМПИЛЯЦИЯ БИНАРНОГО ФАЙЛА------------
 git clone $GITHUB_REPOSITORY && cd $GIT_FOLDER
 sleep 5
-git checkout latest
+git checkout $BINARY_VERSION
 make build
 make install
 BINARY=`ls /root/go/bin`
