@@ -20,10 +20,10 @@ echo -e "\nПовторите ввод пароля от кошелька:"
 read -s -p "Re-enter your wallet password: " WALLET_PASS
 echo 'export WALLET_PASS='${WALLET_PASS} >> $HOME/.bashrc
 fi
-address=`(echo ${WALLET_PASS}) | $binary keys show $WALLET_NAME -a | sed -e "s_/root/.__;"`
+address=`(echo ${WALLET_PASS}) | $BINARY keys show $WALLET_NAME -a | sed -e "s_/root/.__;"`
 echo 'export address='${address} >> $HOME/.bashrc
 sleep 2
-valoper=`(echo ${WALLET_PASS}) | $binary keys show $WALLET_NAME --bech val -a | sed -e "s_/root/.__;"`
+valoper=`(echo ${WALLET_PASS}) | $BINARY keys show $WALLET_NAME --bech val -a | sed -e "s_/root/.__;"`
 echo 'export valoper='${valoper} >> $HOME/.bashrc
 echo -e "\n===== Request tokens from faucet at ${address} ===="
 echo -e "\n== Запросите токены из крана на адрес ${address} =="
