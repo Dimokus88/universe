@@ -2,138 +2,132 @@
 # By Dimokus (https://t.me/Dimokus)
 runsvdir -P /etc/service &
 cp /usr/lib/go-1.18/bin/go /usr/bin/
+
 # ++++++++++++ Установка удаленного доступа ++++++++++++++
 echo 'export MY_ROOT_PASSWORD='${MY_ROOT_PASSWORD} >> /root/.bashrc
 apt -y install tmate
-cd /
-mkdir /root/tmate
-mkdir /root/tmate/log
+mkdir /root/tmate && mkdir /root/tmate/log
 cat > /root/tmate/run <<EOF 
 #!/bin/bash
 exec 2>&1
 exec tmate -F
 EOF
-chmod +x /root/tmate/run
-LOG=/var/log/tmate
-echo 'export LOG='${LOG} >> $HOME/.bashrc
 cat > /root/tmate/log/run <<EOF 
 #!/bin/bash
-mkdir $LOG
-exec svlogd -tt $LOG
+mkdir /var/log/tmate
+exec svlogd -tt /var/log/tmate
 EOF
+chmod +x /root/tmate/run
 chmod +x /root/tmate/log/run
 ln -s /root/tmate /etc/service
 
 if [[ -n $MY_ROOT_PASSWORD ]]
 then
-echo "PermitRootLogin yes" >> /etc/ssh/sshd_config
-(echo ${MY_ROOT_PASSWORD}; echo ${MY_ROOT_PASSWORD}) | passwd root && service ssh restart
+  echo "PermitRootLogin yes" >> /etc/ssh/sshd_config
+  (echo ${MY_ROOT_PASSWORD}; echo ${MY_ROOT_PASSWORD}) | passwd root && service ssh restart
 else
-apt install -y goxkcdpwgen 
-MY_ROOT_PASSWORD=$(goxkcdpwgen -n 1)
-echo "PermitRootLogin yes" >> /etc/ssh/sshd_config
-(echo ${MY_ROOT_PASSWORD}; echo ${MY_ROOT_PASSWORD}) | passwd root && service ssh restart
-echo ===========================
-echo SSH PASS: $MY_ROOT_PASSWORD
-echo ===========================
-sleep 20
+  apt install -y goxkcdpwgen 
+  MY_ROOT_PASSWORD=$(goxkcdpwgen -n 1)
+  echo "PermitRootLogin yes" >> /etc/ssh/sshd_config
+  (echo ${MY_ROOT_PASSWORD}; echo ${MY_ROOT_PASSWORD}) | passwd root && service ssh restart
+  echo ============= SSH PASS: $MY_ROOT_PASSWORD ==============
+  sleep 10
 fi
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
+# ---------------- переменные ----------------------
 
+
+SHIFT=1000
+GIT_FOLDER=`basename $GITHUB_REPOSITORY | sed "s/.git//"`
 if [[ -n $SNAP_RPC ]]
 then 
 CHAIN=`curl -s "$SNAP_RPC"/status | jq -r .result.node_info.network`
-WORK_FOLDER=`curl -s "$SNAP_RPC"/abci_info | jq -r .result.response.data`
-WORK_FOLDER=`echo $WORK_FOLDER | sed "s/$WORK_FOLDER/.$WORK_FOLDER/"`
-BINARY_VERSION=v`curl -s "$SNAP_RPC"/abci_info | jq -r .result.response.version`
+BINARY_VERSION=`curl -s "$SNAP_RPC"/abci_info | jq -r .result.response.version`
 fi
-SHIFT=5000
-GIT_FOLDER=`basename $GITHUB_REPOSITORY | sed "s/.git//"`
+
 echo $CHAIN
-echo $WORK_FOLDER
-echo $BINARY_VERSION
 echo $GENESIS
 sleep 10
 echo 'export MONIKER='${MONIKER} >> /root/.bashrc
-echo 'export WORK_FOLDER='${WORK_FOLDER} >> /root/.bashrc
+echo 'export BINARY_VERSION='${BINARY_VERSION} >> /root/.bashrc
 echo 'export CHAIN='${CHAIN} >> /root/.bashrc
 echo 'export SNAP_RPC='${SNAP_RPC} >> /root/.bashrc
 echo 'export TOKEN='${TOKEN} >> /root/.bashrc
 echo 'export GENESIS='${GENESIS} >> /root/.bashrc
 source /root/.bashrc
-#======================================================== НАЧАЛО БЛОКА ФУНКЦИЙ ==================================================
-#-------------------------- Установка GO и кмопиляция бинарного файла -----------------------
+# --------------------------------------------------
+
 INSTALL (){
 #-----------КОМПИЛЯЦИЯ БИНАРНОГО ФАЙЛА------------
-cd /root/
 git clone $GITHUB_REPOSITORY && cd $GIT_FOLDER
-echo $BINARY_VERSION
 sleep 5
 git checkout $BINARY_VERSION
-sudo make build
-sudo make install
-binary=`ls /root/go/bin`
-if [[ -z $binary ]]
+make build
+make install
+BINARY=`ls /root/go/bin`
+if [[ -z $BINARY ]]
 then
-binary=`ls /root/$GIT_FOLDER/build/`
+BINARY=`ls /root/$GIT_FOLDER/build/`
 fi
-echo $binary
-echo 'export binary='${binary} >> /root/.bashrc
-cp /root/$GIT_FOLDER/build/$binary /usr/bin/$binary
-cp /root/go/bin/$binary /usr/bin/$binary
-$binary version
+echo $BINARY
+echo 'export BINARY='${BINARY} >> /root/.bashrc
+cp /root/$GIT_FOLDER/build/$BINARY /usr/bin/$BINARY
+cp /root/go/bin/$BINARY /usr/bin/$BINARY
+$BINARY version
 #-------------------------------------------------
-
 #=======ИНИЦИАЛИЗАЦИЯ БИНАРНОГО ФАЙЛА================
 echo =INIT=
-$binary init "$MONIKER" --chain-id $CHAIN --home /root/$WORK_FOLDER
+$BINARY init "$MONIKER" --chain-id $CHAIN --home /root/$BINARY
 sleep 5
-$binary config chain-id $CHAIN
-$binary config keyring-backend os
+$BINARY config chain-id $CHAIN
+$BINARY config keyring-backend os
 #====================================================
-
 #===========ДОБАВЛЕНИЕ GENESIS.JSON===============
-if [[ -n $SNAP_RPC ]]
+if [[ -n ${SNAP_RPC} ]]
 then 
-rm /root/$WORK_FOLDER/config/genesis.json
-	if [[ -n $GENESIS ]]
-	then
-	wget -O $HOME/$folder/config/genesis.json $GENESIS
-	DENOM=`cat $HOME/$folder/config/genesis.json | grep denom -m 1 | tr -d \"\, | sed "s/denom://" | tr -d \ `
-	echo 'export DENOM='${DENOM} >> /root/.bashrc
-	else
-	curl -s "$SNAP_RPC"/genesis | jq .result.genesis >> /root/$WORK_FOLDER/config/genesis.json
+	rm /root/$BINARY/config/genesis.json
+	curl -s "$SNAP_RPC"/genesis | jq .result.genesis >> /root/$BINARY/config/genesis.json
 	DENOM=`curl -s "$SNAP_RPC"/genesis | grep denom -m 1 | tr -d \"\, | sed "s/denom://" | tr -d \ `
 	echo 'export DENOM='${DENOM} >> /root/.bashrc
-	fi
+fi
+
+if [[ -n ${GENESIS} ]]
+then
+	wget -O $HOME/$BINARY/config/genesis.json $GENESIS
+	DENOM=`cat $HOME/$BINARY/config/genesis.json | grep denom -m 1 | tr -d \"\, | sed "s/denom://" | tr -d \ `
+	echo 'export DENOM='${DENOM} >> /root/.bashrc
+fi
 echo $DENOM
 sleep 5
-fi
 #=================================================
+
+
+
+
 
 #-----ВНОСИМ ИЗМЕНЕНИЯ В CONFIG.TOML , APP.TOML.-----------
 
-if [[ -n $SNAP_RPC ]]
+if [[ -n ${SNAP_RPC} ]]
 then
-n_peers=`curl -s $SNAP_RPC/net_info? | jq -r .result.n_peers`
-let n_peers="$n_peers"-1
-RPC="$SNAP_RPC"
-echo -n "$RPC," >> /root/RPC.txt
-PEER=`curl -s  $SNAP_RPC/status? | jq -r .result.node_info.listen_addr`
-id=`curl -s  $SNAP_RPC/status? | jq -r .result.node_info.id`
-echo -n "$id@$PEER," >> /root/PEER.txt
-echo $id@$PEER
-p=0
-count=0
-echo "Search peers..."
-while [[ "$p" -le  "$n_peers" ]] && [[ "$count" -le  3 ]]
-do
-	PEER=`curl -s  $SNAP_RPC/net_info? | jq -r .result.peers["$p"].node_info.listen_addr`
-        if [[ ! "$PEER" =~ "tcp" ]] 
-        then
-			id=`curl -s  $SNAP_RPC/net_info? | jq -r .result.peers["$p"].node_info.id`
-            		echo -n "$id@$PEER," >> /root/PEER.txt
+  n_peers=`curl -s $SNAP_RPC/net_info? | jq -r .result.n_peers`
+  let n_peers="$n_peers"-1
+  RPC="$SNAP_RPC"
+  echo -n "$RPC," >> /root/RPC.txt
+  PEER=`curl -s  $SNAP_RPC/status? | jq -r .result.node_info.listen_addr`
+  id=`curl -s  $SNAP_RPC/status? | jq -r .result.node_info.id`
+  echo -n "$id@$PEER," >> /root/PEER.txt
+  echo $id@$PEER
+  p=0
+  count=0
+  echo "Search peers..."
+  while [[ "$p" -le  "$n_peers" ]] && [[ "$count" -le 20 ]]
+  do
+	  PEER=`curl -s  $SNAP_RPC/net_info? | jq -r .result.peers["$p"].node_info.listen_addr`
+    if [[ ! "$PEER" =~ "tcp" ]] 
+    then
+    	id=`curl -s  $SNAP_RPC/net_info? | jq -r .result.peers["$p"].node_info.id`
+   		echo -n "$id@$PEER," >> /root/PEER.txt
 			echo $id@$PEER
 			rm /root/addr.tmp
 			echo $PEER | sed 's/:/ /g' > /root/addr.tmp
@@ -147,60 +141,39 @@ do
 			if [[ `curl -s http://$RPC/abci_info? --connect-timeout 5 | jq -r .result.response.last_block_height` -gt 0 ]]
 			then
 				echo "$RPC"
-				echo -n "$RPC," >> /root/RPC.txt
+				#echo -n "$RPC," >> /root/RPC.txt
 				RPC=0
 			fi
 			RPC=0
-   	     fi
+   	fi
 	p="$p"+1
-	done
+done
 echo "Search peers is complete!"
 PEER=`cat /root/PEER.txt | sed 's/,$//'`
 RPC=`cat /root/RPC.txt | sed 's/,$//'`
-else
-	if [[ -n $link_peer ]]
-	then
-		PEER=`curl -s $link_peer`
-	fi
-
-	if [[ -n $link_seed ]]
-	then
-		SEED=`curl -s $link_seed`
-	fi
 fi
 echo $PEER
 echo $SEED
 sleep 5
-sed -i.bak -e "s/^minimum-gas-prices *=.*/minimum-gas-prices = \"0.0025$DENOM\"/;" /root/$WORK_FOLDER/config/app.toml
+sed -i.bak -e "s/^minimum-gas-prices *=.*/minimum-gas-prices = \"0.0025$DENOM\"/;" /root/$BINARY/config/app.toml
 sleep 1
-sed -i.bak -e "s/^double_sign_check_height *=.*/double_sign_check_height = 15/;" /root/$WORK_FOLDER/config/config.toml
-sed -i.bak -e "s/^seeds *=.*/seeds = \"$SEED\"/;" /root/$WORK_FOLDER/config/config.toml
-sed -i.bak -e "s/^persistent_peers *=.*/persistent_peers = \"$PEER\"/;" /root/$WORK_FOLDER/config/config.toml
-sed -i.bak -e "s_"tcp://127.0.0.1:26657"_"tcp://0.0.0.0:26657"_;" /root/$WORK_FOLDER/config/config.toml
+sed -i.bak -e "s/^double_sign_check_height *=.*/double_sign_check_height = 15/;" /root/$BINARY/config/config.toml
+sed -i.bak -e "s/^seeds *=.*/seeds = \"$SEED\"/;" /root/$BINARY/config/config.toml
+sed -i.bak -e "s/^persistent_peers *=.*/persistent_peers = \"$PEER\"/;" /root/$BINARY/config/config.toml
+sed -i.bak -e "s_"tcp://127.0.0.1:26657"_"tcp://0.0.0.0:26657"_;" /root/$BINARY/config/config.toml
 pruning="custom" && \
 pruning_keep_recent="5" && \
 pruning_keep_every="1000" && \
 pruning_interval="50" && \
-sed -i -e "s/^pruning *=.*/pruning = \"$pruning\"/" /root/$WORK_FOLDER/config/app.toml && \
-sed -i -e "s/^pruning-keep-recent *=.*/pruning-keep-recent = \"$pruning_keep_recent\"/" /root/$WORK_FOLDER/config/app.toml && \
-sed -i -e "s/^pruning-keep-every *=.*/pruning-keep-every = \"$pruning_keep_every\"/" /root/$WORK_FOLDER/config/app.toml && \
-sed -i -e "s/^pruning-interval *=.*/pruning-interval = \"$pruning_interval\"/" /root/$WORK_FOLDER/config/app.toml
+sed -i -e "s/^pruning *=.*/pruning = \"$pruning\"/" /root/$BINARY/config/app.toml && \
+sed -i -e "s/^pruning-keep-recent *=.*/pruning-keep-recent = \"$pruning_keep_recent\"/" /root/$BINARY/config/app.toml && \
+sed -i -e "s/^pruning-keep-every *=.*/pruning-keep-every = \"$pruning_keep_every\"/" /root/$BINARY/config/app.toml && \
+sed -i -e "s/^pruning-interval *=.*/pruning-interval = \"$pruning_interval\"/" /root/$BINARY/config/app.toml
 snapshot_interval="1000" && \
-sed -i.bak -e "s/^snapshot-interval *=.*/snapshot-interval = \"$snapshot_interval\"/" /root/$WORK_FOLDER/config/app.toml
+sed -i.bak -e "s/^snapshot-interval *=.*/snapshot-interval = \"$snapshot_interval\"/" /root/$BINARY/config/app.toml
 #-----------------------------------------------------------
-if [[ -n $LINK_SNAPSHOT ]]
-then
-	cd /root/$BINARY/
-	wget -O snap.tar $LINK_SNAPSHOT
-	tar xvf snap.tar 
-	rm snap.tar
-	echo ===============================================
-	echo ===== Snapshot загружен!Snapshot loaded! ======
-	echo ===============================================
-	cd /
-fi
 # ====================RPC======================
-if [[ -n $SNAP_RPC ]]
+if [[ -n ${SNAP_RPC} ]]
 then
 	RPC=`echo $SNAP_RPC,$RPC`
 	echo $RPC
@@ -211,8 +184,7 @@ then
 	sed -i.bak -E "s|^(enable[[:space:]]+=[[:space:]]+).*$|\1true| ; \
 	s|^(rpc_servers[[:space:]]+=[[:space:]]+).*$|\1\"$RPC\"| ; \
 	s|^(trust_height[[:space:]]+=[[:space:]]+).*$|\1$BLOCK_HEIGHT| ; \
-	s|^(trust_hash[[:space:]]+=[[:space:]]+).*$|\1\"$TRUST_HASH\"|" /root/$WORK_FOLDER/config/config.toml
-	echo RPC
+	s|^(trust_hash[[:space:]]+=[[:space:]]+).*$|\1\"$TRUST_HASH\"|" /root/$BINARY/config/config.toml
 fi
 #================================================
 wget -O /tmp/priv_validator_key.json ${LINK_KEY}
@@ -221,10 +193,10 @@ if  [[ -f "$file" ]]
 then
 	      sleep 2
 	      cd /
-	      rm /root/$WORK_FOLDER/config/priv_validator_key.json
+	      rm /root/$BINARY/config/priv_validator_key.json
 	      echo ==========priv_validator_key found==========
 	      echo ========Обнаружен priv_validator_key========
-	      cp /tmp/priv_validator_key.json /root/$WORK_FOLDER/config/
+	      cp /tmp/priv_validator_key.json /root/$BINARY/config/
 	      echo ========Validate the priv_validator_key.json file=========
 	      echo ==========Сверьте файл priv_validator_key.json============
 	      cat /tmp/priv_validator_key.json
@@ -249,84 +221,85 @@ then
 	sleep infinity 	
     fi
 }
-
 RUN (){
 # +++++++++++ Защита от двойной подписи ++++++++++++
-HEX=`cat /root/$WORK_FOLDER/config/priv_validator_key.json | jq -r .address`
-COUNT=15
-CHECKING_BLOCK=`curl -s $SNAP_RPC/abci_info? | jq -r .result.response.last_block_height`
-while [[ $COUNT -gt 0 ]]
-do
-CHEKER=`curl -s $SNAP_RPC/commit?height=$CHECKING_BLOCK | grep $HEX`
-if [[ -n $CHEKER  ]]
+if [[ -n ${SNAP_RPC} ]]
 then
-	echo ++ Защита от двойной подписи!++
-	echo ++ ВНИМАНИЕ! ОБНАРУЖЕНА ПОДПИСЬ В ВАЛИДАТОРА НА БЛОКЕ № $CHECKING_BLOCK ! ЗАПУСК НОДЫ ОСТАНОВЛЕН! ++
-	echo ++ Double signature protection!++
-	echo ++ WARNING! VALIDATOR SIGNATURE DETECTED ON BLOCK № $CHECKING_BLOCK ! NODE LAUNCH HAS BEEN STOPPED! ++
-	sleep infinity
+  HEX=`cat /root/$BINARY/config/priv_validator_key.json | jq -r .address`
+  COUNT=15
+  CHECKING_BLOCK=`curl -s $SNAP_RPC/abci_info? | jq -r .result.response.last_block_height`
+  while [[ $COUNT -gt 0 ]]
+  do
+    CHEKER=`curl -s $SNAP_RPC/commit?height=$CHECKING_BLOCK | grep $HEX`
+    if [[ -n $CHEKER  ]]
+    then
+    	echo ++ Защита от двойной подписи!++
+    	echo ++ ВНИМАНИЕ! ОБНАРУЖЕНА ПОДПИСЬ В ВАЛИДАТОРА НА БЛОКЕ № $CHECKING_BLOCK ! ЗАПУСК НОДЫ ОСТАНОВЛЕН! ++
+    	echo ++ Double signature protection!++
+    	echo ++ WARNING! VALIDATOR SIGNATURE DETECTED ON BLOCK № $CHECKING_BLOCK ! NODE LAUNCH HAS BEEN STOPPED! ++
+    	sleep infinity
+    fi
+    let COUNT=$COUNT-1
+    let CHECKING_BLOCK=$CHECKING_BLOCK-1
+    sleep 1
+  done
 fi
-let COUNT=$COUNT-1
-let CHECKING_BLOCK=$CHECKING_BLOCK-1
-sleep 1
-done
 # ++++++++++++++++++++++++++++++++++++++++++++++++++
 #===========ЗАПУСК НОДЫ============
 echo =Run node...=
 cd /
-mkdir /root/$binary
-mkdir /root/$binary/log
+mkdir /root/$BINARY
+mkdir /root/$BINARY/log
     
-cat > /root/$binary/run <<EOF 
+cat > /root/$BINARY/run <<EOF 
 #!/bin/bash
 exec 2>&1
-exec $binary start
+exec $BINARY start --home /root/$BINARY
 EOF
-chmod +x /root/$binary/run
-LOG=/var/log/$binary
+chmod +x /root/$BINARY/run
+LOG=/var/log/$BINARY
 
-cat > /root/$binary/log/run <<EOF 
+cat > /root/$BINARY/log/run <<EOF 
 #!/bin/bash
 mkdir $LOG
 exec svlogd -tt $LOG
 EOF
-chmod +x /root/$binary/log/run
-ln -s /root/$binary /etc/service
+chmod +x /root/$BINARY/log/run
+ln -s /root/$BINARY /etc/service
 }
-#--------------------------------------------------------------------------------------------
 #======================================================== КОНЕЦ БЛОКА ФУНКЦИЙ ====================================================
+
 INSTALL
-sleep 15
+sleep 5
 RUN
 sleep 30
 catching_up=`curl -s localhost:26657/status | jq -r .result.sync_info.catching_up`
-ACCESS
+count=0
 while [[ $catching_up == true ]]
 do
 echo == Нода не синхронизирована, ожидайте.. ==
 echo == Node out of sync, please wait.. ==
 sleep 2m
 catching_up=`curl -s localhost:26657/status | jq -r .result.sync_info.catching_up`
+LB=`curl -s localhost:26657/status | jq -r .result.sync_info.latest_block_height`
 echo $catching_up
-done
-#=====Включение алерт бота =====
-
-if [[ -n $TOKEN ]]
+echo $LB
+if [[ $LB == 0 ]]
 then
-cd /root/
-git clone https://github.com/Dimokus88/bot.git 
-cd bot
-echo $SNAP_RPC > /root/bot/RPC.txt
-chmod -R o+rx /root/bot/
-/root/bot/run_bot.sh $binary $TOKEN
+	count=$count+1
+	if [[ $count == 10 ]]
+	then
+		rm /root/$BINARY/config/addrbook.json
+		sv restart $BINARY
+		count=0
+	fi
 fi
-#==============================
-sleep 1m
+done
 
 # -----------------------------------------------------------
 for ((;;))
   do    
-    tail -50 /var/log/$binary/current | grep -iv peer
+    tail -50 /var/log/$BINARY/current | grep -iv peer
     sleep 10m
   done
 fi
