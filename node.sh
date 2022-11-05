@@ -287,6 +287,7 @@ then
 	then
 		rm /root/$BINARY/config/addrbook.json
 		sv restart $BINARY
+		echo RESTARTING SERVICE
 		count=0
 	fi
 fi
