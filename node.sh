@@ -103,12 +103,9 @@ sleep 5
 #=================================================
 
 
-
-
-
 #-----ВНОСИМ ИЗМЕНЕНИЯ В CONFIG.TOML , APP.TOML.-----------
 
-if [[ -n ${SNAP_RPC} ]]
+if [[ -n ${SNAP_RPC} ]] && [[  -z "$PEER" ]]
 then
   n_peers=`curl -s $SNAP_RPC/net_info? | jq -r .result.n_peers`
   let n_peers="$n_peers"-1
@@ -117,7 +114,7 @@ then
   p=0
   count=0
   echo "Search peers..."
-  while [[ "$p" -le  "$n_peers" ]] && [[ "$count" -le 5 ]]
+  while [[ "$p" -le  "$n_peers" ]] && [[ "$count" -le 4 ]]
   do
 	  PEER=`curl -s  $SNAP_RPC/net_info? | jq -r .result.peers["$p"].node_info.listen_addr`
     if [[ ! "$PEER" =~ "tcp" ]] 
@@ -147,6 +144,7 @@ done
 echo "Search peers is complete!"
 PEER=`cat /root/PEER.txt | sed 's/,$//'`
 RPC=`cat /root/RPC.txt | sed 's/,$//'`
+
 fi
 echo $PEER
 echo $SEED
