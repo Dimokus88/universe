@@ -169,7 +169,7 @@ sed -i.bak -e "s/^snapshot-interval *=.*/snapshot-interval = \"$snapshot_interva
 # ====================RPC======================
 if [[ -n ${SNAP_RPC} ]]
 then
-	RPC=`echo $SNAP_RPC,SNAP_RPC,$RPC`
+	RPC=`echo $SNAP_RPC,$SNAP_RPC,$RPC`
 	echo $RPC
 	LATEST_HEIGHT=`curl -s $SNAP_RPC/block | jq -r .result.block.header.height`; \
 	BLOCK_HEIGHT=$((LATEST_HEIGHT - $SHIFT)); \
