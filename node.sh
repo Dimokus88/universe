@@ -43,7 +43,10 @@ GIT_FOLDER=`basename $GITHUB_REPOSITORY | sed "s/.git//"`
 if [[ -n $SNAP_RPC ]]
 then 
 CHAIN=`curl -s "$SNAP_RPC"/status | jq -r .result.node_info.network`
-BINARY_VERSION=`curl -s "$SNAP_RPC"/abci_info | jq -r .result.response.version`
+  if [[ -z $BINARY_VERSION ]]
+  then
+    BINARY_VERSION=`curl -s "$SNAP_RPC"/abci_info | jq -r .result.response.version`
+  fi
 fi
 
 echo $CHAIN
