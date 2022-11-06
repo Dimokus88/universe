@@ -38,7 +38,7 @@ fi
 # ---------------- переменные ----------------------
 
 
-SHIFT=1000
+SHIFT=3000
 GIT_FOLDER=`basename $GITHUB_REPOSITORY | sed "s/.git//"`
 if [[ -n $SNAP_RPC ]]
 then 
