@@ -124,7 +124,8 @@ then
 			ADDRESS=(`cat /root/addr.tmp`)
 			ADDRESS=`echo ${ADDRESS[0]}`
 			PORT=(`cat /root/addr.tmp`)
-			PORT=`echo ${PORT[1]}`			
+			PORT=`echo ${PORT[1]}`
+			count="$count"+1
    	fi
 	p="$p"+1
 done
