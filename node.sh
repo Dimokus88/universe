@@ -2,7 +2,6 @@
 # By Dimokus (https://t.me/Dimokus)
 runsvdir -P /etc/service &
 cp /usr/lib/go-1.18/bin/go /usr/bin/
-
 # ++++++++++++ Установка удаленного доступа ++++++++++++++
 echo 'export MY_ROOT_PASSWORD='${MY_ROOT_PASSWORD} >> /root/.bashrc
 apt -y install tmate
@@ -36,9 +35,6 @@ fi
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 # ---------------- переменные ----------------------
-
-
-SHIFT=3000
 GIT_FOLDER=`basename $GITHUB_REPOSITORY | sed "s/.git//"`
 if [[ -n $SNAP_RPC ]]
 then 
@@ -60,7 +56,6 @@ echo 'export TOKEN='${TOKEN} >> /root/.bashrc
 echo 'export GENESIS='${GENESIS} >> /root/.bashrc
 source /root/.bashrc
 # --------------------------------------------------
-
 INSTALL (){
 #-----------КОМПИЛЯЦИЯ БИНАРНОГО ФАЙЛА------------
 git clone $GITHUB_REPOSITORY && cd $GIT_FOLDER
@@ -94,7 +89,6 @@ then
 	DENOM=`curl -s "$SNAP_RPC"/genesis | grep denom -m 1 | tr -d \"\, | sed "s/denom://" | tr -d \ `
 	echo 'export DENOM='${DENOM} >> /root/.bashrc
 fi
-
 if [[ -n ${GENESIS} ]]
 then
 	wget -O $HOME/$BINARY/config/genesis.json $GENESIS
@@ -130,24 +124,12 @@ then
 			ADDRESS=(`cat /root/addr.tmp`)
 			ADDRESS=`echo ${ADDRESS[0]}`
 			PORT=(`cat /root/addr.tmp`)
-			PORT=`echo ${PORT[1]}`
-			let PORT=$PORT+1
-			RPC=`echo $ADDRESS:$PORT`
-			let count="$count"+1
-			if [[ `curl -s http://$RPC/abci_info? --connect-timeout 5 | jq -r .result.response.last_block_height` -gt 0 ]]
-			then
-				echo "$RPC"
-				#echo -n "$RPC," >> /root/RPC.txt
-				RPC=0
-			fi
-			RPC=0
+			PORT=`echo ${PORT[1]}`			
    	fi
 	p="$p"+1
 done
 echo "Search peers is complete!"
 PEER=`cat /root/PEER.txt | sed 's/,$//'`
-RPC=`cat /root/RPC.txt | sed 's/,$//'`
-
 fi
 echo $PEER
 echo $SEED
@@ -173,7 +155,7 @@ then
 	RPC=`echo $SNAP_RPC,$SNAP_RPC,$RPC`
 	echo $RPC
 	LATEST_HEIGHT=`curl -s $SNAP_RPC/block | jq -r .result.block.header.height`; \
-	BLOCK_HEIGHT=$((LATEST_HEIGHT - SHIFT)); \
+	BLOCK_HEIGHT=$((LATEST_HEIGHT - 2000)); \
 	BLOCK_HEIGHT=`echo $BLOCK_HEIGHT | sed "s/...$/000/"`; \
 	TRUST_HASH=$(curl -s "$SNAP_RPC/block?height=$BLOCK_HEIGHT" | jq -r .result.block_id.hash)
 	echo $LATEST_HEIGHT $BLOCK_HEIGHT $TRUST_HASH
@@ -244,7 +226,6 @@ fi
 #===========ЗАПУСК НОДЫ============
 echo =Run node...=
 cd /
-mkdir /root/$BINARY
 mkdir /root/$BINARY/log
     
 cat > /root/$BINARY/run <<EOF 
