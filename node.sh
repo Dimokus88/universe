@@ -235,7 +235,6 @@ exec $BINARY start --home /root/$BINARY
 EOF
 chmod +x /root/$BINARY/run
 LOG=/var/log/$BINARY
-
 cat > /root/$BINARY/log/run <<EOF 
 #!/bin/bash
 mkdir $LOG
@@ -243,6 +242,7 @@ exec svlogd -tt $LOG
 EOF
 chmod +x /root/$BINARY/log/run
 ln -s /root/$BINARY /etc/service
+ln -s /var/log/$BINARY/current /LOG
 }
 #======================================================== КОНЕЦ БЛОКА ФУНКЦИЙ ====================================================
 
