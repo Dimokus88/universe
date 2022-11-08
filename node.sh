@@ -254,24 +254,13 @@ catching_up=`curl -s localhost:26657/status | jq -r .result.sync_info.catching_u
 count=0
 while [[ $catching_up == true ]]
 do
-echo == Нода не синхронизирована, ожидайте.. ==
-echo == Node out of sync, please wait.. ==
-sleep 2m
-catching_up=`curl -s localhost:26657/status | jq -r .result.sync_info.catching_up`
-LB=`curl -s localhost:26657/status | jq -r .result.sync_info.latest_block_height`
-echo $catching_up
-echo $LB
-if [[ $LB == 0 ]]
-then
-	count=$count+1
-	if [[ $count == 10 ]]
-	then
-		rm /root/$BINARY/config/addrbook.json
-		sv restart $BINARY
-		echo RESTARTING SERVICE
-		count=0
-	fi
-fi
+  echo == Нода не синхронизирована, ожидайте.. ==
+  echo == Node out of sync, please wait.. ==
+  sleep 2m
+  catching_up=`curl -s localhost:26657/status | jq -r .result.sync_info.catching_up`
+  LB=`curl -s localhost:26657/status | jq -r .result.sync_info.latest_block_height`
+  echo $catching_up
+  echo $LB
 done
 
 # -----------------------------------------------------------
