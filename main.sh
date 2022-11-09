@@ -88,7 +88,7 @@ apt install gunzip -y
 wget https://server.gitopia.com/raw/gitopia/testnets/master/gitopia-janus-testnet-2/genesis.json.gz
 gunzip genesis.json.gz
 mv genesis.json $HOME/.gitopia/config/genesis.json
-DENOM=`cat $HOME/$BINARY/config/genesis.json | grep denom -m 1 | tr -d \"\, | sed "s/denom://" | tr -d \ `
+DENOM=utlore
 echo 'export DENOM='${DENOM} >> /root/.bashrc
 echo $DENOM
 sleep 5
