@@ -62,6 +62,7 @@ cd /root/
 git clone https://github.com/ignite/cli --depth=1
 cd cli 
 make install
+cp /root/go/bin/ignite /usr/bin
 sleep 2
 cd /root/
 git clone https://github.com/AndromaverseLabs/testnet
