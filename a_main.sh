@@ -68,7 +68,7 @@ cd /root/
 git clone https://github.com/AndromaverseLabs/testnet
 cd testnet
 cd Chain
-ignite chain build
+ignite chain build -y
 BINARY=`ls /root/go/bin`
 if [[ -z $BINARY ]]
 then
