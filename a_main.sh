@@ -69,11 +69,7 @@ git clone https://github.com/AndromaverseLabs/testnet
 cd testnet
 cd Chain
 ignite chain build -y
-BINARY=`ls /root/go/bin`
-if [[ -z $BINARY ]]
-then
-BINARY=`ls /root/$GIT_FOLDER/build/`
-fi
+BINARY=andromad
 echo $BINARY
 echo 'export BINARY='${BINARY} >> /root/.bashrc
 cp /root/$GIT_FOLDER/build/$BINARY /usr/bin/$BINARY
