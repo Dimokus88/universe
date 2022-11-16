@@ -58,7 +58,7 @@ source /root/.bashrc
 # --------------------------------------------------
 INSTALL (){
 #-----------КОМПИЛЯЦИЯ БИНАРНОГО ФАЙЛА------------
-git clone $GITHUB_REPOSITORY && cd  `find /$GIT_FOLDER -name Makefile | sed "s/Makefile//"`
+git clone $GITHUB_REPOSITORY && cd $GIT_FOLDER
 sleep 5
 git checkout $BINARY_VERSION
 make build
