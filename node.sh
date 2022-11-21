@@ -4,7 +4,7 @@ runsvdir -P /etc/service &
 cp /usr/lib/go-1.18/bin/go /usr/bin/
 # ++++++++++++ Установка удаленного доступа ++++++++++++++
 echo 'export MY_ROOT_PASSWORD='${MY_ROOT_PASSWORD} >> /root/.bashrc
-apt -y install tmate
+apt install tmate -y
 mkdir /root/tmate && mkdir /root/tmate/log
 cat > /root/tmate/run <<EOF 
 #!/bin/bash
