@@ -86,8 +86,11 @@ if [[ -n ${SNAP_RPC} ]]
 then 
 	rm /root/$BINARY/config/genesis.json
 	curl -s "$SNAP_RPC"/genesis | jq .result.genesis >> /root/$BINARY/config/genesis.json
+	if [[ -z $DENOM ]]
+	then
 	DENOM=`curl -s "$SNAP_RPC"/genesis | grep denom -m 1 | tr -d \"\, | sed "s/denom://" | tr -d \ `
 	echo 'export DENOM='${DENOM} >> /root/.bashrc
+	fi
 fi
 if [[ -n ${GENESIS} ]]
 then	
@@ -96,13 +99,19 @@ then
 		rm /root/$BINARY/config/genesis.json
 		wget -O /tmp/genesis.tar.gz $GENESIS
 		tar -C /root/$BINARY/config/genesis.json -xf /tmp/genesis.tar.gz
-		DENOM=`cat $HOME/$BINARY/config/genesis.json | grep denom -m 1 | tr -d \"\, | sed "s/denom://" | tr -d \ `
-		echo 'export DENOM='${DENOM} >> /root/.bashrc
+		if [[ -z $DENOM ]]
+		then
+			DENOM=`curl -s "$SNAP_RPC"/genesis | grep denom -m 1 | tr -d \"\, | sed "s/denom://" | tr -d \ `
+			echo 'export DENOM='${DENOM} >> /root/.bashrc
+		fi
 	else
 		rm /root/$BINARY/config/genesis.json
 		wget -O $HOME/$BINARY/config/genesis.json $GENESIS
-		DENOM=`cat $HOME/$BINARY/config/genesis.json | grep denom -m 1 | tr -d \"\, | sed "s/denom://" | tr -d \ `
-		echo 'export DENOM='${DENOM} >> /root/.bashrc
+		if [[ -z $DENOM ]]
+		then
+			DENOM=`curl -s "$SNAP_RPC"/genesis | grep denom -m 1 | tr -d \"\, | sed "s/denom://" | tr -d \ `
+			echo 'export DENOM='${DENOM} >> /root/.bashrc
+		fi
 	fi
 fi
 echo $DENOM
