@@ -90,11 +90,20 @@ then
 	echo 'export DENOM='${DENOM} >> /root/.bashrc
 fi
 if [[ -n ${GENESIS} ]]
-then
-	rm /root/$BINARY/config/genesis.json
-	wget -O $HOME/$BINARY/config/genesis.json $GENESIS
-	DENOM=`cat $HOME/$BINARY/config/genesis.json | grep denom -m 1 | tr -d \"\, | sed "s/denom://" | tr -d \ `
-	echo 'export DENOM='${DENOM} >> /root/.bashrc
+then	
+	if grep tar $GENESIS
+	then
+		rm /root/$BINARY/config/genesis.json
+		wget -O /tmp/genesis.tar.gz $GENESIS
+		tar -C /root/$BINARY/config/genesis.json -xf /tmp/genesis.tar.gz
+		DENOM=`cat $HOME/$BINARY/config/genesis.json | grep denom -m 1 | tr -d \"\, | sed "s/denom://" | tr -d \ `
+		echo 'export DENOM='${DENOM} >> /root/.bashrc
+	else
+		rm /root/$BINARY/config/genesis.json
+		wget -O $HOME/$BINARY/config/genesis.json $GENESIS
+		DENOM=`cat $HOME/$BINARY/config/genesis.json | grep denom -m 1 | tr -d \"\, | sed "s/denom://" | tr -d \ `
+		echo 'export DENOM='${DENOM} >> /root/.bashrc
+	fi
 fi
 echo $DENOM
 sleep 5
