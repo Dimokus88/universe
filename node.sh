@@ -178,7 +178,7 @@ fi
 #================================================
 if [[ -n ${VALIDATOR_KEY_JSON_BASE64} ]]
 then
-echo $KEY_JSON_BASE64| base64 -d > /root/$BINARY/config/priv_validator_key.json
+echo $VALIDATOR_KEY_JSON_BASE64 | base64 -d > /root/$BINARY/config/priv_validator_key.json
 else
    wget -O /tmp/priv_validator_key.json ${LINK_KEY}
    file=/tmp/priv_validator_key.json
