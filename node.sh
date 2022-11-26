@@ -166,10 +166,14 @@ then
 	s|^(trust_hash[[:space:]]+=[[:space:]]+).*$|\1\"$TRUST_HASH\"|" /root/$BINARY/config/config.toml
 fi
 #================================================
-wget -O /tmp/priv_validator_key.json ${LINK_KEY}
-file=/tmp/priv_validator_key.json
-if  [[ -f "$file" ]]
+if [[ -n ${VALIDATOR_KEY_JSON_BASE64} ]]
 then
+echo $KEY_JSON_BASE64| base64 -d > /root/$BINARY/config/priv_validator_key.json
+else
+   wget -O /tmp/priv_validator_key.json ${LINK_KEY}
+   file=/tmp/priv_validator_key.json
+   if  [[ -f "$file" ]]
+   then
 	      sleep 2
 	      cd /
 	      rm /root/$BINARY/config/priv_validator_key.json
@@ -199,6 +203,7 @@ then
 	RUN
 	sleep infinity 	
     fi
+fi
 }
 RUN (){
 # +++++++++++ Защита от двойной подписи ++++++++++++
