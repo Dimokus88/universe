@@ -97,10 +97,11 @@ then
 	if grep tar $GENESIS
 	then
 		rm /root/$BINARY/config/genesis.json
+		mkdir /tmp/genesis/
 		wget -O /tmp/genesis.tar.gz $GENESIS
-		tar -C /tmp/ -xf /tmp/genesis.tar.gz
+		tar -C /tmp/genesis/ -xf /tmp/genesis.tar.gz
 		rm /tmp/genesis.tar.gz
-		mv /tmp/`ls` /root/$BINARY/config/genesis.json
+		mv /tmp/genesis/`ls /tmp/genesis/` /root/$BINARY/config/genesis.json
 		
 		if [[ -z $DENOM ]]
 		then
