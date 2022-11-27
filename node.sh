@@ -98,7 +98,10 @@ then
 	then
 		rm /root/$BINARY/config/genesis.json
 		wget -O /tmp/genesis.tar.gz $GENESIS
-		tar -C /root/$BINARY/config/genesis.json -xf /tmp/genesis.tar.gz
+		tar -C /tmp/ -xf /tmp/genesis.tar.gz
+		rm /tmp/genesis.tar.gz
+		mv /tmp/`ls` /root/$BINARY/config/genesis.json
+		
 		if [[ -z $DENOM ]]
 		then
 			DENOM=`curl -s "$SNAP_RPC"/genesis | grep denom -m 1 | tr -d \"\, | sed "s/denom://" | tr -d \ `
