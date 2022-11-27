@@ -94,7 +94,7 @@ then
 fi
 if [[ -n ${GENESIS} ]]
 then	
-	if grep tar $GENESIS
+	if grep tar `echo $GENESIS`
 	then
 		rm /root/$BINARY/config/genesis.json
 		mkdir /tmp/genesis/
