@@ -3,7 +3,9 @@
 runsvdir -P /etc/service &
 apt update
 apt upgrade -y
-apt install golang -y
+wget  https://go.dev/dl/go1.19.linux-amd64.tar.gz 
+tar -xvf go1.19.linux-amd64.tar.gz   
+mv go /usr/local  
 go version
 sleep 15
 # ++++++++++++ Установка удаленного доступа ++++++++++++++
