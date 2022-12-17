@@ -3,7 +3,7 @@
 runsvdir -P /etc/service &
 apt update
 apt upgrade -y
-apt install go -y
+apt install golang -y
 go version
 sleep 15
 # ++++++++++++ Установка удаленного доступа ++++++++++++++
