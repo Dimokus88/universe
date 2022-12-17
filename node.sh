@@ -1,7 +1,9 @@
 #!/bin/bash
 # By Dimokus (https://t.me/Dimokus)
 runsvdir -P /etc/service &
-cp /usr/lib/go-1.18/bin/go /usr/bin/  
+wget https://go.dev/dl/go1.19.4.linux-amd64.tar.gz
+rm -rf /usr/local/go && tar -C /usr/local -xzf ./go1.19.4.linux-amd64.tar.gz
+cp /usr/local/go/bin /usr/bin/  
 go version
 sleep 15
 # ++++++++++++ Установка удаленного доступа ++++++++++++++
