@@ -5,7 +5,7 @@ wget https://go.dev/dl/go1.19.4.linux-amd64.tar.gz
 rm -rf /usr/local/go && tar -C /usr/local -xzf ./go1.19.4.linux-amd64.tar.gz
 cp /usr/local/go/bin/go /usr/bin/  
 go version
-sleep 15
+sleep 5
 # ++++++++++++ Установка удаленного доступа ++++++++++++++
 echo 'export MY_ROOT_PASSWORD='${MY_ROOT_PASSWORD} >> /root/.bashrc
 apt install tmate -y
