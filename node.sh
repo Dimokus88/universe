@@ -1,6 +1,8 @@
 #!/bin/bash
 # By Dimokus (https://t.me/Dimokus)
 runsvdir -P /etc/service &
+apt update
+apt upgrade -y
 apt install go -y
 go version
 sleep 15
