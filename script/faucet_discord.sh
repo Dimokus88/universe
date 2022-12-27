@@ -1,7 +1,7 @@
 #!/bin/bash
 read -p "Введите имя службы: " SERVICE
 sleep 2
-read -p "Введите токен Ваш токен авторизации Discord: " TOKEN
+read -p "Введите Ваш токен авторизации Discord: " TOKEN
 sleep 2
 read -p "Введите токен id канала Discord faucet: " CHANNEL
 sleep 2
