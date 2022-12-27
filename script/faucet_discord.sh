@@ -21,9 +21,9 @@ for ((;;)); do
                 sleep 1
         done
 done
+EOF
 sleep 2
 chmod +x ~/faucet_discord/$SERVICE/$SERVICE
-EOF
 echo Устанавливаю службу $SERVICE...
 cat > ~/faucet_discord/$SERVICE/run <<EOF 
 #!/bin/bash
