@@ -33,7 +33,7 @@ echo Создан ~/faucet_discord/$SERVICE/run !
 
 cat > ~/faucet_discord/$SERVICE/log/run <<EOF 
 #!/bin/bash
-exec svlogd -tt ~/faucet_discord/$SERVICE/log/$SERVICE
+exec svlogd -tt ~/faucet_discord/$SERVICE/log/
 EOF
 
 echo Создан ~/faucet_discord/$SERVICE/log/run !
