@@ -11,7 +11,8 @@ read -p "Введите сообщение, которое необходимо 
 echo Разворачиваю сервисный файл...
 sleep 4
 mkdir -p ~/faucet_discord/$SERVICE/log
-cat > ~/faucet_discord/$SERVICE/$SERVICE <<EOF 
+cat > ~/faucet_discord/$SERVICE/$SERVICE <<EOF
+#!/bin/bash
 for ((;;)); do
     curl -s -H "Authorization: $TOKEN" -H "Content-Type: application/json" -X POST -d '{"content":"$TEXT"}' https://discordapp.com/api/channels/$CHANNEL/messages
     echo
