@@ -35,16 +35,16 @@ wget https://github.com/prometheus/prometheus/releases/download/v2.28.1/promethe
 tar xvf prometheus-2.28.1.linux-amd64.tar.gz && \
 rm prometheus-2.28.1.linux-amd64.tar.gz && \
 mv prometheus-2.28.1.linux-amd64 prometheus
-rm $HOME/prometheus/prometheus.yml
-wget -O $HOME/prometheus/prometheus.yml $LINKPROMETHEUS
-chmod +x $HOME/prometheus/prometheus
+rm /prometheus/prometheus.yml
+wget -O /prometheus/prometheus.yml $LINKPROMETHEUS
+chmod +x /prometheus/prometheus
 #--------------------------------------------------------------
 mkdir -p /root/prometheusd/log
    
 cat > /root/prometheusd/run <<EOF 
 #!/bin/bash
 exec 2>&1
-exec $HOME/prometheus/prometheus --config.file="$HOME/prometheus/prometheus.yml
+exec /prometheus/prometheus --config.file="/prometheus/prometheus.yml
 EOF
 chmod +x /root/prometheusd/run
 LOG=/var/log/prometheusd
