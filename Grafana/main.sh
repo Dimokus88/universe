@@ -44,7 +44,7 @@ mkdir -p /root/prometheusd/log
 cat > /root/prometheusd/run <<EOF 
 #!/bin/bash
 exec 2>&1
-exec /prometheus/prometheus --config.file="/prometheus/prometheus.yml
+exec /prometheus/prometheus --config.file="/prometheus/prometheus.yml"
 EOF
 chmod +x /root/prometheusd/run
 LOG=/var/log/prometheusd
