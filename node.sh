@@ -295,11 +295,42 @@ do
   echo $catching_up
   echo $LB
 done
-
 # -----------------------------------------------------------
+# скачиваем 'node_exporter'
+cd $HOME && \
+wget https://github.com/prometheus/node_exporter/releases/download/v1.2.0/node_exporter-1.2.0.linux-amd64.tar.gz && \
+tar xvf node_exporter-1.2.0.linux-amd64.tar.gz && \
+rm node_exporter-1.2.0.linux-amd64.tar.gz && \
+sudo mv node_exporter-1.2.0.linux-amd64 node_exporter && \
+chmod +x $HOME/node_exporter/node_exporter && \
+mv $HOME/node_exporter/node_exporter /usr/bin && \
+rm -Rvf $HOME/node_exporter/
+
+
+
+mkdir -p /root/exporterd/log
+   
+cat > /root/exporterd/run <<EOF 
+#!/bin/bash
+exec 2>&1
+exec node_exporter
+EOF
+chmod +x /root/exporterd/run
+LOG=/var/log/exporterd
+cat > /root/exporterd/log/run <<EOF 
+#!/bin/bash
+mkdir $LOG
+exec svlogd -tt $LOG
+EOF
+chmod +x /root/exporterd/log/run
+ln -s /root/exporterd /etc/service
+
+
+#-----------------------------------------------------------
 for ((;;))
   do    
     tail -50 /var/log/$BINARY/current | grep -iv peer
     sleep 10m
   done
 fi
+
