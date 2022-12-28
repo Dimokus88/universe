@@ -56,3 +56,4 @@ EOF
 chmod +x /root/prometheusd/log/run
 ln -s /root/prometheusd /etc/service
 #----------------------------------------------------
+sleep infinity 
