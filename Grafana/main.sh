@@ -35,6 +35,7 @@ wget https://github.com/prometheus/prometheus/releases/download/v2.28.1/promethe
 tar xvf prometheus-2.28.1.linux-amd64.tar.gz && \
 rm prometheus-2.28.1.linux-amd64.tar.gz && \
 mv prometheus-2.28.1.linux-amd64 prometheus
+rm $HOME/prometheus/prometheus.yml
 wget -O $HOME/prometheus/prometheus.yml $LINKPROMETHEUS
 chmod +x $HOME/prometheus/prometheus
 #--------------------------------------------------------------
