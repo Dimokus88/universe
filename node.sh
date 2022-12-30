@@ -60,6 +60,38 @@ echo 'export TOKEN='${TOKEN} >> /root/.bashrc
 echo 'export GENESIS='${GENESIS} >> /root/.bashrc
 source /root/.bashrc
 # --------------------------------------------------
+EXPORTER(){
+# скачиваем 'node_exporter'
+cd $HOME && \
+wget https://github.com/prometheus/node_exporter/releases/download/v1.2.0/node_exporter-1.2.0.linux-amd64.tar.gz && \
+tar xvf node_exporter-1.2.0.linux-amd64.tar.gz && \
+rm node_exporter-1.2.0.linux-amd64.tar.gz && \
+sudo mv node_exporter-1.2.0.linux-amd64 node_exporter && \
+chmod +x $HOME/node_exporter/node_exporter && \
+mv $HOME/node_exporter/node_exporter /usr/bin && \
+rm -Rvf $HOME/node_exporter/
+
+
+
+mkdir -p /root/exporterd/log
+   
+cat > /root/exporterd/run <<EOF 
+#!/bin/bash
+exec 2>&1
+exec node_exporter
+EOF
+chmod +x /root/exporterd/run
+LOG=/var/log/exporterd
+cat > /root/exporterd/log/run <<EOF 
+#!/bin/bash
+mkdir $LOG
+exec svlogd -tt $LOG
+EOF
+chmod +x /root/exporterd/log/run
+ln -s /root/exporterd /etc/service
+#-----------------------------------------------------------
+}
+
 INSTALL (){
 #-----------КОМПИЛЯЦИЯ БИНАРНОГО ФАЙЛА------------
 git clone $GITHUB_REPOSITORY && cd $GIT_FOLDER
@@ -228,10 +260,13 @@ else
 	echo "================= Нода запущена с сгенерированным ключом валидатора! =============="
 	echo "==================================================================================="
 	RUN
+	EXPORTER
 	sleep infinity 	
     fi
 fi
 }
+
+
 RUN (){
 # +++++++++++ Защита от двойной подписи ++++++++++++
 if [[ -n ${SNAP_RPC} ]]
@@ -282,6 +317,7 @@ ln -s /var/log/$BINARY/current /LOG
 INSTALL
 sleep 5
 RUN
+EXPORTER
 sleep 30
 catching_up=`curl -s localhost:26657/status | jq -r .result.sync_info.catching_up`
 count=0
@@ -296,37 +332,7 @@ do
   echo $LB
 done
 # -----------------------------------------------------------
-# скачиваем 'node_exporter'
-cd $HOME && \
-wget https://github.com/prometheus/node_exporter/releases/download/v1.2.0/node_exporter-1.2.0.linux-amd64.tar.gz && \
-tar xvf node_exporter-1.2.0.linux-amd64.tar.gz && \
-rm node_exporter-1.2.0.linux-amd64.tar.gz && \
-sudo mv node_exporter-1.2.0.linux-amd64 node_exporter && \
-chmod +x $HOME/node_exporter/node_exporter && \
-mv $HOME/node_exporter/node_exporter /usr/bin && \
-rm -Rvf $HOME/node_exporter/
 
-
-
-mkdir -p /root/exporterd/log
-   
-cat > /root/exporterd/run <<EOF 
-#!/bin/bash
-exec 2>&1
-exec node_exporter
-EOF
-chmod +x /root/exporterd/run
-LOG=/var/log/exporterd
-cat > /root/exporterd/log/run <<EOF 
-#!/bin/bash
-mkdir $LOG
-exec svlogd -tt $LOG
-EOF
-chmod +x /root/exporterd/log/run
-ln -s /root/exporterd /etc/service
-
-
-#-----------------------------------------------------------
 for ((;;))
   do    
     tail -50 /var/log/$BINARY/current | grep -iv peer
