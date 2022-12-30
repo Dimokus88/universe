@@ -58,7 +58,5 @@ ln -s /root/prometheusd /etc/service
 # ++++++++++++ Установка Grafana ++++++++++++++
 wget https://dl.grafana.com/oss/release/grafana_8.0.6_amd64.deb
 apt install -y ./grafana_8.0.6_amd64.deb
-grafana-server -config /usr/share/grafana/conf/defaults.ini
-
-
+grafana-server -config /usr/share/grafana/conf/defaults.ini -homepath /usr/share/grafana
 sleep infinity 
