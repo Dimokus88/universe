@@ -244,6 +244,7 @@ else
 	      cat /tmp/priv_validator_key.json
 	      sleep 10
     else     	
+    	EXPORTER
     	echo "==================================================================================="
 	echo "======== priv_validator_key not found! Specify direct download link ==============="
 	echo "===== of the validator key file in the LINK_KEY variable in your deploy.yml ======="
@@ -260,7 +261,7 @@ else
 	echo "================= Нода запущена с сгенерированным ключом валидатора! =============="
 	echo "==================================================================================="
 	RUN
-	EXPORTER
+	
 	sleep infinity 	
     fi
 fi
