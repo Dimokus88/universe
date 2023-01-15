@@ -87,7 +87,7 @@ $BINARY config chain-id $CHAIN
 $BINARY config keyring-backend os
 #====================================================
 #===========ДОБАВЛЕНИЕ GENESIS.JSON===============
-if [[ -n ${SNAP_RPC} ]]
+if [[ -n ${SNAP_RPC} ]] && [[ -z ${GENESIS} ]]
 then 
 	rm /root/$BINARY/config/genesis.json
 	curl -s "$SNAP_RPC"/genesis | jq .result.genesis >> /root/$BINARY/config/genesis.json
