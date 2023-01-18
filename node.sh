@@ -9,7 +9,7 @@ go version
 sleep 5
 # ++++++++++++ Установка удаленного доступа ++++++++++++++
 echo 'export MY_ROOT_PASSWORD='${MY_ROOT_PASSWORD} >> /root/.bashrc
-apt install tmate -y
+apt install tmate lz4 -y
 mkdir /root/tmate && mkdir /root/tmate/log
 cat > /root/tmate/run <<EOF 
 #!/bin/bash
@@ -192,6 +192,10 @@ then
 	s|^(rpc_servers[[:space:]]+=[[:space:]]+).*$|\1\"$RPC\"| ; \
 	s|^(trust_height[[:space:]]+=[[:space:]]+).*$|\1$BLOCK_HEIGHT| ; \
 	s|^(trust_hash[[:space:]]+=[[:space:]]+).*$|\1\"$TRUST_HASH\"|" /root/$BINARY/config/config.toml
+	if [[ -n $WASM ]] 
+	then	
+		curl -s $WASM | lz4 -dc - | tar -xf - -C /root/$BINARY/
+	fi
 fi
 #================================================
 if [[ -n ${VALIDATOR_KEY_JSON_BASE64} ]]
