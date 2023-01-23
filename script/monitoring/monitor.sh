@@ -95,7 +95,7 @@ fi
 if [[ -z "$PROJECT" || "$PROJECT" == "null" ]]
 then
 date
-echo Новых проектов нет, проверка через 5 минут `date`
-sleep 5m
+echo Новых проектов нет, проверка через 10 минут
+sleep 10m
 fi
 done
