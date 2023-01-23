@@ -46,7 +46,7 @@
 ,
 {"project": "nibiru", 
 "user" : "@PashaDereniuk",
-"rpc" : "https://nibiru.rpc.bccnodes.com:443",
+"rpc" : "https://t-nibiru.rpc.utsa.tech:443",
 "hex" : "EBAAECF31EC18DC4234E01C82B749AE2CD7A9577"}
 ,
 { "project": "desmos",
