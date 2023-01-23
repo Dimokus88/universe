@@ -5,6 +5,7 @@ URL="https://api.telegram.org/bot$TOKEN/sendMessage"
 p=0
 for (( ;; ))
 do
+curl -s https://raw.githubusercontent.com/Dimokus88/universe/main/script/monitoring/base.json > ~/monitor/base.json
 PROJECT=`cat ~/monitor/base.json | jq -r .[$p].project`
 PROJECT_FOLDER=`ls ~/monitor/ | grep $PROJECT`
 if [[ $PROJECT_FOLDER !=  $PROJECT && "$PROJECT" != "null" ]]
