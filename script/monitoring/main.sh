@@ -21,3 +21,6 @@ EOF
 chmod +x /root/monitor/run
 chmod +x /root/monitor/log/run
 ln -s /root/monitor /etc/service
+sleep 20
+tail -f /root/monitor/log/current
+sleep infinity
