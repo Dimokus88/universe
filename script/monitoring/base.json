@@ -1,0 +1,91 @@
+[
+{ "project": "okp4",
+"user" : "@dimokus",
+"rpc" : "http://rpc.okp.ppnv.space:36657",
+"hex" : "EBAAECF31EC18DC4234E01C82B749AE2CD7A9577"}
+,
+{ "project": "androma",
+"user" : "@dimokus",
+"rpc" : "http://65.109.28.177:26657",
+"hex" : "9C91D56FB9846B245229E7F943B8ADBCB1109ECD"}
+,
+{ "project": "aura",
+"user" : "@XopxePaMupec",
+"rpc" : "https://rpc.euphoria.aura.network:443",
+"hex" : "EBAAECF31EC18DC4234E01C82B749AE2CD7A9577"}
+,
+{ "project": "gitopia",
+"user" : "@dimokus",
+"rpc" : "http://rpc.gitopia.ppnv.space:28657",
+"hex" : "9C91D56FB9846B245229E7F943B8ADBCB1109ECD"}
+,
+{ "project": "humans", 
+"user" : "@NickolasBat",
+"rpc" : "https://rpc-testnet.humans.zone:443",
+"hex" : "EBAAECF31EC18DC4234E01C82B749AE2CD7A9577"}
+,
+{ "project": "loyal",
+"user" : "@XopxePaMupec",
+"rpc" : "https://main-rpc.joinloyal.io:443",
+"hex" : "EBAAECF31EC18DC4234E01C82B749AE2CD7A9577"}
+,
+{ "project": "realio",
+"user" : "@PashaDereniuk",
+"rpc" : "https://realio-rpc.42cabi.net:443",
+"hex" : "EBAAECF31EC18DC4234E01C82B749AE2CD7A9577"}
+,
+{ "project": "sge",
+"user" : "@PashaDereniuk",
+"rpc" : "http://rpc.sge.ppnv.space:29657",
+"hex" : "EBAAECF31EC18DC4234E01C82B749AE2CD7A9577"}
+,
+{ "project": "source",
+"user" : "@NickolasBat",
+"rpc" : "http://rpc.source.ppnv.space:22657",
+"hex" : "EBAAECF31EC18DC4234E01C82B749AE2CD7A9577"}
+,
+{ "project": "crowd", 
+"user" : "@XopxePaMupec",
+"rpc" : "https://rpc.cc.mcbnode.online:443",
+"hex" : "E193460379B0DBFA598B34536441FF8D72532D1C"}
+,
+{"project": "nibiru", 
+"user" : "@PashaDereniuk",
+"rpc" : "https://nibiru.rpc.bccnodes.com:443",
+"hex" : "EBAAECF31EC18DC4234E01C82B749AE2CD7A9577"}
+,
+{ "project": "desmos",
+"user" : "@Nadi_biryuk @dimokus ",
+"rpc" : "http://desmos.statesync.nodersteam.com:26657",
+"hex" : "8FC231B00FE385DBD48293744235989B1C973747"}
+,
+{ "project": "lambda", 
+"user" : "@Nadi_biryuk @dimokus",
+"rpc" : "https://rpc.lambda.nodestake.top:443",
+"hex" : "9C91D56FB9846B245229E7F943B8ADBCB1109ECD"}
+,
+{"project": "vidulum", 
+"user" : "@Nadi_biryuk @dimokus",
+"rpc" : "http://5.189.178.222:36657",
+"hex" : "9C91D56FB9846B245229E7F943B8ADBCB1109ECD"}
+,
+{"project": "Sentinel", 
+"user" : "@Nadi_biryuk @dimokus",
+"rpc" : "https://rpc.sentinel.co:443",
+"hex" : "EBAAECF31EC18DC4234E01C82B749AE2CD7A9577"}
+ ,
+{"project": "Akash", 
+"user" : "@Nadi_biryuk @dimokus",
+"rpc" : "https://rpc-akash.ecostake.com:443",
+"hex" : "EBAAECF31EC18DC4234E01C82B749AE2CD7A9577"}
+,
+{"project": "Lava", 
+"user" : "@XopxePaMupec",
+"rpc" : "https://rpc-lava.nodeist.net:443",
+"hex" : "EBAAECF31EC18DC4234E01C82B749AE2CD7A9577"}
+,
+{"project": "Mars", 
+"user" : "@XopxePaMupec",
+"rpc" : "https://mars-testnet.nodejumper.io:443",
+"hex" : "EBAAECF31EC18DC4234E01C82B749AE2CD7A9577"}
+]
