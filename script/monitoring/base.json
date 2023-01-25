@@ -84,7 +84,7 @@
 "rpc" : "https://mars-testnet.nodejumper.io:443",
 "hex" : "EBAAECF31EC18DC4234E01C82B749AE2CD7A9577"}
 ,
-{ "project": "gitopia Паша",
+{ "project": "Gitopia_Pasha",
 "user" : "@PashaDereniuk",
 "rpc" : "http://rpc.gitopia.ppnv.space:28657",
 "hex" : "06E2765AD39E6457F572C2CE2E4FD672C9EC7FF5"}
