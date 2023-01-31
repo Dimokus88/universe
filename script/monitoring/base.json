@@ -51,7 +51,7 @@
 ,
 { "project": "desmos",
 "user" : "@Nadi_biryuk @dimokus ",
-"rpc" : "http://desmos.statesync.nodersteam.com:26657",
+"rpc" : "https://desmos-rpc.panthea.eu:443",
 "hex" : "8FC231B00FE385DBD48293744235989B1C973747"}
 ,
 { "project": "lambda", 
