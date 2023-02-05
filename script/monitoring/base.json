@@ -83,4 +83,9 @@
 "user" : "@PashaDereniuk",
 "rpc" : "http://rpc.gitopia.ppnv.space:28657",
 "hex" : "06E2765AD39E6457F572C2CE2E4FD672C9EC7FF5"}
+,
+{ "project": "Hypersign",
+"user" : "@NickolasBat",
+"rpc" : "https://rpc-t.hypersign.nodestake.top:443",
+"hex" : "AFA97BA1834FDA47B8EFCA301F903358545D5470"}
 ]
