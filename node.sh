@@ -169,17 +169,20 @@ sed -i.bak -e "s/^double_sign_check_height *=.*/double_sign_check_height = 15/;"
 sed -i.bak -e "s/^seeds *=.*/seeds = \"$SEED\"/;" /root/$BINARY/config/config.toml
 sed -i.bak -e "s/^persistent_peers *=.*/persistent_peers = \"$PEER\"/;" /root/$BINARY/config/config.toml
 sed -i.bak -e "s_"tcp://127.0.0.1:26657"_"tcp://0.0.0.0:26657"_;" /root/$BINARY/config/config.toml
+if [[ -z $PRUNING ]]
+then
 pruning="custom" && \
 pruning_keep_recent="1000" && \
 pruning_interval="10" && \
 sed -i -e "s/^pruning *=.*/pruning = \"$pruning\"/" /root/$BINARY/config/app.toml && \
 sed -i -e "s/^pruning-keep-recent *=.*/pruning-keep-recent = \"$pruning_keep_recent\"/" /root/$BINARY/config/app.toml && \
 sed -i -e "s/^pruning-interval *=.*/pruning-interval = \"$pruning_interval\"/" /root/$BINARY/config/app.toml
+fi
 snapshot_interval="2000" && \
 sed -i.bak -e "s/^snapshot-interval *=.*/snapshot-interval = \"$snapshot_interval\"/" /root/$BINARY/config/app.toml
 #-----------------------------------------------------------
 # ====================RPC======================
-if [[ -n ${SNAP_RPC} ]]
+if [[ -n ${SNAP_RPC} ]] && [[ -z $STATE_SYNC ]]
 then
 	RPC=`echo $SNAP_RPC,$SNAP_RPC,$RPC`
 	echo $RPC
