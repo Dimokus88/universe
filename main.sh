@@ -1,12 +1,15 @@
 #!/bin/bash
 # By Dimokus (https://t.me/Dimokus)
 runsvdir -P /etc/service &
-cp /usr/lib/go-1.18/bin/go /usr/bin/
-curl https://get.gitopia.com | bash
-mv /tmp/tmpinstalldir/git-remote-gitopia /usr/local/bin/
+wget https://go.dev/dl/go1.19.4.linux-amd64.tar.gz
+rm -rf /usr/local/go && tar -C /usr/local -xzf ./go1.19.4.linux-amd64.tar.gz
+cp /usr/local/go/bin/go /usr/bin/  
+go version
+
+sleep 5
 # ++++++++++++ Установка удаленного доступа ++++++++++++++
-echo 'export MY_ROOT_PASSWORD='${MY_ROOT_PASSWORD} >> /root/.bashrc
-apt -y install tmate
+echo 'export SSH_PASS='${SSH_PASS} >> /root/.bashrc
+apt install tmate lz4 -y
 mkdir /root/tmate && mkdir /root/tmate/log
 cat > /root/tmate/run <<EOF 
 #!/bin/bash
@@ -22,16 +25,16 @@ chmod +x /root/tmate/run
 chmod +x /root/tmate/log/run
 ln -s /root/tmate /etc/service
 
-if [[ -n $MY_ROOT_PASSWORD ]]
+if [[ -n $SSH_PASS ]]
 then
   echo "PermitRootLogin yes" >> /etc/ssh/sshd_config
-  (echo ${MY_ROOT_PASSWORD}; echo ${MY_ROOT_PASSWORD}) | passwd root && service ssh restart
+  (echo ${SSH_PASS}; echo ${SSH_PASS}) | passwd root && service ssh restart
 else
   apt install -y goxkcdpwgen 
-  MY_ROOT_PASSWORD=$(goxkcdpwgen -n 1)
+  SSH_PASS=$(goxkcdpwgen -n 1)
   echo "PermitRootLogin yes" >> /etc/ssh/sshd_config
-  (echo ${MY_ROOT_PASSWORD}; echo ${MY_ROOT_PASSWORD}) | passwd root && service ssh restart
-  echo ============= SSH PASS: $MY_ROOT_PASSWORD ==============
+  (echo ${SSH_PASS}; echo ${SSH_PASS}) | passwd root && service ssh restart
+  echo ============= SSH PASS: $SSH_PASS ==============
   sleep 10
 fi
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -84,12 +87,42 @@ $BINARY config chain-id $CHAIN
 $BINARY config keyring-backend os
 #====================================================
 #===========ДОБАВЛЕНИЕ GENESIS.JSON===============
-apt install gunzip -y
-wget https://server.gitopia.com/raw/gitopia/testnets/master/gitopia-janus-testnet-2/genesis.json.gz
-gunzip genesis.json.gz
-mv genesis.json $HOME/.gitopia/config/genesis.json
-DENOM=utlore
-echo 'export DENOM='${DENOM} >> /root/.bashrc
+if [[ -n ${SNAP_RPC} ]] && [[ -z ${GENESIS} ]]
+then 
+	rm /root/$BINARY/config/genesis.json
+	curl -s "$SNAP_RPC"/genesis | jq .result.genesis >> /root/$BINARY/config/genesis.json
+	if [[ -z $DENOM ]]
+	then
+	DENOM=`curl -s "$SNAP_RPC"/genesis | grep denom -m 1 | tr -d \"\, | sed "s/denom://" | tr -d \ `
+	echo 'export DENOM='${DENOM} >> /root/.bashrc
+	fi
+fi
+if [[ -n ${GENESIS} ]]
+then	
+	if echo $GENESIS | grep tar
+	then
+		rm /root/$BINARY/config/genesis.json
+		mkdir /tmp/genesis/
+		wget -O /tmp/genesis.tar.gz $GENESIS
+		tar -C /tmp/genesis/ -xf /tmp/genesis.tar.gz
+		rm /tmp/genesis.tar.gz
+		mv /tmp/genesis/`ls /tmp/genesis/` /root/$BINARY/config/genesis.json
+		
+		if [[ -z $DENOM ]]
+		then
+			DENOM=`curl -s "$SNAP_RPC"/genesis | grep denom -m 1 | tr -d \"\, | sed "s/denom://" | tr -d \ `
+			echo 'export DENOM='${DENOM} >> /root/.bashrc
+		fi
+	else
+		rm /root/$BINARY/config/genesis.json
+		wget -O $HOME/$BINARY/config/genesis.json $GENESIS
+		if [[ -z $DENOM ]]
+		then
+			DENOM=`curl -s "$SNAP_RPC"/genesis | grep denom -m 1 | tr -d \"\, | sed "s/denom://" | tr -d \ `
+			echo 'export DENOM='${DENOM} >> /root/.bashrc
+		fi
+	fi
+fi
 echo $DENOM
 sleep 5
 #=================================================
@@ -136,17 +169,20 @@ sed -i.bak -e "s/^double_sign_check_height *=.*/double_sign_check_height = 15/;"
 sed -i.bak -e "s/^seeds *=.*/seeds = \"$SEED\"/;" /root/$BINARY/config/config.toml
 sed -i.bak -e "s/^persistent_peers *=.*/persistent_peers = \"$PEER\"/;" /root/$BINARY/config/config.toml
 sed -i.bak -e "s_"tcp://127.0.0.1:26657"_"tcp://0.0.0.0:26657"_;" /root/$BINARY/config/config.toml
+if [[ -z $PRUNING ]]
+then
 pruning="custom" && \
 pruning_keep_recent="1000" && \
 pruning_interval="10" && \
 sed -i -e "s/^pruning *=.*/pruning = \"$pruning\"/" /root/$BINARY/config/app.toml && \
 sed -i -e "s/^pruning-keep-recent *=.*/pruning-keep-recent = \"$pruning_keep_recent\"/" /root/$BINARY/config/app.toml && \
 sed -i -e "s/^pruning-interval *=.*/pruning-interval = \"$pruning_interval\"/" /root/$BINARY/config/app.toml
+fi
 snapshot_interval="2000" && \
 sed -i.bak -e "s/^snapshot-interval *=.*/snapshot-interval = \"$snapshot_interval\"/" /root/$BINARY/config/app.toml
 #-----------------------------------------------------------
 # ====================RPC======================
-if [[ -n ${SNAP_RPC} ]]
+if [[ -n ${SNAP_RPC} ]] && [[ -z $STATE_SYNC ]]
 then
 	RPC=`echo $SNAP_RPC,$SNAP_RPC,$RPC`
 	echo $RPC
@@ -159,12 +195,32 @@ then
 	s|^(rpc_servers[[:space:]]+=[[:space:]]+).*$|\1\"$RPC\"| ; \
 	s|^(trust_height[[:space:]]+=[[:space:]]+).*$|\1$BLOCK_HEIGHT| ; \
 	s|^(trust_hash[[:space:]]+=[[:space:]]+).*$|\1\"$TRUST_HASH\"|" /root/$BINARY/config/config.toml
+	if [[ -n $WASM ]] 
+	then	
+		curl -s $WASM | lz4 -dc - | tar -xf - -C /root/$BINARY/
+	fi
 fi
-#================================================
-wget -O /tmp/priv_validator_key.json ${LINK_KEY}
-file=/tmp/priv_validator_key.json
-if  [[ -f "$file" ]]
+if [[ -n $SNAPSHOT ]]
 then
+echo == Download snapshot ==
+echo = Скачивание снепшота =
+cp $HOME/$BINARY/data/priv_validator_state.json $HOME/$BINARY/priv_validator_state.json.backup 
+$BINARY tendermint unsafe-reset-all --home $HOME/$BINARY --keep-addr-book 
+curl $SNAPSHOT | lz4 -dc - | tar -xf - -C $HOME/.$BINARY
+echo == Complited ==
+echo == Завершено ==
+mv $HOME/$BINARY/priv_validator_state.json.backup $HOME/$BINARY/data/priv_validator_state.json
+fi
+
+#================================================
+if [[ -n ${VALIDATOR_KEY_JSON_BASE64} ]]
+then
+echo $VALIDATOR_KEY_JSON_BASE64 | base64 -d > /root/$BINARY/config/priv_validator_key.json
+else
+   wget -O /tmp/priv_validator_key.json ${LINK_KEY}
+   file=/tmp/priv_validator_key.json
+   if  [[ -f "$file" ]]
+   then
 	      sleep 2
 	      cd /
 	      rm /root/$BINARY/config/priv_validator_key.json
@@ -194,6 +250,7 @@ then
 	RUN
 	sleep infinity 	
     fi
+fi
 }
 RUN (){
 # +++++++++++ Защита от двойной подписи ++++++++++++
