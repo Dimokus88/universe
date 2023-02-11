@@ -206,7 +206,7 @@ echo == Download snapshot ==
 echo = Скачивание снепшота =
 cp $HOME/$BINARY/data/priv_validator_state.json $HOME/$BINARY/priv_validator_state.json.backup 
 $BINARY tendermint unsafe-reset-all --home $HOME/$BINARY --keep-addr-book 
-curl $SNAPSHOT | lz4 -dc - | tar -xf - -C $HOME/.$BINARY
+curl $SNAPSHOT | lz4 -dc - | tar -xf - -C $HOME/$BINARY
 echo == Complited ==
 echo == Завершено ==
 mv $HOME/$BINARY/priv_validator_state.json.backup $HOME/$BINARY/data/priv_validator_state.json
