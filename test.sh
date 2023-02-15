@@ -60,7 +60,7 @@ then
 		DENOM=`curl -s "$RPC"/genesis | grep denom -m 1 | tr -d \"\, | sed "s/denom://" | tr -d \ ` && 	echo 'export DENOM='${DENOM} >> /root/.bashrc
 	fi
 fi
-if [[ -n ${GENESIS} ]]
+if [[ -n $GENESIS ]]
 then	
 	if echo $GENESIS | grep tar
 	then
@@ -90,7 +90,7 @@ then
   while [[ "$p" -le  "$n_peers" ]] && [[ "$count" -le 9 ]]
   do
 	  PEER=`curl -s  $RPC/net_info? | jq -r .result.peers["$p"].node_info.listen_addr`
-    if echo $PEERS | grep "tcp" || echo $PEERS | grep "0.0.0.0" || -z $PEERS
+    if [[ echo $PEERS | grep "tcp" ]] || [[ echo $PEERS | grep "0.0.0.0" ]] || [[ -z $PEERS ]]
     then
     	break
     else
