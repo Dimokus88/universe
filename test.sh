@@ -121,16 +121,19 @@ sed -i -e "s/^pruning-interval *=.*/pruning-interval = \"$INTERVAL\"/" /root/$BI
 fi
 if [[ -z $SNAPSHOT_INTERVAL ]]
 then
-snapshot_interval="2000" 
+SNAPSHOT_INTERVAL="2000" 
 fi
 sed -i.bak -e "s/^snapshot-interval *=.*/snapshot-interval = \"$SNAPSHOT_INTERVAL\"/" /root/$BINARY/config/app.toml
 
 # ====================RPC======================
 if [[ -n ${RPC} ]] && [[ -z $STATE_SYNC ]]
 then
-	RPC=`echo $RPC,$RPC` &&	echo $RPC
-	LATEST_HEIGHT=`curl -s $RPC/block | jq -r .result.block.header.height` && BLOCK_HEIGHT=$((LATEST_HEIGHT - 2000)) && BLOCK_HEIGHT=`echo $BLOCK_HEIGHT | sed "s/...$/000/"` && TRUST_HASH=$(curl -s "$RPC/block?height=$BLOCK_HEIGHT" | jq -r .result.block_id.hash)
+	
+	LATEST_HEIGHT=`curl -s $RPC/block | jq -r .result.block.header.height` 
+	BLOCK_HEIGHT=$((LATEST_HEIGHT - 2000)) && BLOCK_HEIGHT=`echo $BLOCK_HEIGHT | sed "s/...$/000/"`
+	TRUST_HASH=$(curl -s "$RPC/block?height=$BLOCK_HEIGHT" | jq -r .result.block_id.hash)
 	echo $LATEST_HEIGHT $BLOCK_HEIGHT $TRUST_HASH
+	RPC=`echo $RPC,$RPC` &&	echo $RPC
 	sed -i.bak -E "s|^(enable[[:space:]]+=[[:space:]]+).*$|\1true| ; \
 	s|^(rpc_servers[[:space:]]+=[[:space:]]+).*$|\1\"$RPC\"| ; \
 	s|^(trust_height[[:space:]]+=[[:space:]]+).*$|\1$BLOCK_HEIGHT| ; \
