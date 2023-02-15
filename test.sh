@@ -10,7 +10,7 @@ then
 echo "PermitRootLogin yes" >> /etc/ssh/sshd_config && (echo ${SSH_PASS}; echo ${SSH_PASS}) | passwd root && service ssh restart
 fi
 # Часть 2 Переменые
-GIT_FOLDER=`basename $GITHUB_REPOSITORY | sed "s/.git//"`
+
 if [[ -n $RPC ]]
 then
 	if [[ -z $CHAIN ]]
@@ -37,6 +37,7 @@ then
 	wget -O /usr/bin/$BINARY $BINARY_LINK
 	fi
 else
+	GIT_FOLDER=`basename $GITHUB_REPOSITORY | sed "s/.git//"`
 	git clone $GITHUB_REPOSITORY && cd $GIT_FOLDER && git checkout $BINARY_VERSION && make	
 	BINARY=`ls /root/go/bin`
 	if [[ -z $BINARY ]]
@@ -89,8 +90,10 @@ then
   while [[ "$p" -le  "$n_peers" ]] && [[ "$count" -le 9 ]]
   do
 	  PEER=`curl -s  $RPC/net_info? | jq -r .result.peers["$p"].node_info.listen_addr`
-    if [[ ! "$PEERS" =~ "tcp" ]] 
+    if echo $PEERS | grep "tcp" && echo $PEERS | grep "0.0.0.0"
     then
+    	break
+    else
     	id=`curl -s  $RPC/net_info? | jq -r .result.peers["$p"].node_info.id` && echo -n "$id@$PEER," >> /tmp/PEERS.txt
 	echo $id@$PEER && echo $PEER | sed 's/:/ /g' > /tmp/addr.tmp
 	ADDRESS=(`cat /tmp/addr.tmp`) && ADDRESS=`echo ${ADDRESS[0]}`
