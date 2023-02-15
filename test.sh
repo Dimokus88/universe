@@ -90,7 +90,7 @@ then
   while [[ "$p" -le  "$n_peers" ]] && [[ "$count" -le 9 ]]
   do
 	  PEER=`curl -s  $RPC/net_info? | jq -r .result.peers["$p"].node_info.listen_addr`
-    if [[ echo $PEER | grep "tcp" ]] || [[ echo $PEER | grep "0.0.0.0" ]] || [[ -z $PEER ]]
+    if echo $PEER | grep tcp
     then
     	count="$count"+1
     else
