@@ -92,7 +92,7 @@ then
 	  PEER=`curl -s  $RPC/net_info? | jq -r .result.peers["$p"].node_info.listen_addr`
     if [[ echo $PEERS | grep "tcp" ]] || [[ echo $PEERS | grep "0.0.0.0" ]] || [[ -z $PEERS ]]
     then
-    	break
+    	count="$count"+1
     else
     	id=`curl -s  $RPC/net_info? | jq -r .result.peers["$p"].node_info.id` && echo -n "$id@$PEER," >> /tmp/PEERS.txt
 	echo $id@$PEER && echo $PEER | sed 's/:/ /g' > /tmp/addr.tmp
