@@ -4,6 +4,7 @@ TZ=Europe/Kiev && ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /
 apt install -y nano tar wget lz4 zip jq ssh runit build-essential git make gcc 
 runsvdir -P /etc/service &
 wget https://go.dev/dl/go1.20.1.linux-amd64.tar.gz && tar -C /usr/local -xzf go1.20.1.linux-amd64.tar.gz
+PATH=$PATH:/usr/local/go/bin
 echo 'export PATH='$PATH:/usr/local/go/bin >> /root/.bashrc
 if [[ -n $SSH_PASS ]] # Если задана переменная SSH_PASS - включаем службу SSH
 then 
