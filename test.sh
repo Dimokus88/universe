@@ -30,7 +30,12 @@ echo 'export GENESIS='${GENESIS} >> /root/.bashrc
 # Часть 3 Компиляция
 if [[ -n $BINARY_LINK ]]
 then
-	wget -O 
+	if echo $BINARY_LINK | grep tar
+	then
+	wget -O /tmp/$BINARY.tar.gz $BINARY_LINK && tar -xvf /tmp/$BINARY.tar.gz -C /usr/bin/
+	else
+	wget -O /usr/bin $BINARY_LINK
+	fi
 else
 	git clone $GITHUB_REPOSITORY && cd $GIT_FOLDER && git checkout $BINARY_VERSION && make	
 	BINARY=`ls /root/go/bin`
