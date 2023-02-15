@@ -182,6 +182,17 @@ fi
 snapshot_interval="2000" && \
 sed -i.bak -e "s/^snapshot-interval *=.*/snapshot-interval = \"$snapshot_interval\"/" /root/$BINARY/config/app.toml
 #-----------------------------------------------------------
+if [[ -n $SNAPSHOT ]]
+then
+echo == Download snapshot ==
+echo = Скачивание снепшота =
+cp $HOME/$BINARY/data/priv_validator_state.json $HOME/$BINARY/priv_validator_state.json.backup 
+$BINARY tendermint unsafe-reset-all --home $HOME/$BINARY --keep-addr-book 
+curl $SNAPSHOT | lz4 -dc - | tar -xf - -C $HOME/$BINARY
+echo == Complited ==
+echo == Завершено ==
+mv $HOME/$BINARY/priv_validator_state.json.backup $HOME/$BINARY/data/priv_validator_state.json
+fi
 # ====================RPC======================
 if [[ -n ${SNAP_RPC} ]] && [[ -z $STATE_SYNC ]]
 then
