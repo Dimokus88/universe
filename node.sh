@@ -1,9 +1,8 @@
 #!/bin/bash
 # By Dimokus (https://t.me/Dimokus)
 runsvdir -P /etc/service &
-wget https://go.dev/dl/go1.19.4.linux-amd64.tar.gz
-rm -rf /usr/local/go && tar -C /usr/local -xzf ./go1.19.4.linux-amd64.tar.gz
-cp /usr/local/go/bin/go /usr/bin/  
+wget https://go.dev/dl/go1.20.1.linux-amd64.tar.gz && tar -C /usr/local -xzf go1.20.1.linux-amd64.tar.gz
+echo 'export PATH='$PATH:/usr/local/go/bin >> /root/.bashrc
 go version
 
 sleep 5
