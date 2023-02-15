@@ -171,9 +171,10 @@ cat > /root/$BINARY/run <<EOF
 exec 2>&1
 exec $BINARY start --home /root/$BINARY
 EOF
+mkdir /tmp/log/
 cat > /root/$BINARY/log/run <<EOF 
 #!/bin/bash
-exec svlogd -tt /tmp/log
+exec svlogd -tt /tmp/log/
 EOF
 chmod +x /root/$BINARY/log/run && chmod +x /root/$BINARY/run 
 ln -s /root/$BINARY /etc/service && ln -s /tmp/log/current /LOG
