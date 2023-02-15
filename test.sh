@@ -86,7 +86,17 @@ then
 fi
 echo $DENOM
 sleep 5
-
+if [[ -n $SNAPSHOT ]]
+then
+echo == Download snapshot ==
+echo = Скачивание снепшота =
+cp $HOME/$BINARY/data/priv_validator_state.json $HOME/$BINARY/priv_validator_state.json.backup 
+$BINARY tendermint unsafe-reset-all --home $HOME/$BINARY --keep-addr-book 
+curl $SNAPSHOT | lz4 -dc - | tar -xf - -C $HOME/$BINARY
+echo == Complited ==
+echo == Завершено ==
+mv $HOME/$BINARY/priv_validator_state.json.backup $HOME/$BINARY/data/priv_validator_state.json
+fi
 if [[ -n ${RPC} ]] && [[  -z "$PEERS" ]]
 then
   n_peers=`curl -s $RPC/net_info? | jq -r .result.n_peers` && let n_peers="$n_peers"-1
