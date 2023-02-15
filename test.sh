@@ -34,7 +34,7 @@ then
 	then
 	wget -O /tmp/$BINARY.tar.gz $BINARY_LINK && tar -xvf /tmp/$BINARY.tar.gz -C /usr/bin/
 	else
-	wget -O /usr/bin $BINARY_LINK
+	wget -O /usr/bin/$BINARY $BINARY_LINK
 	fi
 else
 	git clone $GITHUB_REPOSITORY && cd $GIT_FOLDER && git checkout $BINARY_VERSION && make	
