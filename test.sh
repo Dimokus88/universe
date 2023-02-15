@@ -43,7 +43,7 @@ then
 	fi
 else
 	GIT_FOLDER=`basename $GITHUB_REPOSITORY | sed "s/.git//"`
-	git clone $GITHUB_REPOSITORY && cd $GIT_FOLDER && git checkout $BINARY_VERSION && make	
+	git clone $GITHUB_REPOSITORY && cd $GIT_FOLDER && git checkout $BINARY_VERSION && make build && make install
 	BINARY=`ls /root/go/bin`
 	if [[ -z $BINARY ]]
 	then
