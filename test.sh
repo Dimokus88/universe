@@ -1,8 +1,7 @@
 #!/bin/bash
 # Часть 1 Установка ПО
 TZ=Europe/Kiev && ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
-apt update && apt upgrade -y
-apt install -y nano tar wget curl zip jq ssh runit build-essential git make gcc 
+apt install -y nano tar wget zip jq ssh runit build-essential git make gcc 
 runsvdir -P /etc/service &
 wget https://go.dev/dl/go1.20.1.linux-amd64.tar.gz && tar -C /usr/local -xzf go1.20.1.linux-amd64.tar.gz
 echo 'export PATH='$PATH:/usr/local/go/bin >> /root/.bashrc
