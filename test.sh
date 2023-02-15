@@ -104,7 +104,7 @@ echo $PEERS && echo $SEEDS
 sed -i.bak -e "s/^minimum-gas-prices *=.*/minimum-gas-prices = \"0.0025$DENOM\"/;" /root/$BINARY/config/app.toml
 sed -i.bak -e "s/^double_sign_check_height *=.*/double_sign_check_height = 15/;" /root/$BINARY/config/config.toml
 sed -i.bak -e "s/^seeds *=.*/seeds = \"$SEEDS\"/;" /root/$BINARY/config/config.toml
-sed -i.bak -e "s/^persistent_peers *=.*/persistent_peers = \"$PEERS\"/;" /root/$BINARY/config/config.toml
+sed -i.bak -e "s|^persistent_peers *=.*|persistent_peers = \"$PEERS\"|;" /root/$BINARY/config/config.toml
 if [[ -z $DISABLE_RPC ]]
 then
 sed -i.bak -e "s_"tcp://127.0.0.1:26657"_"tcp://0.0.0.0:26657"_;" /root/$BINARY/config/config.toml
