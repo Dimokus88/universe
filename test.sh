@@ -92,11 +92,11 @@ then
     if [[ ! "$PEERS" =~ "tcp" ]] 
     then
     	id=`curl -s  $RPC/net_info? | jq -r .result.peers["$p"].node_info.id` && echo -n "$id@$PEER," >> /tmp/PEERS.txt
-			echo $id@$PEER && rm /tmp/addr.tmp && echo $PEERS | sed 's/:/ /g' > /tmp/addr.tmp
-			ADDRESS=(`cat /tmp/addr.tmp`) && ADDRESS=`echo ${ADDRESS[0]}`
-			PORT=(`cat /tmp/addr.tmp`) && PORT=`echo ${PORT[1]}` && count="$count"+1
-   	fi
-	p="$p"+1
+	echo $id@$PEER && rm /tmp/addr.tmp && echo $PEER | sed 's/:/ /g' > /tmp/addr.tmp
+	ADDRESS=(`cat /tmp/addr.tmp`) && ADDRESS=`echo ${ADDRESS[0]}`
+	PORT=(`cat /tmp/addr.tmp`) && PORT=`echo ${PORT[1]}` && count="$count"+1
+   fi
+   p="$p"+1
 done
 echo "Search peers is complete!" && PEERS=`cat /tmp/PEERS.txt | sed 's/,$//'`
 fi
