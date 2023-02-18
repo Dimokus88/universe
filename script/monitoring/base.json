@@ -86,6 +86,6 @@
 ,
 { "project": "Hypersign",
 "user" : "@NickolasBat",
-"rpc" : "https://rpc-t.hypersign.nodestake.top:443",
+"rpc" : "https://hypersign-testnet-rpc.polkachu.com:443",
 "hex" : "AFA97BA1834FDA47B8EFCA301F903358545D5470"}
 ]
