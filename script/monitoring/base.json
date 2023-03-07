@@ -19,11 +19,6 @@
 "rpc" : "http://rpc.gitopia.ppnv.space:28657",
 "hex" : "9C91D56FB9846B245229E7F943B8ADBCB1109ECD"}
 ,
-{ "project": "humans", 
-"user" : "@NickolasBat",
-"rpc" : "https://rpc-testnet.humans.zone:443",
-"hex" : "EBAAECF31EC18DC4234E01C82B749AE2CD7A9577"}
-,
 { "project": "realio",
 "user" : "@PashaDereniuk",
 "rpc" : "https://realio-rpc.42cabi.net:443",
@@ -43,11 +38,6 @@
 "user" : "@XopxePaMupec",
 "rpc" : "https://rpc.cc.mcbnode.online:443",
 "hex" : "E193460379B0DBFA598B34536441FF8D72532D1C"}
-,
-{"project": "nibiru", 
-"user" : "@Dimokus",
-"rpc" : "https://t-nibiru.rpc.utsa.tech:443",
-"hex" : "EBAAECF31EC18DC4234E01C82B749AE2CD7A9577"}
 ,
 { "project": "desmos",
 "user" : "@Nadi_biryuk @dimokus ",
@@ -76,7 +66,7 @@
 ,
 {"project": "Lava", 
 "user" : "@XopxePaMupec",
-"rpc" : "https://rpc-lava.nodeist.net:443",
+"rpc" : "https://lava.rpc.skynodejs.net:443",
 "hex" : "EBAAECF31EC18DC4234E01C82B749AE2CD7A9577"}
 ,
 { "project": "Hypersign",
