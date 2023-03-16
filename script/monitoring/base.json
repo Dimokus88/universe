@@ -76,6 +76,6 @@
  ,
 { "project": "Kyve",
 "user" : "@Nadi_biryuk @dimokus",
-"rpc" : "https://rpc-eu-1.kyve.network:443",
+"rpc" : "https://rpc-kyve.ezstaking.dev:443",
 "hex" : "EBAAECF31EC18DC4234E01C82B749AE2CD7A9577"}
 ]
