@@ -73,4 +73,9 @@
 "user" : "@NickolasBat",
 "rpc" : "https://hypersign-testnet-rpc.polkachu.com:443",
 "hex" : "AFA97BA1834FDA47B8EFCA301F903358545D5470"}
+ ,
+{ "project": "Kyve",
+"user" : "@Nadi_biryuk @dimokus",
+"rpc" : "https://rpc-eu-1.kyve.network:443",
+"hex" : "EBAAECF31EC18DC4234E01C82B749AE2CD7A9577"}
 ]
