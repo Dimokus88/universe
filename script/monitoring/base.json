@@ -24,11 +24,6 @@
 "rpc" : "https://realio-rpc.42cabi.net:443",
 "hex" : "EBAAECF31EC18DC4234E01C82B749AE2CD7A9577"}
 ,
-{ "project": "sge",
-"user" : "@PashaDereniuk",
-"rpc" : "http://rpc.sge.ppnv.space:29657",
-"hex" : "EBAAECF31EC18DC4234E01C82B749AE2CD7A9577"}
-,
 { "project": "source",
 "user" : "@NickolasBat",
 "rpc" : "http://rpc.source.ppnv.space:22657",
