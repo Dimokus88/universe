@@ -16,7 +16,7 @@ USER=`cat ~/monitor/base.json | jq -r .[$p].user`
 HEX=`cat ~/monitor/base.json | jq -r .[$p].hex`
 mkdir -p ~/monitor/$PROJECT/log
 
-cat > ~/monitor/$PROJECT/alert_$PROJECT.sh <<EOF 
+cat > ~/monitor/$PROJECT/$PROJECT.sh <<EOF 
 #!/bin/bash
 mkdir -p /tmp/$PROJECT/
 for ((;;))
