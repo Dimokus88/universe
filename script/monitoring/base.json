@@ -1,71 +1,71 @@
 [
 { "project": "okp4",
-"user" : "@dimokus",
+"user" : "@Dimokus#1032",
 "rpc" : "http://rpc.okp.ppnv.space:36657",
 "hex" : "EBAAECF31EC18DC4234E01C82B749AE2CD7A9577"}
 ,
 { "project": "androma",
-"user" : "@dimokus",
+"user" : "@Dimokus#1032",
 "rpc" : "http://65.109.28.177:26657",
 "hex" : "9C91D56FB9846B245229E7F943B8ADBCB1109ECD"}
 ,
 { "project": "gitopia",
-"user" : "@dimokus",
+"user" : "@Dimokus#1032",
 "rpc" : "http://rpc.gitopia.ppnv.space:28657",
 "hex" : "9C91D56FB9846B245229E7F943B8ADBCB1109ECD"}
 ,
 { "project": "realio",
-"user" : "@PashaDereniuk",
+"user" : "@Kapitoshko#6865",
 "rpc" : "https://realio-rpc.42cabi.net:443",
 "hex" : "EBAAECF31EC18DC4234E01C82B749AE2CD7A9577"}
 ,
 { "project": "source",
-"user" : "@NickolasBat",
+"user" : "@NickolasBat#7968",
 "rpc" : "http://rpc.source.ppnv.space:22657",
 "hex" : "EBAAECF31EC18DC4234E01C82B749AE2CD7A9577"}
 ,
 { "project": "crowd", 
-"user" : "@XopxePaMupec",
+"user" : "@Xopxe#3070",
 "rpc" : "https://rpc.cc.mcbnode.online:443",
 "hex" : "E193460379B0DBFA598B34536441FF8D72532D1C"}
 ,
 { "project": "desmos",
-"user" : "@Nadi_biryuk @dimokus ",
+"user" : "@Nadi_biryuk @Dimokus#1032 ",
 "rpc" : "https://desmos-rpc.panthea.eu:443",
 "hex" : "8FC231B00FE385DBD48293744235989B1C973747"}
 ,
 { "project": "lambda", 
-"user" : "@Nadi_biryuk @dimokus",
+"user" : "@Nadi_biryuk @Dimokus#1032",
 "rpc" : "https://rpc.lambda.nodestake.top:443",
 "hex" : "9C91D56FB9846B245229E7F943B8ADBCB1109ECD"}
 ,
 {"project": "vidulum", 
-"user" : "@Nadi_biryuk @dimokus",
+"user" : "@Nadi_biryuk @Dimokus#1032",
 "rpc" : "http://5.189.178.222:36657",
 "hex" : "9C91D56FB9846B245229E7F943B8ADBCB1109ECD"}
 ,
 {"project": "Sentinel", 
-"user" : "@Nadi_biryuk @dimokus",
+"user" : "@Nadi_biryuk @Dimokus#1032",
 "rpc" : "https://rpc.sentinel.co:443",
 "hex" : "EBAAECF31EC18DC4234E01C82B749AE2CD7A9577"}
  ,
 {"project": "Akash", 
-"user" : "@Nadi_biryuk @dimokus",
+"user" : "@Nadi_biryuk @Dimokus#1032",
 "rpc" : "https://rpc-akash.ecostake.com:443",
 "hex" : "EBAAECF31EC18DC4234E01C82B749AE2CD7A9577"}
 ,
 {"project": "Lava", 
-"user" : "@XopxePaMupec",
+"user" : "@Xopxe#3070",
 "rpc" : "https://lava.rpc.skynodejs.net:443",
 "hex" : "EBAAECF31EC18DC4234E01C82B749AE2CD7A9577"}
 ,
 { "project": "Hypersign",
-"user" : "@NickolasBat",
+"user" : "@NickolasBat#7968",
 "rpc" : "https://hypersign-testnet-rpc.polkachu.com:443",
 "hex" : "AFA97BA1834FDA47B8EFCA301F903358545D5470"}
  ,
 { "project": "Kyve",
-"user" : "@Nadi_biryuk @dimokus",
+"user" : "@Nadi_biryuk @Dimokus#1032",
 "rpc" : "https://rpc-kyve.ezstaking.dev:443",
 "hex" : "EBAAECF31EC18DC4234E01C82B749AE2CD7A9577"}
 ]
