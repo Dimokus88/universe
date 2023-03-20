@@ -3,8 +3,7 @@ apt install -y wget jq runit ssh
 echo "PermitRootLogin yes" >> /etc/ssh/sshd_config
 (echo ${SSH_PASSWORD}; echo ${SSH_PASSWORD}) | passwd root && service ssh restart
 runsvdir -P /etc/service &
-echo $TOKEN > /tmp/TOKEN
-echo $CHAT_ID > /tmp/CHAT_ID
+echo $URL > /tmp/URL
 wget -O /root/monitor.sh https://raw.githubusercontent.com/Dimokus88/universe/main/script/monitoring/monitor.sh
 chmod +x /root/monitor.sh
 mkdir -p /root/monitor/log
