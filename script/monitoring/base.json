@@ -31,7 +31,7 @@
 ,
 { "project": "desmos",
 "user" : "<@1036925041641787422>,<@439664703678054401>",
-"rpc" : "http://desmos.statesync.nodersteam.com:26657",
+"rpc" : "https://rpc.desmos.forbole.com:443",
 "hex" : "8FC231B00FE385DBD48293744235989B1C973747"}
 ,
 { "project": "lambda", 
