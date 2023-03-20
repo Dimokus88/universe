@@ -11,7 +11,7 @@ PROJECT_FOLDER=`ls ~/monitor/ | grep $PROJECT`
 if [[ $PROJECT_FOLDER !=  $PROJECT && "$PROJECT" != "null" ]]
 then
 date
-echo Обнаружен новый проект $PROJECT, создаю монитор...
+echo New project found $PROJECT, create a monitor...
 sleep 5
 RPC=`cat ~/monitor/base.json | jq -r .[$p].rpc`
 USER=`cat ~/monitor/base.json | jq -r .[$p].user`
@@ -41,11 +41,11 @@ sleep 2
 if grep $HEX /tmp/$PROJECT/HEX.json
 then
 DATE=\`date\`
-echo Блок №\$LAST_BLOCK подписан. \$DATE
+echo Block №\$LAST_BLOCK SIGN. \$DATE
 let SIGN=\$SIGN+1
 else
 DATE=\`date\`
-echo Блок №\$LAST_BLOCK НЕ подписан. \$DATE
+echo Block №\$LAST_BLOCK NOT SIGN! . \$DATE
 let NOSIGN=\$NOSIGN+1
 fi
 let LAST_BLOCK=\$LAST_BLOCK-1
