@@ -23,10 +23,11 @@ cat > ~/monitor/$PROJECT/alert_$PROJECT.sh <<EOF
 mkdir -p /tmp/$PROJECT/
 for ((;;))
 do
-LAST_BLOCK=\`curl -s $RPC/abci_info? | jq -r .result.response.last_block_height\`
+RPC=$RPC
+LAST_BLOCK=\`curl -s \$RPC/abci_info? | jq -r .result.response.last_block_height\`
 while [[ -z \$LAST_BLOCK ]]
 do
-LAST_BLOCK=\`curl -s $RPC/abci_info? | jq -r .result.response.last_block_height\`
+LAST_BLOCK=\`curl -s \$RPC/abci_info? | jq -r .result.response.last_block_height\`
 done
 COUNT=19
 SIGN=0
@@ -35,7 +36,7 @@ NOSIGN=0
 while [[ \$COUNT != 0 ]]
 do
 sleep 2
-curl -s $RPC/commit?height=\$LAST_BLOCK > /tmp/$PROJECT/HEX.json
+curl -s \$RPC/commit?height=\$LAST_BLOCK > /tmp/$PROJECT/HEX.json
 sleep 2
 if grep $HEX /tmp/$PROJECT/HEX.json
 then
