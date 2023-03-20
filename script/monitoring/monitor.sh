@@ -41,11 +41,11 @@ sleep 2
 if grep $HEX /tmp/$PROJECT/HEX.json
 then
 DATE=\`date\`
-echo Block №\$LAST_BLOCK SIGN. \$DATE
+echo Block № \$LAST_BLOCK SIGN. \$DATE
 let SIGN=\$SIGN+1
 else
 DATE=\`date\`
-echo Block №\$LAST_BLOCK NOT SIGN! . \$DATE
+echo Block № \$LAST_BLOCK NOT SIGN! . \$DATE
 let NOSIGN=\$NOSIGN+1
 fi
 let LAST_BLOCK=\$LAST_BLOCK-1
