@@ -54,18 +54,18 @@ if [ "\$NOSIGN" -gt "\$SIGN" ]
 then
 DATE=\`date\`
 TEXT=" %0A*\$DATE  %0A %0A*%F0%9F%9A%A8 Node $PROJECT Alert $USER! %0A %0A Внимание! Нода пропускает блоки! %0A Срочно проверьте работоспособность! %0A Подписано \$SIGN блоков из 19 %0A Не подписано \$NOSIGN блоков из 19"
-curl -H "Content-Type: application/json" -X POST -d '{"content":"$TEXT"}' $URL
+curl -H "Content-Type: application/json" -X POST -d '{"content":"\$TEXT"}' $URL
 fi
 
 sleep 10m
 done
 EOF
-chmod +x ~/monitor/$PROJECT/alert_$PROJECT.sh
-echo Создан alert_$PROJECT.sh !
+chmod +x ~/monitor/$PROJECT/$PROJECT.sh
+echo Создан $PROJECT.sh !
 cat > ~/monitor/$PROJECT/run <<EOF 
 #!/bin/bash
 exec 2>&1
-exec ~/monitor/$PROJECT/alert_$PROJECT.sh
+exec ~/monitor/$PROJECT/$PROJECT.sh
 EOF
 echo Создан ~/monitor/$PROJECT/run !
 cat > ~/monitor/$PROJECT/log/run <<EOF 
