@@ -52,9 +52,8 @@ done
 
 if [ "\$NOSIGN" -gt "\$SIGN" ]
 then
-DATE=\`date\`
-TEXT="\$DATE\\nNode $PROJECT Alert $USER!\\n Внимание! Нода пропускает блоки!\\n**Срочно проверьте работоспособность!**\\n\`\`\`Подписано \$SIGN блоков из 19\\nНе подписано \$NOSIGN блоков из 19\`\`\`"
-curl -H "Content-Type: application/json" -X POST -d '{"content":"\$TEXT"}' $URL
+#TEXT="Node $PROJECT Alert $USER!\\n Внимание! Нода пропускает блоки!\\n**Срочно проверьте работоспособность!**\\n\`\`\`Подписано \$SIGN блоков из 19\\nНе подписано \$NOSIGN блоков из 19\`\`\`"
+curl -H "Content-Type: application/json" -X POST -d '{"content":"Node '$PROJECT' Alert '$USER'! \\n Внимание! Нода пропускает блоки! \\n**Срочно проверьте работоспособность!** \\n \`\`\`Подписано '\$SIGN' блоков из 19. \\n Не подписано '\$NOSIGN' блоков из 19. \`\`\`"}' $URL
 fi
 
 sleep 10m
