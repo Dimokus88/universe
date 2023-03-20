@@ -1,7 +1,5 @@
 #!/bin/bash
-TOKEN=`cat /tmp/TOKEN`
-CHAT_ID=`cat /tmp/CHAT_ID`
-URL="https://api.telegram.org/bot$TOKEN/sendMessage"
+URL=`cat /tmp/URL`
 p=0
 for (( ;; ))
 do
@@ -55,10 +53,8 @@ done
 if [ "\$NOSIGN" -gt "\$SIGN" ]
 then
 DATE=\`date\`
-TTL="10"
-PARSER="Markdown"
 TEXT=" %0A*\$DATE  %0A %0A*%F0%9F%9A%A8 Node $PROJECT Alert $USER! %0A %0A Внимание! Нода пропускает блоки! %0A Срочно проверьте работоспособность! %0A Подписано \$SIGN блоков из 19 %0A Не подписано \$NOSIGN блоков из 19"
-curl -s -d "chat_id=$CHAT_ID&parse_mode=$PARSER&disable_web_page_preview=1&text=\$TEXT" $URL
+curl -H "Content-Type: application/json" -X POST -d '{"content":"$TEXT"}' $URL
 fi
 
 sleep 10m
