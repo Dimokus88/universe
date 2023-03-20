@@ -53,7 +53,7 @@ done
 if [ "\$NOSIGN" -gt "\$SIGN" ]
 then
 DATE=\`date\`
-TEXT=" %0A*\$DATE  %0A %0A*%F0%9F%9A%A8 Node $PROJECT Alert $USER! %0A %0A Внимание! Нода пропускает блоки! %0A Срочно проверьте работоспособность! %0A Подписано \$SIGN блоков из 19 %0A Не подписано \$NOSIGN блоков из 19"
+TEXT="\$DATE\\nNode $PROJECT Alert $USER!\\n Внимание! Нода пропускает блоки!\\n**Срочно проверьте работоспособность!**\\n\`\`\`Подписано \$SIGN блоков из 19\\nНе подписано \$NOSIGN блоков из 19\`\`\`"
 curl -H "Content-Type: application/json" -X POST -d '{"content":"\$TEXT"}' $URL
 fi
 
