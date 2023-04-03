@@ -11,7 +11,7 @@
 ,
 { "project": "gitopia",
 "user" : "<@439664703678054401>",
-"rpc" : "http://rpc.gitopia.ppnv.space:28657",
+"rpc" : "https://rpc-t.gitopia.nodestake.top:443",
 "hex" : "9C91D56FB9846B245229E7F943B8ADBCB1109ECD"}
 ,
 { "project": "realio",
