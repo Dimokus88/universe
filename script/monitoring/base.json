@@ -15,8 +15,8 @@
 "hex" : "9C91D56FB9846B245229E7F943B8ADBCB1109ECD"}
 ,
 { "project": "realio",
-"user" : "<@839834467006152705>",
-"rpc" : "https://realio-rpc.42cabi.net:443",
+"user" : "<@1036925041641787422>,<@439664703678054401>",
+"rpc" : "http://realio.rpc.m.stavr.tech:21097",
 "hex" : "EBAAECF31EC18DC4234E01C82B749AE2CD7A9577"}
 ,
 { "project": "source",
