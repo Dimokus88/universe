@@ -1,7 +1,7 @@
 [
 { "project": "okp4",
 "user" : "<@439664703678054401>",
-"rpc" : "http://rpc.okp.ppnv.space:36657",
+"rpc" : "http://okp.rpc.t.stavr.tech:10097",
 "hex" : "EBAAECF31EC18DC4234E01C82B749AE2CD7A9577"}
 ,
 { "project": "androma",
@@ -21,12 +21,12 @@
 ,
 { "project": "source",
 "user" : "<@848455796530216960>",
-"rpc" : "http://rpc.source.ppnv.space:22657",
+"rpc" : "https://source-testnet-rpc.r1m-team.com:443",
 "hex" : "EBAAECF31EC18DC4234E01C82B749AE2CD7A9577"}
 ,
 { "project": "crowd", 
 "user" : "<@800657478781894676>",
-"rpc" : "https://rpc.cc.mcbnode.online:443",
+"rpc" : "http://crowd.rpc.t.stavr.tech:21207",
 "hex" : "E193460379B0DBFA598B34536441FF8D72532D1C"}
 ,
 { "project": "desmos",
@@ -41,7 +41,7 @@
 ,
 {"project": "vidulum", 
 "user" : "<@1036925041641787422>,<@439664703678054401>",
-"rpc" : "http://5.189.178.222:36657",
+"rpc" : "https://vidulum.rpc.m.anode.team:443",
 "hex" : "9C91D56FB9846B245229E7F943B8ADBCB1109ECD"}
 ,
 {"project": "Sentinel", 
@@ -56,7 +56,7 @@
 ,
 {"project": "Lava", 
 "user" : "<@800657478781894676>",
-"rpc" : "https://lava.rpc.skynodejs.net:443",
+"rpc" : "https://rpc.lava-testnet.mirror-reflection.com:443",
 "hex" : "EBAAECF31EC18DC4234E01C82B749AE2CD7A9577"}
 ,
 { "project": "Hypersign",
