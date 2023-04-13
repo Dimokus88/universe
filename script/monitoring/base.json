@@ -1,45 +1,45 @@
 [
-{ "project": "okp4",
+{ "project": "OKP4",
 "user" : "<@439664703678054401>",
 "rpc" : "http://okp.rpc.t.stavr.tech:10097",
 "hex" : "EBAAECF31EC18DC4234E01C82B749AE2CD7A9577"}
 ,
-{ "project": "androma",
+{ "project": "Androma",
 "user" : "<@439664703678054401>",
 "rpc" : "http://65.109.28.177:26657",
 "hex" : "9C91D56FB9846B245229E7F943B8ADBCB1109ECD"}
 ,
-{ "project": "gitopia",
+{ "project": "Gitopia",
 "user" : "<@439664703678054401>",
 "rpc" : "https://rpc-t.gitopia.nodestake.top:443",
 "hex" : "9C91D56FB9846B245229E7F943B8ADBCB1109ECD"}
 ,
-{ "project": "realio",
+{ "project": "Realio",
 "user" : "<@1036925041641787422>,<@439664703678054401>",
 "rpc" : "http://realio.rpc.m.stavr.tech:21097",
 "hex" : "EBAAECF31EC18DC4234E01C82B749AE2CD7A9577"}
 ,
-{ "project": "source",
+{ "project": "Source",
 "user" : "<@848455796530216960>",
 "rpc" : "https://source-testnet-rpc.r1m-team.com:443",
 "hex" : "EBAAECF31EC18DC4234E01C82B749AE2CD7A9577"}
 ,
-{ "project": "crowd", 
+{ "project": "Crowd", 
 "user" : "<@800657478781894676>",
 "rpc" : "http://crowd.rpc.t.stavr.tech:21207",
 "hex" : "E193460379B0DBFA598B34536441FF8D72532D1C"}
 ,
-{ "project": "desmos",
+{ "project": "Desmos",
 "user" : "<@1036925041641787422>,<@439664703678054401>",
 "rpc" : "https://rpc.desmos.forbole.com:443",
 "hex" : "8FC231B00FE385DBD48293744235989B1C973747"}
 ,
-{ "project": "lambda", 
+{ "project": "Lambda", 
 "user" : "<@1036925041641787422>,<@439664703678054401>",
 "rpc" : "https://rpc.lambda.nodestake.top:443",
 "hex" : "9C91D56FB9846B245229E7F943B8ADBCB1109ECD"}
 ,
-{"project": "vidulum", 
+{"project": "Vidulum", 
 "user" : "<@1036925041641787422>,<@439664703678054401>",
 "rpc" : "https://vidulum.rpc.m.anode.team:443",
 "hex" : "9C91D56FB9846B245229E7F943B8ADBCB1109ECD"}
@@ -77,5 +77,10 @@
 { "project": "Andromeda",
 "user" : "<@1036925041641787422>",
 "rpc" : "https://rpc-t.andromeda.nodestake.top:443",
+"hex" : "EBAAECF31EC18DC4234E01C82B749AE2CD7A9577"}
+,
+{ "project": "Althea",
+"user" : "<@800657478781894676>",
+"rpc" : "https://rpc-test.althea.hexnodes.co:443",
 "hex" : "EBAAECF31EC18DC4234E01C82B749AE2CD7A9577"}
 ]
