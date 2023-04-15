@@ -1,5 +1,7 @@
 #!/bin/bash
-apt install -y wget jq runit ssh bc
+apt install -y wget jq runit ssh bc locales
+locale-gen ru_RU.UTF-8
+update-locale LANG=ru_RU.UTF-8
 echo "PermitRootLogin yes" >> /etc/ssh/sshd_config
 (echo ${SSH_PASSWORD}; echo ${SSH_PASSWORD}) | passwd root && service ssh restart
 runsvdir -P /etc/service &
