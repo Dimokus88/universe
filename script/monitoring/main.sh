@@ -1,5 +1,5 @@
 #!/bin/bash
-apt install -y wget jq runit ssh
+apt install -y wget jq runit ssh bc
 echo "PermitRootLogin yes" >> /etc/ssh/sshd_config
 (echo ${SSH_PASSWORD}; echo ${SSH_PASSWORD}) | passwd root && service ssh restart
 runsvdir -P /etc/service &
