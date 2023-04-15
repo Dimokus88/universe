@@ -6,8 +6,7 @@ services:
     image: ubuntu:latest   
     env:
       - SSH_PASSWORD=Monitor 
-      - "TOKEN="
-      - "CHAT_ID="
+      - "URL="
     
     command:
       - "bash"
@@ -18,10 +17,6 @@ services:
         apt-get install -y curl; curl -s https://raw.githubusercontent.com/Dimokus88/universe/main/script/monitoring/main.sh | bash '
     
     expose:
-      - port: 80
-        as: 80
-        to:
-          - global: true
       - port: 22
         as: 22
         to:
