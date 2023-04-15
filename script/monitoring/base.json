@@ -2,85 +2,108 @@
 { "project": "OKP4",
 "user" : "<@439664703678054401>",
 "rpc" : "http://okp.rpc.t.stavr.tech:10097",
-"hex" : "EBAAECF31EC18DC4234E01C82B749AE2CD7A9577"}
+"hex" : "EBAAECF31EC18DC4234E01C82B749AE2CD7A9577"},
+"status" : "testnet"}
 ,
 { "project": "Androma",
 "user" : "<@439664703678054401>",
 "rpc" : "http://65.109.28.177:26657",
-"hex" : "9C91D56FB9846B245229E7F943B8ADBCB1109ECD"}
+"hex" : "9C91D56FB9846B245229E7F943B8ADBCB1109ECD",
+"status" : "testnet"}
 ,
 { "project": "Gitopia",
 "user" : "<@439664703678054401>",
 "rpc" : "https://rpc-t.gitopia.nodestake.top:443",
-"hex" : "9C91D56FB9846B245229E7F943B8ADBCB1109ECD"}
+"hex" : "9C91D56FB9846B245229E7F943B8ADBCB1109ECD",
+"status" : "testnet"}
 ,
 { "project": "Realio",
 "user" : "<@1036925041641787422>,<@439664703678054401>",
 "rpc" : "http://realio.rpc.m.stavr.tech:21097",
-"hex" : "EBAAECF31EC18DC4234E01C82B749AE2CD7A9577"}
+"hex" : "EBAAECF31EC18DC4234E01C82B749AE2CD7A9577",
+"status" : "testnet"}
 ,
 { "project": "Source",
 "user" : "<@848455796530216960>",
 "rpc" : "https://source-testnet-rpc.r1m-team.com:443",
-"hex" : "EBAAECF31EC18DC4234E01C82B749AE2CD7A9577"}
+"hex" : "EBAAECF31EC18DC4234E01C82B749AE2CD7A9577",
+"status" : "testnet"}
 ,
 { "project": "Crowd", 
 "user" : "<@800657478781894676>",
 "rpc" : "http://crowd.rpc.t.stavr.tech:21207",
-"hex" : "E193460379B0DBFA598B34536441FF8D72532D1C"}
+"hex" : "E193460379B0DBFA598B34536441FF8D72532D1C",
+"status" : "testnet"}
 ,
 { "project": "Desmos",
 "user" : "<@1036925041641787422>,<@439664703678054401>",
 "rpc" : "https://rpc.desmos.forbole.com:443",
-"hex" : "8FC231B00FE385DBD48293744235989B1C973747"}
+"hex" : "8FC231B00FE385DBD48293744235989B1C973747",
+"status" : "mainnet",
+"link_price" : "curl -s 'https://api.coingecko.com/api/v3/coins/desmos/' | jq .market_data.current_price.usd"}
 ,
 { "project": "Lambda", 
 "user" : "<@1036925041641787422>,<@439664703678054401>",
 "rpc" : "https://rpc.lambda.nodestake.top:443",
-"hex" : "9C91D56FB9846B245229E7F943B8ADBCB1109ECD"}
+"hex" : "9C91D56FB9846B245229E7F943B8ADBCB1109ECD",
+"status" : "mainnet",
+"link_price" : "curl -s 'https://api.huobi.pro/market/detail/merged?symbol=lambusdt' | jq -r '.tick.close'"}
 ,
 {"project": "Vidulum", 
 "user" : "<@1036925041641787422>,<@439664703678054401>",
 "rpc" : "https://vidulum.rpc.m.anode.team:443",
-"hex" : "9C91D56FB9846B245229E7F943B8ADBCB1109ECD"}
+"hex" : "9C91D56FB9846B245229E7F943B8ADBCB1109ECD",
+"status" : "mainnet",
+"link_price" : "curl -s 'https://api.coingecko.com/api/v3/coins/vidulum/' | jq .market_data.current_price.usd"}
 ,
 {"project": "Sentinel", 
 "user" : "<@1036925041641787422>,<@439664703678054401>",
 "rpc" : "https://rpc.sentinel.co:443",
-"hex" : "EBAAECF31EC18DC4234E01C82B749AE2CD7A9577"}
- ,
+"hex" : "EBAAECF31EC18DC4234E01C82B749AE2CD7A9577",
+"status" : "mainnet",
+"link_price" : "curl -s -X GET 'https://api.kucoin.com/api/v1/market/orderbook/level1?symbol=DVPN-USDT' | jq -r '.data.price'"}
+,
 {"project": "Akash", 
 "user" : "<@1036925041641787422>,<@439664703678054401>",
 "rpc" : "https://rpc-akash.ecostake.com:443",
-"hex" : "EBAAECF31EC18DC4234E01C82B749AE2CD7A9577"}
+"hex" : "EBAAECF31EC18DC4234E01C82B749AE2CD7A9577",
+"status" : "mainnet",
+"link_price" : "curl -s 'https://api.huobi.pro/market/detail/merged?symbol=aktusdt' | jq -r '.tick.close'"}
 ,
 {"project": "Lava", 
 "user" : "<@800657478781894676>",
 "rpc" : "https://rpc.lava-testnet.mirror-reflection.com:443",
-"hex" : "EBAAECF31EC18DC4234E01C82B749AE2CD7A9577"}
+"hex" : "EBAAECF31EC18DC4234E01C82B749AE2CD7A9577",
+"status" : "testnet"}
 ,
 { "project": "Hypersign",
 "user" : "<@848455796530216960>",
 "rpc" : "https://hypersign-testnet-rpc.polkachu.com:443",
-"hex" : "AFA97BA1834FDA47B8EFCA301F903358545D5470"}
+"hex" : "AFA97BA1834FDA47B8EFCA301F903358545D5470",
+"status" : "testnet"}
 ,
 { "project": "Kyve",
 "user" : "<@1036925041641787422>,<@439664703678054401>",
 "rpc" : "https://rpc-kyve.ezstaking.dev:443",
-"hex" : "EBAAECF31EC18DC4234E01C82B749AE2CD7A9577"}
+"hex" : "EBAAECF31EC18DC4234E01C82B749AE2CD7A9577",
+"status" : "testnet"}
 ,
 { "project": "Kava",
 "user" : "<@1036925041641787422>,<@439664703678054401>",
 "rpc" : "https://rpc.data.kava.io:443",
-"hex" : "EBAAECF31EC18DC4234E01C82B749AE2CD7A9577"}
+"hex" : "EBAAECF31EC18DC4234E01C82B749AE2CD7A9577",
+"status" : "mainnet",
+"link_price" : "curl -s 'https://api.huobi.pro/market/detail/merged?symbol=kavausdt' | jq -r '.tick.close'"}
 ,
 { "project": "Andromeda",
 "user" : "<@1036925041641787422>",
 "rpc" : "https://rpc-t.andromeda.nodestake.top:443",
-"hex" : "EBAAECF31EC18DC4234E01C82B749AE2CD7A9577"}
+"hex" : "EBAAECF31EC18DC4234E01C82B749AE2CD7A9577",
+"status" : "testnet"}
 ,
 { "project": "Althea",
 "user" : "<@800657478781894676>",
 "rpc" : "https://rpc-test.althea.hexnodes.co:443",
-"hex" : "EBAAECF31EC18DC4234E01C82B749AE2CD7A9577"}
+"hex" : "EBAAECF31EC18DC4234E01C82B749AE2CD7A9577",
+"status" : "testnet"}
 ]
