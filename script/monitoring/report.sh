@@ -43,5 +43,5 @@ STATUS=`cat ~/monitor/base.json | jq -r .[$p].status`
 
 done
 echo  END
-cat /root/monitor/message.txt
-curl -H "Content-Type: application/json" -X POST -d '{"content":"`cat /root/monitor/message.txt`"}' $URL
+TEXT="/root/monitor/message.txt"
+curl -H "Content-Type: application/json" -X POST -d '{"content": "$(TEXT)"}' $URL
