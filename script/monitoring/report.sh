@@ -3,7 +3,7 @@ URL=`cat /tmp/URL`
 p=0
 PROJECT=`cat ~/monitor/base.json | jq -r .[$p].project`
 DATE=`date +"%d.%m.%Y"`
-TEXT="Отчет по делегациям валидатора \*\*Decloud Nodes Lab\*\* на $DATE."
+TEXT="Отчет по делегациям валидатора \*\*Decloud Nodes Lab\*\* на "$DATE"."
 curl -s -H "Content-Type: application/json" -X POST -d "{\"content\": ${TEXT} }" $URL
 TOTAL_DELEGATE=0
 while [[ "$PROJECT" != "null" ]]
