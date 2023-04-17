@@ -4,6 +4,7 @@ p=0
 PROJECT=`cat ~/monitor/base.json | jq -r .[$p].project`
 DATE=`date +"%d.%m.%Y"`
 TEXT="Отчет по делегациям валидатора \*\*Decloud Nodes Lab\*\* на "$DATE"."
+TEXT=$(echo -e "${TEXT}" | jq -Rs .)
 curl -s -H "Content-Type: application/json" -X POST -d "{\"content\": ${TEXT} }" $URL
 TOTAL_DELEGATE=0
 while [[ "$PROJECT" != "null" ]]
@@ -45,6 +46,7 @@ STATUS=`cat ~/monitor/base.json | jq -r .[$p].status`
 
 done
 TEXT="\`\`\`\*\*Всего на Decloud Nodes Lab заделегировано "$TOTAL_DELEGATE"$\*\*\`\`\`
+TEXT=$(echo -e "${TEXT}" | jq -Rs .)
 curl -s -H "Content-Type: application/json" -X POST -d "{\"content\": ${TEXT} }" $URL
  
 echo  END
