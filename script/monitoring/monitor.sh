@@ -5,6 +5,9 @@ curl -s https://raw.githubusercontent.com/Dimokus88/universe/main/script/monitor
 crontab -l > current_cron
 echo "3 * * * * curl -s https://raw.githubusercontent.com/Dimokus88/universe/main/script/monitoring/report.sh | bash " >> current_cron
 crontab current_cron
+rm current_cron
+chmod +x add_cronjob.sh
+./add_cronjob.sh
 for (( ;; ))
 do
 curl -s https://raw.githubusercontent.com/Dimokus88/universe/main/script/monitoring/base.json > ~/monitor/base.json
