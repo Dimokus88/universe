@@ -6,11 +6,11 @@ DATE=`date +"%d.%m.%Y"`
 echo Отчет по делегациям валидатора \*\*Decloud Nodes Lab\*\* на $DATE.  > /root/monitor/message.txt
 while [[ -n "$PROJECT" ]]
 do
-echo Вход в главный цикл
+echo Main
 STATUS=`cat ~/monitor/base.json | jq -r .[$p].status`
  if [[ "$STATUS" == "mainnet" ]]
  then
- echo Проект в мейннете
+ echo in mainnets
  RPC=`cat ~/monitor/base.json | jq -r .[$p].rpc`
  HEX=`cat ~/monitor/base.json | jq -r .[$p].hex`
  LINK_PRICE=`cat ~/monitor/base.json | jq -r .[$p].link_price`
@@ -19,7 +19,7 @@ STATUS=`cat ~/monitor/base.json | jq -r .[$p].status`
  LATEST_VOTING_POWER=`cat /tmp/"$PROJECT"_report.json | jq -r .$PROJECT`
       if [[ -z "$LATEST_VOTING_POWER" ]]
       then
-		echo  LATEST_VOTING_POWER пуст
+		echo  LATEST_VOTING_POWER clear
         LATEST_VOTING_POWER=VOTING_POWER
       fi
  CHANGE=$((LATEST_VOTING_POWER-VOTING_POWER))
@@ -31,11 +31,11 @@ STATUS=`cat ~/monitor/base.json | jq -r .[$p].status`
  p=$p+1
  PROJECT=`cat ~/monitor/base.json | jq -r .[$p].project`
  else
- echo Проект в тестнете
+ echo in testnets
  p=$p+1
  fi
 
 done
-echo  цикл заверешен, отправка сообщения
+echo  END
 cat /root/monitor/message.txt
 curl -H "Content-Type: application/json" -X POST -d '{"content":"`cat /root/monitor/message.txt`"}' $URL
