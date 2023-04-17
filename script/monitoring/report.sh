@@ -12,10 +12,10 @@ STATUS=`cat ~/monitor/base.json | jq -r .[$p].status`
  then
  echo in mainnets
  RPC=`cat ~/monitor/base.json | jq -r .[$p].rpc`
- HEX=`cat ~/monitor/base.json | jq -r .[$p].hex`
+ HEX=`cat ~/monitor/base.json | jq .[$p].hex`
  LINK_PRICE=`cat ~/monitor/base.json | jq -r .[$p].link_price`
  DENOM=`curl -s "$RPC/validators?per_page=100" | jq -r `
- VOTING_POWER=`curl -s "$RPC/validators?per_page=100" | jq -r '.result.validators[] | select(.address == "$HEX") | .voting_power'`
+ VOTING_POWER=`curl -s "$RPC/validators?per_page=100" | jq -r '.result.validators[] | select(.address == '$HEX') | .voting_power'`
  LATEST_VOTING_POWER=`cat /tmp/"$PROJECT"_report.json | jq -r .$PROJECT`
       if [[ -z "$LATEST_VOTING_POWER" ]]
       then
