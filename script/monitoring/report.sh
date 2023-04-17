@@ -47,7 +47,7 @@ TOTAL_DELEGATE=$(echo "$TOTAL_DELEGATE + $DELEGATE_USD" | bc)
  fi
 
 done
-TEXT=":rocket:\`**Всего на Decloud Nodes Lab заделегировано "$TOTAL_DELEGATE"$**\`:rocket:"
+TEXT=":rocket: ** Всего на Decloud Nodes Lab заделегировано "$TOTAL_DELEGATE"$ ** :rocket:"
 TEXT=$(echo -e "${TEXT}" | jq -Rs .)
 echo $TEXT
 curl -s -H "Content-Type: application/json" -X POST -d "{\"content\": ${TEXT} }" $URL 
