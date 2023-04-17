@@ -24,7 +24,6 @@ STATUS=`cat ~/monitor/base.json | jq -r .[$p].status`
  echo $LATEST_VOTING_POWER
       if [[ -z "$LATEST_VOTING_POWER" ]]
       then
-		echo  LATEST_VOTING_POWER clear
         LATEST_VOTING_POWER=VOTING_POWER
       fi
  CHANGE=$((LATEST_VOTING_POWER-VOTING_POWER))
@@ -33,12 +32,12 @@ STATUS=`cat ~/monitor/base.json | jq -r .[$p].status`
  DELEGATE_USD=$(echo "$VOTING_POWER * $PRICE" | bc)
  TEXT="\`\`\`Проект: "$PROJECT"\nВсего заделегировано токенов: "$VOTING_POWER"\nИзменение в делегации: "$CHANGE" токенов или "$CHANGE_PERCENT"%\nЦена "$PROJECT" на Coingecko: "$PRICE"\nЗаделегировано в USD: "$DELEGATE_USD"$\n \`\`\`"
  TEXT=$(echo -e "${TEXT}" | jq -Rs .)
+ echo $TEXT
  curl -H "Content-Type: application/json" -X POST -d "{\"content\": ${TEXT} }" ${URL}
  echo '{"'$PROJECT'":"'$VOTING_POWER'"}' > /tmp/"$PROJECT"_report.json
  p=$p+1
  PROJECT=`cat ~/monitor/base.json | jq -r .[$p].project`
  else
- echo in testnets
  p=$p+1
  PROJECT=`cat ~/monitor/base.json | jq -r .[$p].project`
  fi
