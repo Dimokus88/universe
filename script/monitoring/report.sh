@@ -4,7 +4,7 @@ p=0
 PROJECT=`cat ~/monitor/base.json | jq -r .[$p].project`
 DATE=`date +"%d.%m.%Y"`
 echo Отчет по делегациям валидатора \*\*Decloud Nodes Lab\*\* на $DATE.  > /root/monitor/message.txt
-while [[ -n "$PROJECT" ]]
+while [[ "$PROJECT" != "null" ]]
 do
 echo $PROJECT this
 echo Main
