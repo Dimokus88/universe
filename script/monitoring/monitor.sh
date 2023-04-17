@@ -60,7 +60,7 @@ done
 EOF
 chmod +x ~/monitor/$PROJECT/$PROJECT.sh
 echo Создан $PROJECT.sh !
-curl -H "Content-Type: application/json" -X POST -d '{"content":"Создано оповещение на '$PROJECT' для '$USER' ."}' $URL
+curl -s -H "Content-Type: application/json" -X POST -d '{"content":"Создано оповещение на '$PROJECT' для '$USER' ."}' $URL
 cat > ~/monitor/$PROJECT/run <<EOF 
 #!/bin/bash
 exec 2>&1
