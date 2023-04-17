@@ -18,7 +18,7 @@ STATUS=`cat ~/monitor/base.json | jq -r .[$p].status`
  echo $HEX
  LINK_PRICE=`cat ~/monitor/base.json | jq -r .[$p].link_price`
  echo $LINK_PRICE
- VOTING_POWER=`curl -s --connect-timeout 3 $RPC/validators?per_page=100 | jq -r ".result.validators[] | select(.address == \"${HEX}\") | .voting_power"`
+ VOTING_POWER=`curl -s --connect-timeout 10 $RPC/validators?per_page=100 | jq -r ".result.validators[] | select(.address == \"${HEX}\") | .voting_power"`
  echo $VOTING_POWER
  LATEST_VOTING_POWER=`cat /tmp/"$PROJECT"_report.json | jq -r .$PROJECT`
  echo $LATEST_VOTING_POWER
@@ -44,4 +44,4 @@ STATUS=`cat ~/monitor/base.json | jq -r .[$p].status`
 done
 echo  END
 TEXT=`cat /root/monitor/message.txt`
-curl -H "Content-Type: application/json" -X POST -d '{"content": "$(TEXT)"}' $URL
+curl -H "Content-Type: application/json" -X POST -d '{"content": "${TEXT}"}' $URL
