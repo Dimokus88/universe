@@ -3,7 +3,7 @@ URL=`cat /tmp/URL`
 p=0
 curl -s https://raw.githubusercontent.com/Dimokus88/universe/main/script/monitoring/base.json > ~/monitor/base.json
 crontab -l > current_cron
-echo "*/3 * * * * curl -s https://raw.githubusercontent.com/Dimokus88/universe/main/script/monitoring/report.sh | bash " >> ~/monitor/current_cron
+echo "0 10 * * * curl -s https://raw.githubusercontent.com/Dimokus88/universe/main/script/monitoring/report.sh | bash " >> ~/monitor/current_cron
 crontab -l | cat - ~/monitor/current_cron | crontab -
 service cron start
 for (( ;; ))
