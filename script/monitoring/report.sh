@@ -6,12 +6,9 @@ DATE=`date +"%d.%m.%Y"`
 echo Отчет по делегациям валидатора \*\*Decloud Nodes Lab\*\* на $DATE.  > /root/monitor/message.txt
 while [[ "$PROJECT" != "null" ]]
 do
-echo $PROJECT this
-echo Main
 STATUS=`cat ~/monitor/base.json | jq -r .[$p].status`
  if [[ "$STATUS" == "mainnet" ]]
  then
- echo in mainnets
  RPC=`cat ~/monitor/base.json | jq -r .[$p].rpc`
  echo $RPC
  HEX=`cat ~/monitor/base.json | jq -r .[$p].hex`
