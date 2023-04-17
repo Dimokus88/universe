@@ -94,7 +94,6 @@ p=$p+1
 fi
 if [[ -z "$PROJECT" || "$PROJECT" == "null" ]]
 then
-curl -s https://raw.githubusercontent.com/Dimokus88/universe/main/script/monitoring/report.sh | bash
 date
 echo Новых проектов нет, проверка через 10 минут
 sleep 10m
