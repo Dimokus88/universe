@@ -4,6 +4,7 @@ p=0
 PROJECT=`cat ~/monitor/base.json | jq -r .[$p].project`
 DATE=`date +"%d.%m.%Y"`
 echo Отчет по делегациям валидатора \*\*Decloud Nodes Lab\*\* на $DATE.  > /root/monitor/message.txt
+TOTAL_DELEGATE=0
 while [[ "$PROJECT" != "null" ]]
 do
 STATUS=`cat ~/monitor/base.json | jq -r .[$p].status`
@@ -35,11 +36,12 @@ STATUS=`cat ~/monitor/base.json | jq -r .[$p].status`
  echo '{"'$PROJECT'":"'$VOTING_POWER'"}' > /tmp/"$PROJECT"_report.json
  p=$p+1
  PROJECT=`cat ~/monitor/base.json | jq -r .[$p].project`
+ TOTAL_DELEGATE=$((TOTAL_DELEGATE+DELEGATE_USD))
  else
  p=$p+1
  PROJECT=`cat ~/monitor/base.json | jq -r .[$p].project`
  fi
-
+TEXT="\`\`\`** Всего на Decloud Nodes Lab заделегировано "$TOTAL_DELEGATE"$ **\`\`\`
 done
 echo  END
 
