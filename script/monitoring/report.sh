@@ -14,7 +14,7 @@ STATUS=`cat ~/monitor/base.json | jq -r .[$p].status`
  echo in mainnets
  RPC=`cat ~/monitor/base.json | jq -r .[$p].rpc`
  echo $RPC
- HEX=`cat ~/monitor/base.json | jq .[$p].hex`
+ HEX=`cat ~/monitor/base.json | jq -r .[$p].hex`
  echo $HEX
  LINK_PRICE=`cat ~/monitor/base.json | jq -r .[$p].link_price`
  echo $LINK_PRICE
