@@ -40,35 +40,35 @@
 "rpc" : "https://rpc.desmos.forbole.com:443",
 "hex" : "8FC231B00FE385DBD48293744235989B1C973747",
 "status" : "mainnet",
-"link_price" : "curl -s 'https://api.coingecko.com/api/v3/coins/desmos/' | jq .market_data.current_price.usd"}
+"link_price" : "'https://api.coingecko.com/api/v3/coins/desmos/' | jq .market_data.current_price.usd"}
 ,
 { "project": "Lambda", 
 "user" : "<@1036925041641787422>,<@439664703678054401>",
 "rpc" : "https://rpc.lambda.nodestake.top:443",
 "hex" : "9C91D56FB9846B245229E7F943B8ADBCB1109ECD",
 "status" : "mainnet",
-"link_price" : "curl -s 'https://api.huobi.pro/market/detail/merged?symbol=lambusdt' | jq -r '.tick.close'"}
+"link_price" : "'https://api.huobi.pro/market/detail/merged?symbol=lambusdt' | jq -r '.tick.close'"}
 ,
 {"project": "Vidulum", 
 "user" : "<@1036925041641787422>,<@439664703678054401>",
 "rpc" : "https://vidulum.rpc.m.anode.team:443",
 "hex" : "9C91D56FB9846B245229E7F943B8ADBCB1109ECD",
 "status" : "mainnet",
-"link_price" : "curl -s 'https://api.coingecko.com/api/v3/coins/vidulum/' | jq .market_data.current_price.usd"}
+"link_price" : "'https://api.coingecko.com/api/v3/coins/vidulum/' | jq .market_data.current_price.usd"}
 ,
 {"project": "Sentinel", 
 "user" : "<@1036925041641787422>,<@439664703678054401>",
 "rpc" : "https://rpc.sentinel.co:443",
 "hex" : "EBAAECF31EC18DC4234E01C82B749AE2CD7A9577",
 "status" : "mainnet",
-"link_price" : "curl -s -X GET 'https://api.kucoin.com/api/v1/market/orderbook/level1?symbol=DVPN-USDT' | jq -r '.data.price'"}
+"link_price" : "'https://api.kucoin.com/api/v1/market/orderbook/level1?symbol=DVPN-USDT' | jq -r '.data.price'"}
 ,
 {"project": "Akash", 
 "user" : "<@1036925041641787422>,<@439664703678054401>",
 "rpc" : "https://rpc-akash.ecostake.com:443",
 "hex" : "EBAAECF31EC18DC4234E01C82B749AE2CD7A9577",
 "status" : "mainnet",
-"link_price" : "curl -s 'https://api.huobi.pro/market/detail/merged?symbol=aktusdt' | jq -r '.tick.close'"}
+"link_price" : "'https://api.huobi.pro/market/detail/merged?symbol=aktusdt' | jq -r '.tick.close'"}
 ,
 {"project": "Lava", 
 "user" : "<@800657478781894676>",
@@ -93,7 +93,7 @@
 "rpc" : "https://rpc.data.kava.io:443",
 "hex" : "EBAAECF31EC18DC4234E01C82B749AE2CD7A9577",
 "status" : "mainnet",
-"link_price" : "curl -s 'https://api.huobi.pro/market/detail/merged?symbol=kavausdt' | jq -r '.tick.close'"}
+"link_price" : "'https://api.huobi.pro/market/detail/merged?symbol=kavausdt' | jq -r '.tick.close'"}
 ,
 { "project": "Andromeda",
 "user" : "<@1036925041641787422>",
