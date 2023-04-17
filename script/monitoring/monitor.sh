@@ -1,6 +1,10 @@
 #!/bin/bash
 URL=`cat /tmp/URL`
 p=0
+curl -s https://raw.githubusercontent.com/Dimokus88/universe/main/script/monitoring/base.json > ~/monitor/base.json
+crontab -l > current_cron
+echo "3 * * * * curl -s https://raw.githubusercontent.com/Dimokus88/universe/main/script/monitoring/report.sh | bash " >> current_cron
+crontab current_cron
 for (( ;; ))
 do
 curl -s https://raw.githubusercontent.com/Dimokus88/universe/main/script/monitoring/base.json > ~/monitor/base.json
