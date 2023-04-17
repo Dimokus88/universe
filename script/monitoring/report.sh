@@ -38,7 +38,7 @@ STATUS=`cat ~/monitor/base.json | jq -r .[$p].status`
  echo '{"'$PROJECT'":"'$VOTING_POWER'"}' > /tmp/"$PROJECT"_report.json
  p=$p+1
  PROJECT=`cat ~/monitor/base.json | jq -r .[$p].project`
- TOTAL_DELEGATE=$((TOTAL_DELEGATE+DELEGATE_USD))
+ let TOTAL_DELEGATE=$TOTAL_DELEGATE+$DELEGATE_USD
  else
  p=$p+1
  PROJECT=`cat ~/monitor/base.json | jq -r .[$p].project`
