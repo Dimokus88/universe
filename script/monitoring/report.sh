@@ -31,7 +31,7 @@ STATUS=`cat ~/monitor/base.json | jq -r .[$p].status`
  CHANGE_PERCENT=$(awk "BEGIN {print (($LATEST_VOTING_POWER-$VOTING_POWER)/$VOTING_POWER)*100}")
  PRICE=`curl -s $LINK_PRICE | jq .market_data.current_price.usd`
  DELEGATE_USD=$(echo "$VOTING_POWER * $PRICE" | bc)
- echo \`\`\`\\n Проект: $PROJECT\\nВсего заделегировано токенов: $VOTING_POWER\\nИзменение в делегации: $CHANGE токенов или $CHANGE_PERCENT%\\nЦена $PROJECT на Coingecko: $PRICE\\n Заделегировано в USD: $DELEGATE_USD$\\n\\n\\n \`\`\` >> /root/monitor/message.txt
+ echo \`\`\`\\n Проект: $PROJECT\\nВсего заделегировано токенов: $VOTING_POWER\\nИзменение в делегации: $CHANGE токенов или $CHANGE_PERCENT%\\nЦена $PROJECT на Coingecko: $PRICE\\n Заделегировано в USD: $DELEGATE_USD$\\n\\n\\n \`\`\` >> /root/monitor/message.md
  echo '{"'$PROJECT'":"'$VOTING_POWER'"}' > /tmp/"$PROJECT"_report.json
  p=$p+1
  PROJECT=`cat ~/monitor/base.json | jq -r .[$p].project`
