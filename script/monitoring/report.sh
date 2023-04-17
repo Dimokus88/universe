@@ -32,7 +32,7 @@ STATUS=`cat ~/monitor/base.json | jq -r .[$p].status`
  TEXT=$(echo -e "${TEXT}" | jq -Rs .)
  echo $TEXT
  echo $URL
- curl -H "Content-Type: application/json" -X POST -d "{\"content\": ${TEXT} }" $URL
+ curl -s -H "Content-Type: application/json" -X POST -d "{\"content\": ${TEXT} }" $URL
  echo '{"'$PROJECT'":"'$VOTING_POWER'"}' > /tmp/"$PROJECT"_report.json
  p=$p+1
  PROJECT=`cat ~/monitor/base.json | jq -r .[$p].project`
@@ -43,8 +43,8 @@ STATUS=`cat ~/monitor/base.json | jq -r .[$p].status`
  fi
 
 done
-TEXT="\`\`\`** Всего на Decloud Nodes Lab заделегировано "$TOTAL_DELEGATE"$ **\`\`\`
-curl -H "Content-Type: application/json" -X POST -d "{\"content\": ${TEXT} }" $URL
+TEXT="\`\`\`** Всего на Decloud Nodes Lab заделегировано "$TOTAL_DELEGATE"$**\`\`\`
+curl -s -H "Content-Type: application/json" -X POST -d "{\"content\": ${TEXT} }" $URL
  
 echo  END
 
