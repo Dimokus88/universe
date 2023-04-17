@@ -43,7 +43,7 @@ STATUS=`cat ~/monitor/base.json | jq -r .[$p].status`
  fi
 
 done
-TEXT="\`\`\`** Всего на Decloud Nodes Lab заделегировано "$TOTAL_DELEGATE"$**\`\`\`
+TEXT="\`\`\`\*\*Всего на Decloud Nodes Lab заделегировано "$TOTAL_DELEGATE"$\*\*\`\`\`
 curl -s -H "Content-Type: application/json" -X POST -d "{\"content\": ${TEXT} }" $URL
  
 echo  END
