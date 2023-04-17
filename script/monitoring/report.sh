@@ -33,6 +33,7 @@ STATUS=`cat ~/monitor/base.json | jq -r .[$p].status`
  else
  echo in testnets
  p=$p+1
+ PROJECT=`cat ~/monitor/base.json | jq -r .[$p].project`
  fi
 
 done
