@@ -44,7 +44,7 @@
 ,
 { "project": "Lambda", 
 "user" : "<@1036925041641787422>,<@439664703678054401>",
-"rpc" : "https://rpc.lambda.nodestake.top:443",
+"rpc" : "https://rpc-lambda.sr20de.xyz:443",
 "hex" : "9C91D56FB9846B245229E7F943B8ADBCB1109ECD",
 "status" : "mainnet",
 "link_price" : "https://api.coingecko.com/api/v3/coins/lambda/"}
