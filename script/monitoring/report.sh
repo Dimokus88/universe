@@ -6,6 +6,7 @@ DATE=`date +"%d.%m.%Y"`
 echo Отчет по делегациям валидатора \*\*Decloud Nodes Lab\*\* на $DATE.  > /root/monitor/message.txt
 while [[ -n "$PROJECT" ]]
 do
+echo $PROJECT this
 echo Main
 STATUS=`cat ~/monitor/base.json | jq -r .[$p].status`
  if [[ "$STATUS" == "mainnet" ]]
@@ -17,7 +18,7 @@ STATUS=`cat ~/monitor/base.json | jq -r .[$p].status`
  echo $HEX
  LINK_PRICE=`cat ~/monitor/base.json | jq -r .[$p].link_price`
  echo $LINK_PRICE
- VOTING_POWER=`curl -s "$RPC/validators?per_page=100" | jq -r '.result.validators[] | select(.address == '$HEX') | .voting_power'`
+ VOTING_POWER=`curl -s --connect-timeout 3 "$RPC/validators?per_page=100" | jq -r '.result.validators[] | select(.address == '$HEX') | .voting_power'`
  echo $VOTING_POWER
  LATEST_VOTING_POWER=`cat /tmp/"$PROJECT"_report.json | jq -r .$PROJECT`
  echo $LATEST_VOTING_POWER
