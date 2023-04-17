@@ -1,5 +1,5 @@
 #!/bin/bash
-URL=`cat /tmp/URL`
+URL="/tmp/URL"
 p=0
 PROJECT=`cat ~/monitor/base.json | jq -r .[$p].project`
 DATE=`date +"%d.%m.%Y"`
