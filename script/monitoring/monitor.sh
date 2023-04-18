@@ -60,7 +60,7 @@ done
 
 if [ "\$NOSIGN" -gt "\$SIGN" ]
 then
-curl -H "Content-Type: application/json" -X POST -d '{"content":"Node $PROJECT Alert $USER :scream:! \\nВнимание! Нода пропускает блоки! \\n**Срочно проверьте работоспособность!** \\n\`\`\`Подписано '\$SIGN' блоков из 19. \\nНе подписано '\$NOSIGN' блоков из 19. \`\`\`"}' $URL
+curl -H "Content-Type: application/json" -X POST -d '{"content":"Node $PROJECT Alert $USER ! :scream: \\nВнимание! Нода пропускает блоки! \\n**Срочно проверьте работоспособность!** \\n\`\`\`Подписано '\$SIGN' блоков из 19. \\nНе подписано '\$NOSIGN' блоков из 19. \`\`\`"}' $URL
 fi
 
 sleep 10m
