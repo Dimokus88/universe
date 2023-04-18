@@ -33,7 +33,7 @@ while [[ -z \$LAST_BLOCK ]]
 do
 LAST_BLOCK=\`curl -s \$RPC/abci_info? | jq -r .result.response.last_block_height\`
 EMOJI=\$(cat /root/monitor/emoji.json | jq -r .alarm[] | shuf -n 1)
-echo $EMOJI Внимание! RPC нода \$PROJECT недоступна !
+echo \$EMOJI Внимание! RPC нода \$PROJECT недоступна !
 sleep 10m
 curl -s https://raw.githubusercontent.com/Dimokus88/universe/main/script/monitoring/base.json > ~/monitor/base.json
 done
