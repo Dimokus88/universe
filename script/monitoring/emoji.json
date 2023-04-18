@@ -1,0 +1,53 @@
+{
+  "happy": [
+    ":smile:",
+    ":grinning:",
+    ":heart_eyes:",
+    ":sunglasses:",
+    ":sparkles:",
+    ":sunny:",
+    ":rainbow:",
+    ":tada:",
+    ":balloon:",
+    ":cake:",
+    ":rose:",
+    ":musical_notes:",
+    ":beers:",
+    ":fireworks:",
+    ":gift:"
+  ],
+  "alarm": [
+    ":worried:",
+    ":frowning:",
+    ":anguished:",
+    ":scream:",
+    ":confused:",
+    ":disappointed:",
+    ":weary:",
+    ":sweat:",
+    ":cold_sweat:",
+    ":tired_face:",
+    ":persevere:",
+    ":flushed:",
+    ":fearful:",
+    ":dizzy_face:",
+    ":no_mouth:"
+  ],
+  "panic": [
+    ":scream_cat:",
+    ":sob:",
+    ":tired_face:",
+    ":cold_sweat:",
+    ":sweat:",
+    ":scream:",
+    ":fearful:",
+    ":confounded:",
+    ":dizzy_face:",
+    ":sos:",
+    ":boom:",
+    ":fire:",
+    ":warning:",
+    ":ambulance:",
+    ":skull:"
+  ]
+}
