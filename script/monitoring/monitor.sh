@@ -33,7 +33,7 @@ while [[ -z \$LAST_BLOCK ]]
 do
 LAST_BLOCK=\`curl -s \$RPC/abci_info? | jq -r .result.response.last_block_height\`
 EMOJI=\$(cat /root/monitor/emoji.json | jq -r .alarm[] | shuf -n 1)
-echo \$EMOJI Внимание! RPC нода \$PROJECT недоступна !
+echo '\$EMOJI' Внимание! RPC нода '\$PROJECT' недоступна !
 sleep 10m
 curl -s https://raw.githubusercontent.com/Dimokus88/universe/main/script/monitoring/base.json > ~/monitor/base.json
 done
@@ -63,7 +63,7 @@ done
 if [ "\$NOSIGN" -gt "\$SIGN" ]
 then
 EMOJI=\$(cat /root/monitor/emoji.json | jq -r .panic[] | shuf -n 1)
-curl -H "Content-Type: application/json" -X POST -d '{"content":"\$EMOJI Node $PROJECT Alert $USER !\\nВнимание! Нода пропускает блоки! \\n**Срочно проверьте работоспособность!** \\n\`\`\`Подписано '\$SIGN' блоков из 19. \\nНе подписано '\$NOSIGN' блоков из 19. \`\`\`"}' $URL
+curl -H "Content-Type: application/json" -X POST -d '{"content":"'\$EMOJI' Node $PROJECT Alert $USER !\\nВнимание! Нода пропускает блоки! \\n**Срочно проверьте работоспособность!** \\n\`\`\`Подписано '\$SIGN' блоков из 19. \\nНе подписано '\$NOSIGN' блоков из 19. \`\`\`"}' $URL
 fi
 
 sleep 10m
