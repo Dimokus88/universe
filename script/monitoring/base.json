@@ -1,7 +1,7 @@
 [
 { "project": "OKP4",
 "user" : "<@439664703678054401>",
-"rpc" : "http://okp.rpc.t.stavr.tech:10097",
+"rpc" : "https://okp4-testnet.nodejumper.io:443",
 "hex" : "EBAAECF31EC18DC4234E01C82B749AE2CD7A9577",
 "status" : "testnet"}
 ,
