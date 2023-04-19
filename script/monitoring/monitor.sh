@@ -29,7 +29,7 @@ for ((;;))
 do
 RPC=$RPC
 LAST_BLOCK=\`curl -s \$RPC/abci_info? | jq -r .result.response.last_block_height\`
-while [[ -z \$LAST_BLOCK ]]
+while [[ "\$LAST_BLOCK" == "null" ]]
 do
 LAST_BLOCK=\`curl -s \$RPC/abci_info? | jq -r .result.response.last_block_height\`
 EMOJI=\$(cat /root/monitor/emoji.json | jq -r .alarm[] | shuf -n 1)
