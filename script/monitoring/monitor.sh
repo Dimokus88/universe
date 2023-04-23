@@ -33,7 +33,7 @@ while [[ "\$LAST_BLOCK" == "null" ]]
 do
 LAST_BLOCK=\`curl -s \$RPC/abci_info? | jq -r .result.response.last_block_height\`
 EMOJI=\$(cat /root/monitor/emoji.json | jq -r .alarm[] | shuf -n 1)
-echo '\$EMOJI' Внимание! RPC нода '\$PROJECT' недоступна !
+curl -H "Content-Type: application/json" -X POST -d '{"content":"'\$EMOJI' Внимание! RPC нода $PROJECT недоступна !"}' $URL
 sleep 10m
 curl -s https://raw.githubusercontent.com/Dimokus88/universe/main/script/monitoring/base.json > ~/monitor/base.json
 done
