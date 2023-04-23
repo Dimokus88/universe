@@ -31,7 +31,7 @@
 ,
 { "project": "Crowd", 
 "user" : "<@800657478781894676>",
-"rpc" : "http://crowd.rpc.t.stavr.tech:21207",
+"rpc" : "https://cardchain-testnet.nodejumper.io:443",
 "hex" : "E193460379B0DBFA598B34536441FF8D72532D1C",
 "status" : "testnet"}
 ,
