@@ -27,7 +27,7 @@ cat > ~/monitor/$PROJECT/$PROJECT.sh <<EOF
 mkdir -p /tmp/$PROJECT/
 for ((;;))
 do
-RPC=$RPC
+RPC=\`cat ~/monitor/base.json | jq -r .[$p].rpc\`
 LAST_BLOCK=\`curl -s \$RPC/abci_info? | jq -r .result.response.last_block_height\`
 while [[ "\$LAST_BLOCK" == "null" ]]
 do
