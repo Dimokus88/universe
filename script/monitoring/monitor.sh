@@ -89,7 +89,7 @@ chmod +x ~/monitor/$PROJECT/run
 chmod +x ~/monitor/$PROJECT/log/run
 echo Права на исполнение выданы !
 ln -s ~/monitor/$PROJECT /etc/service
-p=$p+1
+let p=$p-1
 echo Монитор $PROJECT создан!
 sleep 5
 fi
