@@ -89,7 +89,7 @@ chmod +x ~/monitor/$PROJECT/run
 chmod +x ~/monitor/$PROJECT/log/run
 echo Права на исполнение выданы !
 ln -s ~/monitor/$PROJECT /etc/service
-let p=$p-1
+let p=$p+1
 echo Монитор $PROJECT создан!
 sleep 5
 fi
@@ -98,7 +98,7 @@ then
 date
 echo Монитор $PROJECT_FOLDER существует!
 sleep 5
-let p=$p-1
+let p=$p+1
 fi
 if [[ -z "$PROJECT" || "$PROJECT" == "null" ]]
 then
