@@ -98,7 +98,7 @@ then
 date
 echo Монитор $PROJECT_FOLDER существует!
 sleep 5
-p=$p+1
+let p=$p-1
 fi
 if [[ -z "$PROJECT" || "$PROJECT" == "null" ]]
 then
