@@ -7,7 +7,7 @@
 ,
 { "project": "Realio",
 "user" : "<@1036925041641787422>,<@439664703678054401>",
-"rpc" : "http://realio.rpc.m.stavr.tech:21097",
+"rpc" : "https://rpc.realio.nodestake.top:443",
 "hex" : "EBAAECF31EC18DC4234E01C82B749AE2CD7A9577",
 "status" : "testnet"}
 ,
@@ -85,6 +85,18 @@
 { "project": "Althea",
 "user" : "<@800657478781894676>",
 "rpc" : "https://rpc-test.althea.hexnodes.co:443",
+"hex" : "EBAAECF31EC18DC4234E01C82B749AE2CD7A9577",
+"status" : "testnet"}
+,
+{ "project": "Bonusblock",
+"user" : "<@848455796530216960>",
+"rpc" : "http://bonusblock-testnet-p2p.alter.network:26657",
+"hex" : "EBAAECF31EC18DC4234E01C82B749AE2CD7A9577",
+"status" : "testnet"}
+,
+{"project": "SAO Nettwork", 
+"user" : "<@800657478781894676>",
+"rpc" : "https://rpc-t.sao.nodestake.top:443",
 "hex" : "EBAAECF31EC18DC4234E01C82B749AE2CD7A9577",
 "status" : "testnet"}
 ]
