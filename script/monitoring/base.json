@@ -105,4 +105,10 @@
 "rpc" : "https://rpc-t.sge.nodestake.top:443",
 "hex" : "EBAAECF31EC18DC4234E01C82B749AE2CD7A9577",
 "status" : "testnet"}
+,
+{ "project": "Gitopia",
+"user" : "<@1036925041641787422>,<@439664703678054401>",
+"rpc" : "https://gitopia-rpc.polkachu.com:443",
+"hex" : "EBAAECF31EC18DC4234E01C82B749AE2CD7A9577",
+"status" : "testnet"}
 ]
