@@ -102,7 +102,7 @@
 ,
 {"project": "SGE_Network", 
 "user" : "<@839834467006152705>",
-"rpc" : "https://rpc-t.sge.nodestake.top:443",
+"rpc" : "https://saage-testnet-rpc.polkachu.com:443",
 "hex" : "EBAAECF31EC18DC4234E01C82B749AE2CD7A9577",
 "status" : "testnet"}
 ,
