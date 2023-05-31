@@ -111,4 +111,10 @@
 "rpc" : "https://gitopia-rpc.polkachu.com:443",
 "hex" : "EBAAECF31EC18DC4234E01C82B749AE2CD7A9577",
 "status" : "testnet"}
+,
+{ "project": "Noria",
+"user" : "<@439664703678054401>",
+"rpc" : "https://noria-testnet.rpc.kjnodes.com:443",
+"hex" : "EBAAECF31EC18DC4234E01C82B749AE2CD7A9577",
+"status" : "testnet"}
 ]
