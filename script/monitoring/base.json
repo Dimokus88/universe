@@ -119,15 +119,9 @@
 "hex" : "EBAAECF31EC18DC4234E01C82B749AE2CD7A9577",
 "status" : "testnet"}
 ,
-{ "project": "Empower",
+{ "project": "Empower_Testnet",
 "user" : "<@439664703678054401>",
 "rpc" : "https://empower-testnet-rpc.polkachu.com:443",
-"hex" : "EBAAECF31EC18DC4234E01C82B749AE2CD7A9577",
-"status" : "testnet"}
-,
-{"project": "Timpichain", 
-"user" : "<@839834467006152705>",
-"rpc" : "https://rpc-t.timpi.nodestake.top:443",
 "hex" : "EBAAECF31EC18DC4234E01C82B749AE2CD7A9577",
 "status" : "testnet"}
 ]
