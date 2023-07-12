@@ -25,7 +25,7 @@
 ,
 { "project": "Desmos",
 "user" : "<@1036925041641787422>,<@439664703678054401>",
-"rpc" : "https://rpc.desmos.forbole.com:443",
+"rpc" : "https://rpc.mainnet.desmos.network:443",
 "hex" : "8FC231B00FE385DBD48293744235989B1C973747",
 "status" : "mainnet",
 "link_price" : "https://api.coingecko.com/api/v3/coins/desmos/"}
