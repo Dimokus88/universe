@@ -116,7 +116,7 @@ EOF
 chmod +x ~/monitor/"$PROJECT"_PROP/"$PROJECT"_PROP.sh
 echo Создан "$PROJECT"_PROP.sh !
 EMOJI=$(cat /root/monitor/emoji.json | jq -r .happy[] | shuf -n 1)
-curl -s -H "Content-Type: application/json" -X POST -d '{"content":"'$EMOJI' Создано оповещение и проверка новых голосований '$PROJECT' для '$USER' ."}' $URL
+#curl -s -H "Content-Type: application/json" -X POST -d '{"content":"'$EMOJI' Создано оповещение и проверка новых голосований '$PROJECT' для '$USER' ."}' $URL
 cat > ~/monitor/"$PROJECT"_PROP/run <<EOF 
 #!/bin/bash
 exec 2>&1
