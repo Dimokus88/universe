@@ -101,7 +101,7 @@ curl -s \$RPC/block?height=\$BL | jq -r .result.block.data.txs[] | base64 -d > /
 if [[ ! -s /tmp/"$PROJECT"_PROP/txs.txt ]]
 then
 sleep 5
-continue
+break 
 elif grep -a MsgSubmitProposal /tmp/"$PROJECT"_PROP/txs.txt
 then
 EMOJI=\$(cat /root/monitor/emoji.json | jq -r .happy[] | shuf -n 1)
