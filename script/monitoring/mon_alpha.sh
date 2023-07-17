@@ -118,9 +118,7 @@ fi
 else
 echo Ожидание следующего блока..
 fi
-
-LATEST_BLOCK=\`curl -s \$RPC/block?latest | jq -r .result.block.header.height\`
-
+L_BL=\`curl -s \$RPC/block?latest | jq -r .result.block.header.height\`
 done
 EOF
 
