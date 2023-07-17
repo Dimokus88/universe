@@ -112,6 +112,7 @@ curl -s -H "Content-Type: application/json" -X POST -d '{"content":"'\$EMOJI' $P
 let BL=\$BL+1
 else
 echo Proposal not found
+sleep 1
 let BL=\$BL+1
 fi
 done
