@@ -5,7 +5,8 @@ echo "PermitRootLogin yes" >> /etc/ssh/sshd_config
 (echo ${SSH_PASSWORD}; echo ${SSH_PASSWORD}) | passwd root && service ssh restart
 runsvdir -P /etc/service &
 echo $URL > /tmp/URL
-wget -O /root/monitor.sh https://raw.githubusercontent.com/Dimokus88/universe/main/script/monitoring/monitor.sh
+#wget -O /root/monitor.sh https://raw.githubusercontent.com/Dimokus88/universe/main/script/monitoring/monitor.sh
+wget -O /root/monitor.sh https://raw.githubusercontent.com/Dimokus88/universe/main/script/monitoring/mon_alpha.sh
 chmod +x /root/monitor.sh
 mkdir -p /root/monitor/log
 cat > /root/monitor/run <<EOF 
