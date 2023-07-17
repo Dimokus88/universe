@@ -32,7 +32,7 @@ while [[ -z \$LAST_BLOCK ]]
 do
 LAST_BLOCK=\`curl -s \$RPC/abci_info? | jq -r .result.response.last_block_height\`
 EMOJI=\$(cat /root/monitor/emoji.json | jq -r .alarm[] | shuf -n 1)
-curl -H "Content-Type: application/json" -X POST -d '{"content":"'\$EMOJI' Внимание! RPC нода $PROJECT недоступна !"}' $URL
+curl -s -H "Content-Type: application/json" -X POST -d '{"content":"'\$EMOJI' Внимание! RPC нода $PROJECT недоступна !"}' $URL
 sleep 10m
 curl -s https://raw.githubusercontent.com/Dimokus88/universe/main/script/monitoring/base.json > ~/monitor/base.json
 done
@@ -62,7 +62,7 @@ done
 if [ "\$NOSIGN" -gt "\$SIGN" ]
 then
 EMOJI=\$(cat /root/monitor/emoji.json | jq -r .panic[] | shuf -n 1)
-curl -H "Content-Type: application/json" -X POST -d '{"content":"'\$EMOJI' Node $PROJECT Alert $USER !\\nВнимание! Нода пропускает блоки! \\n**Срочно проверьте работоспособность!** \\n\`\`\`Подписано '\$SIGN' блоков из 19. \\nНе подписано '\$NOSIGN' блоков из 19. \`\`\`"}' $URL
+curl -s -H "Content-Type: application/json" -X POST -d '{"content":"'\$EMOJI' Node $PROJECT Alert $USER !\\nВнимание! Нода пропускает блоки! \\n**Срочно проверьте работоспособность!** \\n\`\`\`Подписано '\$SIGN' блоков из 19. \\nНе подписано '\$NOSIGN' блоков из 19. \`\`\`"}' $URL
 fi
 
 sleep 10m
@@ -101,7 +101,7 @@ L_BL=\`curl -s \$RPC/block?latest | jq -r .result.block.header.height\`
 while [[ -z \$L_BL ]]
 do
 EMOJI=\$(cat /root/monitor/emoji.json | jq -r .panic[] | shuf -n 1)
-curl -H "Content-Type: application/json" -X POST -d '{"content":"'\$EMOJI' $PROJECT Alert $USER !\\nВнимание! RPC нода '\$RPC' не доступна! \\n**Проверьте RPC!**"}' $URL
+curl -s -H "Content-Type: application/json" -X POST -d '{"content":"'\$EMOJI' $PROJECT Alert $USER !\\nВнимание! RPC нода '\$RPC' не доступна! \\n**Проверьте RPC!**"}' $URL
 sleep 30m
 L_BL=\`curl -s \$RPC/block?latest | jq -r .result.block.header.height\`
 done
@@ -113,7 +113,7 @@ curl -s \$RPC/block?height=\$BL | jq -r .result.block.data.txs[] | base64 -d > /
 if grep -a MsgSubmitProposal /tmp/"$PROJECT"_PROP/txs.txt
 then
 EMOJI=\$(cat /root/monitor/emoji.json | jq -r .happy[] | shuf -n 1)
-curl -H "Content-Type: application/json" -X POST -d '{"content":"'\$EMOJI' $PROJECT Alert $USER !\\nВнимание! в сети обнаружено новое голосование! \\n**Проверьте сеть!**"}' $URL
+curl -s -H "Content-Type: application/json" -X POST -d '{"content":"'\$EMOJI' $PROJECT Alert $USER !\\nВнимание! в сети обнаружено новое голосование! \\n**Проверьте сеть!**"}' $URL
 fi
 else
 echo Ожидание следующего блока..
