@@ -92,25 +92,24 @@ mkdir -p ~/monitor/"$PROJECT"_PROP/log
 cat > ~/monitor/"$PROJECT"_PROP/"$PROJECT"_PROP.sh <<EOF
 #!/bin/bash
 mkdir -p /tmp/"$PROJECT"_PROP/
+BL=\`curl -s \$RPC/block?latest | jq -r .result.block.header.height\`
 while true
 do
 RPC=\`cat ~/monitor/base.json | jq -r .[$p].rpc\`
-L_BL=\`curl -s \$RPC/block?latest | jq -r .result.block.header.height\`
-if [[ \$L_BL -gt \$BL ]]
-then
-BL=\$L_BL
 echo \$BL
 curl -s \$RPC/block?height=\$BL | jq -r .result.block.data.txs[] | base64 -d > /tmp/"$PROJECT"_PROP/txs.txt
-if grep -a MsgSubmitProposal /tmp/"$PROJECT"_PROP/txs.txt
+if [[ ! -s /tmp/"$PROJECT"_PROP/txs.txt ]]
+then
+sleep 5
+continue
+elif grep -a MsgSubmitProposal /tmp/"$PROJECT"_PROP/txs.txt
 then
 EMOJI=\$(cat /root/monitor/emoji.json | jq -r .happy[] | shuf -n 1)
 curl -s -H "Content-Type: application/json" -X POST -d '{"content":"'\$EMOJI' $PROJECT Alert $USER !\\nВнимание! в сети обнаружено новое голосование! \\n**Проверьте сеть!**"}' $URL
-fi
+let BL=\$BL+1
 else
-echo Ожидание следующего блока..
+let BL=\$BL+1
 fi
-sleep 4
-L_BL=\`curl -s \$RPC/block?latest | jq -r .result.block.header.height\`
 done
 EOF
 
