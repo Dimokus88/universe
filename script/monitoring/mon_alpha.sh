@@ -92,13 +92,15 @@ mkdir -p ~/monitor/"$PROJECT"_PROP/log
 cat > ~/monitor/"$PROJECT"_PROP/"$PROJECT"_PROP.sh <<EOF
 #!/bin/bash
 mkdir -p /tmp/"$PROJECT"_PROP/
+RPC=\`cat ~/monitor/base.json | jq -r .[$p].rpc\`
 BL=\`curl -s \$RPC/block?latest | jq -r .result.block.header.height\`
+echo \$BL
 while true
 do
 RPC=\`cat ~/monitor/base.json | jq -r .[$p].rpc\`
 echo \$BL
 curl -s \$RPC/block?height=\$BL | jq -r .result.block.data.txs[] | base64 -d > /tmp/"$PROJECT"_PROP/txs.txt
-if [[ ! -s /tmp/"$PROJECT"_PROP/txs.txt ]]
+if [[ -z \$(cat /tmp/"$PROJECT"_PROP/txs.txt) ]]
 then
 sleep 5
 break 
