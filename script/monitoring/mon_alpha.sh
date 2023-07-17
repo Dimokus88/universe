@@ -96,13 +96,6 @@ while true
 do
 RPC=\`cat ~/monitor/base.json | jq -r .[$p].rpc\`
 L_BL=\`curl -s \$RPC/block?latest | jq -r .result.block.header.height\`
-while [[ -z \$L_BL ]]
-do
-EMOJI=\$(cat /root/monitor/emoji.json | jq -r .panic[] | shuf -n 1)
-curl -s -H "Content-Type: application/json" -X POST -d '{"content":"'\$EMOJI' $PROJECT Alert $USER !\\nВнимание! RPC нода '\$RPC' не доступна! \\n**Проверьте RPC!**"}' $URL
-sleep 30m
-L_BL=\`curl -s \$RPC/block?latest | jq -r .result.block.header.height\`
-done
 if [[ \$L_BL -gt \$BL ]]
 then
 BL=\$L_BL
