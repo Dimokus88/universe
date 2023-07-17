@@ -109,7 +109,7 @@ fi
 else
 echo Ожидание следующего блока..
 fi
-sleep 1
+sleep 4
 L_BL=\`curl -s \$RPC/block?latest | jq -r .result.block.header.height\`
 done
 EOF
