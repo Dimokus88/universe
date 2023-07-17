@@ -100,16 +100,18 @@ do
 RPC=\`cat ~/monitor/base.json | jq -r .[$p].rpc\`
 echo \$BL
 curl -s \$RPC/block?height=\$BL | jq -r .result.block.data.txs[] | base64 -d > /tmp/"$PROJECT"_PROP/txs.txt
-if [[ -z \$(cat /tmp/"$PROJECT"_PROP/txs.txt) ]]
+if [[ \`curl -s $RPC/block?height=\$BL | jq -r .result.block.header.last_block_id.hash\` == null ]]
 then
-sleep 5
-break 
+echo Block not create!
+sleep 2m
+continue
 elif grep -a MsgSubmitProposal /tmp/"$PROJECT"_PROP/txs.txt
 then
 EMOJI=\$(cat /root/monitor/emoji.json | jq -r .happy[] | shuf -n 1)
 curl -s -H "Content-Type: application/json" -X POST -d '{"content":"'\$EMOJI' $PROJECT Alert $USER !\\nВнимание! в сети обнаружено новое голосование! \\n**Проверьте сеть!**"}' $URL
 let BL=\$BL+1
 else
+echo Proposal not found
 let BL=\$BL+1
 fi
 done
