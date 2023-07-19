@@ -86,58 +86,9 @@ chmod +x ~/monitor/$PROJECT/log/run
 echo Права на исполнение выданы !
 ln -s ~/monitor/$PROJECT /etc/service
 echo Монитор $PROJECT создан!
-#Proposals
-mkdir -p ~/monitor/"$PROJECT"_PROP/log
-cat > ~/monitor/"$PROJECT"_PROP/"$PROJECT"_PROP.sh <<EOF
-#!/bin/bash
-mkdir -p /tmp/"$PROJECT"_PROP/
-RPC=\`cat ~/monitor/base.json | jq -r .[$p].rpc\`
-BL=\`curl -s \$RPC/block?latest | jq -r .result.block.header.height\`
-echo \$BL
-while true
-do
-RPC=\`cat ~/monitor/base.json | jq -r .[$p].rpc\`
-echo \$BL
-curl -s \$RPC/block?height=\$BL | jq -r .result.block.data.txs[] | base64 -d > /tmp/"$PROJECT"_PROP/txs.txt
-if [[ \`curl -s $RPC/block?height=\$BL | jq -r .result.block.header.last_block_id.hash\` == null ]]
-then
-echo Block not create!
-sleep 2m
-continue
-elif grep -a MsgSubmitProposal /tmp/"$PROJECT"_PROP/txs.txt
-then
-EMOJI=\$(cat /root/monitor/emoji.json | jq -r .happy[] | shuf -n 1)
-curl -s -H "Content-Type: application/json" -X POST -d '{"content":"'\$EMOJI' $PROJECT Alert $USER !\\nВнимание! в сети обнаружено новое голосование! \\n**Проверьте сеть!**"}' $URL
-let BL=\$BL+1
-else
-echo Proposal not found
-sleep 1
-let BL=\$BL+1
-fi
-done
-EOF
 
-chmod +x ~/monitor/"$PROJECT"_PROP/"$PROJECT"_PROP.sh
-echo Создан "$PROJECT"_PROP.sh !
 EMOJI=$(cat /root/monitor/emoji.json | jq -r .happy[] | shuf -n 1)
-curl -s -H "Content-Type: application/json" -X POST -d '{"content":"'$EMOJI' Создано оповещение и проверка новых голосований '$PROJECT' для '$USER' ."}' $URL
-cat > ~/monitor/"$PROJECT"_PROP/run <<EOF 
-#!/bin/bash
-exec 2>&1
-exec ~/monitor/"$PROJECT"_PROP/"$PROJECT"_PROP.sh
-EOF
-echo Создан ~/monitor/"$PROJECT"_PROP/run !
-cat > ~/monitor/"$PROJECT"_PROP/log/run <<EOF 
-#!/bin/bash
-mkdir -p ~/monitor/log/"$PROJECT"_PROP
-exec svlogd -tt ~/monitor/log/"$PROJECT"_PROP
-EOF
-echo Создан ~/monitor/"$PROJECT"_PROP/log/run !
-chmod +x ~/monitor/"$PROJECT"_PROP/run
-chmod +x ~/monitor/"$PROJECT"_PROP/log/run
-echo Права на исполнение выданы !
-ln -s ~/monitor/"$PROJECT"_PROP /etc/service
-echo Проверка голосований для "$PROJECT"_PROP создана!
+curl -s -H "Content-Type: application/json" -X POST -d '{"content":"'$EMOJI' Создано оповещение '$PROJECT' для '$USER' ."}' $URL
 
 let p=$p+1
 sleep 5
