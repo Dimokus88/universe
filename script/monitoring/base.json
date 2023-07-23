@@ -90,7 +90,7 @@
 ,
 { "project": "Bonusblock",
 "user" : "<@848455796530216960>",
-"rpc" : "http://bonusblock-testnet-p2p.alter.network:26657",
+"rpc" : "http://144.91.66.143:29657",
 "hex" : "EBAAECF31EC18DC4234E01C82B749AE2CD7A9577",
 "status" : "testnet"}
 ,
