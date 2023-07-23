@@ -32,7 +32,7 @@ if [[ -z \$LAST_BLOCK ]]
 then
 LAST_BLOCK=\`curl -s \$RPC/abci_info? | jq -r .result.response.last_block_height\`
 EMOJI=\$(cat /root/monitor/emoji.json | jq -r .alarm[] | shuf -n 1)
-curl -s -H "Content-Type: application/json" -X POST -d '{"content":"'\$EMOJI' Внимание! RPC нода $PROJECT возможно недоступна \$RPC !"}' $URL
+curl -s -H "Content-Type: application/json" -X POST -d '{"content":"'\$EMOJI' Внимание! RPC нода $PROJECT возможно недоступна $RPC !"}' $URL
 curl -s https://raw.githubusercontent.com/Dimokus88/universe/main/script/monitoring/base.json > ~/monitor/base.json
 fi
 COUNT=19
