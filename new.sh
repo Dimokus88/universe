@@ -171,5 +171,22 @@ EOF
 chmod +x /root/$BINARY/log/run /root/$BINARY/run 
 ln -s /root/$BINARY /etc/service && ln -s /tmp/log/current /LOG
 sleep 20
-if [[ -n $WEBHOOKS ]]; then echo Включаю детектор пропозалов! && sleep 2;wget -O ./prop_detect.sh https://raw.githubusercontent.com/DecloudNodesLab/CodeBase/main/scripts/prop_detect.sh && chmod +x ./prop_detect.sh ; nohup ./prop_detect.sh &; fi
+if [[ -n $WEBHOOKS ]]
+then
+echo Включаю детектор пропозалов!
+wget -O /prop_detect.sh https://raw.githubusercontent.com/DecloudNodesLab/CodeBase/main/scripts/prop_detect.sh && chmod +x /prop_detect.sh
+mkdir -p /root/prop_detect/log    
+cat > /root/prop_detect/run <<EOF 
+#!/bin/bash
+exec 2>&1
+exec /prop_detect.sh
+EOF
+mkdir /tmp/prop_detect/log/
+cat > /root/prop_detect/log/run <<EOF 
+#!/bin/bash
+exec svlogd -tt /tmp/prop_detect/log/
+EOF
+chmod +x /root/prop_detect/log/run /root/prop_detect/run 
+ln -s /root/prop_detect /etc/service && ln -s /tmp/prop_detect/log/current /PROP
+fi
 while true ; do tail -100 /LOG | grep -iv peer && sleep 10m ; done
