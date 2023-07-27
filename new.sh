@@ -181,7 +181,7 @@ cat > /root/prop_detect/run <<EOF
 exec 2>&1
 exec /prop_detect.sh
 EOF
-mkdir /tmp/prop_detect/log/
+mkdir -p /tmp/prop_detect/log/
 cat > /root/prop_detect/log/run <<EOF 
 #!/bin/bash
 exec svlogd -tt /tmp/prop_detect/log/
