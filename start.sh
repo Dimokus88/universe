@@ -171,5 +171,4 @@ EOF
 chmod +x /root/$BINARY/log/run /root/$BINARY/run 
 ln -s /root/$BINARY /etc/service && ln -s /tmp/log/current /LOG
 sleep 20
-
 while true ; do tail -100 /LOG | grep -iv peer && sleep 10m ; done
