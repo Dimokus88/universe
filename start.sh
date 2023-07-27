@@ -4,8 +4,9 @@
 #!/bin/bash
 # Часть 1 Установка ПО
 TZ=Europe/London && ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
-apt update && apt upgrade -y
-apt install -y nano tar wget lz4 zip jq runit build-essential git make gcc nvme-cli pv unzip
+apt-get update 
+apt-get upgrade -y
+apt-get install -y nano tar wget lz4 zip jq runit build-essential git make gcc nvme-cli pv unzip
 runsvdir -P /etc/service &
 if [[ -z $GO_VERSION ]]; then GO_VERSION="1.20.1"; fi
 wget https://go.dev/dl/go$GO_VERSION.linux-amd64.tar.gz && tar -C /usr/local -xzf go$GO_VERSION.linux-amd64.tar.gz
