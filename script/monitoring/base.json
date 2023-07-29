@@ -53,7 +53,7 @@
 ,
 {"project": "Lava", 
 "user" : "<@800657478781894676>",
-"rpc" : "https://t-lava.rpc.utsa.tech:443",
+"rpc" : "https://lava-testnet-rpc.polkachu.com:443",
 "hex" : "EBAAECF31EC18DC4234E01C82B749AE2CD7A9577",
 "status" : "testnet"}
 ,
