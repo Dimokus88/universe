@@ -13,13 +13,13 @@
 "link_price" : "https://api.coingecko.com/api/v3/coins/realio-network/"}
 ,
 { "project": "Source-testnet",
-"user" : "<@848455796530216960>",
+"user" : "<@1036925041641787422>",
 "rpc" : "https://source-testnet-rpc.stake-town.com:443",
 "hex" : "EBAAECF31EC18DC4234E01C82B749AE2CD7A9577",
 "status" : "testnet"}
 ,
 { "project": "Cardchain-testnet", 
-"user" : "<@800657478781894676>",
+"user" : "<@1036925041641787422>",
 "rpc" : "https://cardchain-testnet.nodejumper.io:443",
 "hex" : "E193460379B0DBFA598B34536441FF8D72532D1C",
 "status" : "testnet"}
@@ -53,13 +53,13 @@
 "link_price" : "https://api.coingecko.com/api/v3/coins/akash-network/"}
 ,
 {"project": "Lava-testnet", 
-"user" : "<@800657478781894676>",
+"user" : "<@1036925041641787422>",
 "rpc" : "https://lava-testnet-rpc.polkachu.com:443",
 "hex" : "EBAAECF31EC18DC4234E01C82B749AE2CD7A9577",
 "status" : "testnet"}
 ,
 { "project": "Hypersign-testnet",
-"user" : "<@848455796530216960>",
+"user" : "<@1036925041641787422>",
 "rpc" : "https://hypersign-testnet-rpc.polkachu.com:443",
 "hex" : "AFA97BA1834FDA47B8EFCA301F903358545D5470",
 "status" : "testnet"}
@@ -85,7 +85,7 @@
 "status" : "testnet"}
 ,
 { "project": "Bonusblock-testnet",
-"user" : "<@848455796530216960>",
+"user" : "<@1036925041641787422>",
 "rpc" : "http://144.91.66.143:29657",
 "hex" : "EBAAECF31EC18DC4234E01C82B749AE2CD7A9577",
 "status" : "testnet"}
