@@ -21,7 +21,7 @@
 { "project": "Cardchain-testnet", 
 "user" : "<@1036925041641787422>",
 "rpc" : "https://cardchain-testnet3.declab.pro:443",
-"hex" : "E193460379B0DBFA598B34536441FF8D72532D1C",
+"hex" : "63C361584646B9DF87D685930F7C7726B0965916",
 "status" : "testnet"}
 ,
 { "project": "Desmos",
