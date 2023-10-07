@@ -1,8 +1,9 @@
 #!/bin/bash
 apt install -y wget jq runit ssh bc nano cron
 export EDITOR=nano
-echo "PermitRootLogin yes" >> /etc/ssh/sshd_config
-(echo ${SSH_PASSWORD}; echo ${SSH_PASSWORD}) | passwd root && service ssh restart
+mkdir /root/.ssh/; echo $SSH_KEY > /root/.ssh/authorized_keys &&\
+chmod 0600 /root/.ssh/authorized_keys &&\
+service ssh restart
 runsvdir -P /etc/service &
 echo $URL > /tmp/URL
 #wget -O /root/monitor.sh https://raw.githubusercontent.com/Dimokus88/universe/main/script/monitoring/monitor.sh
