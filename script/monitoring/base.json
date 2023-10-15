@@ -20,7 +20,7 @@
 ,
 { "project": "Cardchain-testnet", 
 "user" : "<@1036925041641787422>",
-"rpc" : "https://rpc-t.crowd.nodestake.top:443",
+"rpc" : "https://rpc.nodejumper.io:443/cardchaintestnet",
 "hex" : "63C361584646B9DF87D685930F7C7726B0965916",
 "status" : "testnet"}
 ,
