@@ -73,7 +73,7 @@
 ,
 { "project": "Andromeda-testnet",
 "user" : "<@439664703678054401>",
-"rpc" : "http://andromedad.rpc.t.stavr.tech:4137",
+"rpc" : "https://rpc.nodejumper.io:443/andromedatestnet",
 "hex" : "EBAAECF31EC18DC4234E01C82B749AE2CD7A9577",
 "status" : "testnet"}
 ,
