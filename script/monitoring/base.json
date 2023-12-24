@@ -105,7 +105,7 @@
   ,
 { "project": "Juno",
 "user" : "<@1036925041641787422>",
-"rpc" : "https://juno-rpc.polkachu.com:443",
+"rpc" : "https://rpc-juno.ecostake.com:443",
 "hex" : "EBAAECF31EC18DC4234E01C82B749AE2CD7A9577",
 "status" : "testnet"}
 ]
