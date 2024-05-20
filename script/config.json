@@ -1,0 +1,8 @@
+{
+"inbounds": 
+[
+{"port": 80,"protocol": "vmess","settings": {"clients": [{"id": "7142a3f6-5788-4c91-839a-25b06fe58f4b","security": "auto","alterId": 0}]}}
+],
+"outbounds": [{"protocol": "freedom","settings": {}}
+]
+}
