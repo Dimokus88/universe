@@ -14,7 +14,7 @@
 ,
 { "project": "Cardchain-testnet", 
 "user" : "<@439664703678054401>",
-"rpc" : "http://167.86.68.204:39657",
+"rpc" : "https://cardchain-testnet-rpc.itrocket.net:443",
 "hex" : "EBAAECF31EC18DC4234E01C82B749AE2CD7A9577",
 "status" : "testnet"}
 ,
