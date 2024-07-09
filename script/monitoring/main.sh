@@ -4,7 +4,8 @@ export EDITOR=nano
 mkdir /root/.ssh/; echo $SSH_KEY > /root/.ssh/authorized_keys &&\
 chmod 0600 /root/.ssh/authorized_keys &&\
 service ssh restart
-runsvdir -P /etc/service & echo $URL > /tmp/URL
+runsvdir -P /etc/service 
+echo $URL > /tmp/URL
 #wget -O /root/monitor.sh https://raw.githubusercontent.com/Dimokus88/universe/main/script/monitoring/monitor.sh
 wget -O /root/monitor.sh https://raw.githubusercontent.com/Dimokus88/universe/main/script/monitoring/mon_alpha.sh
 chmod +x /root/monitor.sh
