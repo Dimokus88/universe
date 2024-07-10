@@ -10,7 +10,7 @@ echo 4
 apt install ssh -y
 service ssh restart
 echo 5
-runsvdir -P /etc/service 
+runsvdir -P /etc/service &
 echo 6
 echo $URL > /tmp/URL
 #wget -O /root/monitor.sh https://raw.githubusercontent.com/Dimokus88/universe/main/script/monitoring/monitor.sh
