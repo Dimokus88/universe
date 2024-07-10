@@ -1,17 +1,11 @@
 #!/bin/bash
 apt install -y wget jq runit bc nano cron
-echo 1
 export EDITOR=nano
-echo 2
 mkdir /root/.ssh/; echo $SSH_KEY > /root/.ssh/authorized_keys &&\
-echo 3
 chmod 0600 /root/.ssh/authorized_keys &&\
-echo 4
 apt install ssh -y
 service ssh restart
-echo 5
 runsvdir -P /etc/service &
-echo 6
 echo $URL > /tmp/URL
 #wget -O /root/monitor.sh https://raw.githubusercontent.com/Dimokus88/universe/main/script/monitoring/monitor.sh
 wget -O /root/monitor.sh https://raw.githubusercontent.com/Dimokus88/universe/main/script/monitoring/mon_alpha.sh
