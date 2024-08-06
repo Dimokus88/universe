@@ -90,13 +90,6 @@
 "hex" : "EBAAECF31EC18DC4234E01C82B749AE2CD7A9577",
 "status" : "testnet"}
 ,
-{ "project": "Mars",
-"user" : "<@1036925041641787422>",
-"rpc" : "https://mars-rpc.polkachu.com:443",
-"hex" : "EBAAECF31EC18DC4234E01C82B749AE2CD7A9577",
-"status" : "mainnet",
-"link_price" : "https://api.coingecko.com/api/v3/coins/mars-protocol-a7fcbcfb-fd61-4017-92f0-7ee9f9cc6da3"}
-,
 { "project": "Hypersign",
 "user" : "<@439664703678054401>",
 "rpc" : "https://hypersign-testnet-rpc.polkachu.com:443",
