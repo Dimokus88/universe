@@ -18,13 +18,6 @@
 "hex" : "EBAAECF31EC18DC4234E01C82B749AE2CD7A9577",
 "status" : "testnet"}
 ,
-{ "project": "Desmos",
-"user" : "<@1036925041641787422>,<@439664703678054401>",
-"rpc" : "https://rpc.mainnet.desmos.network:443",
-"hex" : "8FC231B00FE385DBD48293744235989B1C973747",
-"status" : "mainnet",
-"link_price" : "https://api.coingecko.com/api/v3/coins/desmos/"}
-,
 {"project": "Sentinel", 
 "user" : "<@1036925041641787422>,<@439664703678054401>",
 "rpc" : "https://sentinel.declab.pro:26628",
@@ -95,11 +88,4 @@
 "rpc" : "https://hypersign-testnet-rpc.polkachu.com:443",
 "hex" : "EBAAECF31EC18DC4234E01C82B749AE2CD7A9577",
 "status" : "testnet"}
-,
-{ "project": "Lava",
-"user" : "<@1036925041641787422>",
-"rpc" : "https://lava.declab.pro:26613",
-"hex" : "EBAAECF31EC18DC4234E01C82B749AE2CD7A9577",
-"status" : "mainnet",
-"link_price" : "https://api.coingecko.com/api/v3/coins/lava-network/"}
 ]
