@@ -20,14 +20,14 @@
 ,
 {"project": "Sentinel", 
 "user" : "<@1036925041641787422>,<@439664703678054401>",
-"rpc" : "https://sentinel.declab.pro:26628",
+"rpc" : "https://sentinel-rpc.polkachu.com:443",
 "hex" : "EBAAECF31EC18DC4234E01C82B749AE2CD7A9577",
 "status" : "mainnet",
 "link_price" : "https://api.coingecko.com/api/v3/coins/sentinel/"}
 ,
 {"project": "Akash", 
 "user" : "<@1036925041641787422>,<@439664703678054401>",
-"rpc" : "https://rpc-akash.ecostake.com:443",
+"rpc" : "https://akash-rpc.polkachu.com:443",
 "hex" : "EBAAECF31EC18DC4234E01C82B749AE2CD7A9577",
 "status" : "mainnet",
 "link_price" : "https://api.coingecko.com/api/v3/coins/akash-network/"}
@@ -79,7 +79,7 @@
   ,
 { "project": "Juno",
 "user" : "<@1036925041641787422>",
-"rpc" : "https://juno.declab.pro:26610",
+"rpc" : "https://juno-rpc.polkachu.com:443",
 "hex" : "EBAAECF31EC18DC4234E01C82B749AE2CD7A9577",
 "status" : "testnet"}
 ,
