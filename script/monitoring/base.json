@@ -32,12 +32,6 @@
 "status" : "mainnet",
 "link_price" : "https://api.coingecko.com/api/v3/coins/akash-network/"}
 ,
-{"project": "Lava-testnet", 
-"user" : "<@1036925041641787422>",
-"rpc" : "https://lava-testnet-rpc.polkachu.com:443",
-"hex" : "EBAAECF31EC18DC4234E01C82B749AE2CD7A9577",
-"status" : "testnet"}
-,
 { "project": "Kyve",
 "user" : "<@1036925041641787422>,<@439664703678054401>",
 "rpc" : "https://kyve.rpc.liveraven.net:443",
@@ -66,7 +60,7 @@
 ,
 { "project": "Source",
 "user" : "<@1036925041641787422>",
-"rpc" : "https://source.declab.pro:26604",
+"rpc" : "https://source-rpc.polkachu.com:443",
 "hex" : "EBAAECF31EC18DC4234E01C82B749AE2CD7A9577",
 "status" : "mainnet",
 "link_price" : "https://api.coingecko.com/api/v3/coins/source/"}
