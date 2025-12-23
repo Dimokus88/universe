@@ -34,19 +34,6 @@
 "status" : "mainnet",
 "link_price" : "https://api.coingecko.com/api/v3/coins/gitopia/"}
 ,
-{ "project": "Empower",
-"user" : "<@1036925041641787422>,<@439664703678054401>",
-"rpc" : "https://empower-rpc.polkachu.com:443",
-"hex" : "EBAAECF31EC18DC4234E01C82B749AE2CD7A9577",
-"status" : "testnet"}
-,
-{ "project": "Source",
-"user" : "<@1036925041641787422>",
-"rpc" : "https://source-rpc.polkachu.com:443",
-"hex" : "EBAAECF31EC18DC4234E01C82B749AE2CD7A9577",
-"status" : "mainnet",
-"link_price" : "https://api.coingecko.com/api/v3/coins/source/"}
-,
 { "project": "Juno",
 "user" : "<@1036925041641787422>",
 "rpc" : "https://juno-rpc.polkachu.com:443",
